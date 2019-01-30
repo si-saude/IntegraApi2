@@ -1,0 +1,29 @@
+package br.com.saude.api.model.business;
+
+import br.com.saude.api.generic.GenericBo;
+import br.com.saude.api.model.creation.builder.entity.GheBuilder;
+import br.com.saude.api.model.creation.builder.example.GheExampleBuilder;
+import br.com.saude.api.model.entity.filter.GheFilter;
+import br.com.saude.api.model.entity.po.Ghe;
+import br.com.saude.api.model.persistence.GheDao;
+
+public class GheBo extends GenericBo<Ghe, GheFilter, GheDao, GheBuilder, 
+	GheExampleBuilder> {
+
+	private static GheBo instance;
+	
+	private GheBo() {
+		super();
+	}
+	
+	public static GheBo getInstance() {
+		if(instance == null)
+			instance = new GheBo();
+		return instance;
+	}
+
+	@Override
+	protected void initializeFunctions() {
+		
+	}
+}

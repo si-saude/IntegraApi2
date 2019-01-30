@@ -165,7 +165,15 @@ public class Helper {
 		return list == null;
 	}
 	
+	public static boolean isNull(GenericFilter filter) {
+		return filter == null;
+	}
+	
 	public static boolean isNotNull(List<?> list) {
 		return list != null;
+	}
+	
+	public static boolean isNotNull(GenericFilter filter) {
+		return filter != null;
 	}
 }

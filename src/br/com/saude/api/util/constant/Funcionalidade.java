@@ -58,11 +58,23 @@ public class Funcionalidade extends GenericConstant {
 	public static final String EXAME_LISTAR							= "EXAME_LISTAR";
 	public static final String EXAME_REMOVER 						= "EXAME_REMOVER";
 	
+	public static final String GHE_ADICIONAR 			    		= "GHE_ADICIONAR";
+	public static final String GHE_EDITAR		 					= "GHE_EDITAR";
+	public static final String GHE_DETALHAR 						= "GHE_DETALHAR";
+	public static final String GHE_LISTAR							= "GHE_LISTAR";
+	public static final String GHE_REMOVER 							= "GHE_REMOVER";
+	
 	public static final String PERFIL_ADICIONAR 			    	= "PERFIL_ADICIONAR";
 	public static final String PERFIL_EDITAR		 				= "PERFIL_EDITAR";
 	public static final String PERFIL_DETALHAR 						= "PERFIL_DETALHAR";
 	public static final String PERFIL_LISTAR						= "PERFIL_LISTAR";
 	public static final String PERFIL_REMOVER 						= "PERFIL_REMOVER";
+	
+	public static final String RISCO_GHE_ADICIONAR 			    	= "RISCO-GHE_ADICIONAR";
+	public static final String RISCO_GHE_EDITAR		 				= "RISCO-GHE_EDITAR";
+	public static final String RISCO_GHE_DETALHAR 					= "RISCO-GHE_DETALHAR";
+	public static final String RISCO_GHE_LISTAR						= "RISCO-GHE_LISTAR";
+	public static final String RISCO_GHE_REMOVER 					= "RISCO-GHE_REMOVER";
 	
 	public static final String USUARIO_ADICIONAR 			    	= "USUARIO_ADICIONAR";
 	public static final String USUARIO_EDITAR		 				= "USUARIO_EDITAR";

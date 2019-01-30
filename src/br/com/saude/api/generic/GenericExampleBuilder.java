@@ -10,6 +10,7 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.javatuples.Triplet;
+
 import java.lang.reflect.Field;
 
 public abstract class GenericExampleBuilder<T,F extends GenericFilter> {
@@ -158,5 +159,12 @@ public abstract class GenericExampleBuilder<T,F extends GenericFilter> {
 	private void addId() {
 		if(this.filter.getId() > 0)
 			this.criterions.add(Restrictions.eq("id", (long)this.filter.getId()));
-	}	
+	}
+	
+	protected void addGenericFilter(String property, GenericFilter filter, GenericExampleBuilder<?,?> builder) throws InstantiationException, IllegalAccessException {
+		if(Helper.isNotNull(filter)) {
+			CriteriaExample criteriaExample = builder.getCriteriaExample();
+			this.criterias.add(new Triplet<String,CriteriaExample,JoinType>(property, criteriaExample, JoinType.INNER_JOIN));
+		}
+	}
 }

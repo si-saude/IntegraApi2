@@ -50,15 +50,10 @@ public class Helper {
 		return today;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static Criterion getCriterionDateFilter(String propertyName, DateFilter dateFilter) {
-		if(dateFilter != null && dateFilter.getTypeFilter() != null && dateFilter.getInicio() != null) {
+		if(dateFilter != null && dateFilter.getTypeFilter() != null && dateFilter.getInicio() > 0) {
 			switch(dateFilter.getTypeFilter()) {
 				case ENTRE:
-					dateFilter.getInicio().setHours(0);
-					dateFilter.getInicio().setMinutes(0);
-					dateFilter.getFim().setHours(23);
-					dateFilter.getFim().setMinutes(59);
 					return Restrictions.between(propertyName, 
 								dateFilter.getInicio(), 
 								dateFilter.getFim());

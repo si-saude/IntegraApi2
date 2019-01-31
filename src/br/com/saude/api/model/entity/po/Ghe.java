@@ -1,7 +1,5 @@
 package br.com.saude.api.model.entity.po;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,9 +29,9 @@ public class Ghe {
 	@Column(unique=true)
 	private String codigo;
 	
-	private Date dataCriacao;
+	private long dataCriacao;
 	
-	private Date dataDesativacao;
+	private long dataDesativacao;
 	
 	@Size(max = 1024, message="Tamanho máximo para Descrição do GHE: 1024")
 	private String descricao;
@@ -77,19 +75,19 @@ public class Ghe {
 		this.codigo = codigo;
 	}
 
-	public Date getDataCriacao() {
+	public long getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(long dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public Date getDataDesativacao() {
+	public long getDataDesativacao() {
 		return dataDesativacao;
 	}
 
-	public void setDataDesativacao(Date dataDesativacao) {
+	public void setDataDesativacao(long dataDesativacao) {
 		this.dataDesativacao = dataDesativacao;
 	}
 

@@ -1,21 +1,20 @@
 package br.com.saude.api.generic;
 
-import java.util.Date;
-
 public class DateFilter {
-	private Date inicio;
-	private Date fim;
+	private long inicio;
+	private long fim;
 	private TypeFilter typeFilter;
-	public Date getInicio() {
+	
+	public long getInicio() {
 		return inicio;
 	}
-	public void setInicio(Date inicio) {
+	public void setInicio(long inicio) {
 		this.inicio = inicio;
 	}
-	public Date getFim() {
+	public long getFim() {
 		return fim;
 	}
-	public void setFim(Date fim) {
+	public void setFim(long fim) {
 		this.fim = fim;
 	}
 	public TypeFilter getTypeFilter() {

@@ -1,6 +1,7 @@
 package br.com.saude.api.model.business;
 
 import br.com.saude.api.generic.GenericBo;
+import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.creation.builder.entity.GheBuilder;
 import br.com.saude.api.model.creation.builder.example.GheExampleBuilder;
 import br.com.saude.api.model.entity.filter.GheFilter;
@@ -25,5 +26,10 @@ public class GheBo extends GenericBo<Ghe, GheFilter, GheDao, GheBuilder,
 	@Override
 	protected void initializeFunctions() {
 		
+	}
+	
+	@Override
+	public PagedList<Ghe> getList(GheFilter filter) throws Exception {
+		return super.getOrderedList(filter,"codigo");
 	}
 }

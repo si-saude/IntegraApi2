@@ -40,7 +40,7 @@ public class GheExampleBuilder extends GenericExampleBuilder<Ghe, GheFilter> {
 	}
 	
 	private void addRiscoGhe() throws InstantiationException, IllegalAccessException {
-		this.addGenericFilter("riscoGhe", this.filter.getRisco(),
+		this.addGenericFilter("risco", this.filter.getRisco(),
 				RiscoGheExampleBuilder.newInstance(this.filter.getRisco()));
 	}
 }

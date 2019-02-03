@@ -31,13 +31,16 @@ public class GheBuilder extends GenericEntityBuilder<Ghe, GheFilter> {
 		newGhe.setId(ghe.getId());
 		newGhe.setNome(ghe.getNome());
 		newGhe.setCodigo(ghe.getCodigo());
+		newGhe.setDuracaoJornada(ghe.getDuracaoJornada());
 		newGhe.setDataCriacao(ghe.getDataCriacao());
 		newGhe.setDataDesativacao(ghe.getDataDesativacao());
 		newGhe.setDescricao(ghe.getDescricao());
 		newGhe.setDescricaoAmbiente(ghe.getDescricaoAmbiente());
 		newGhe.setDescricaoTarefas(ghe.getDescricaoTarefas());
-		newGhe.setRisco(RiscoGheBuilder.newInstance(ghe.getRisco()).getEntity());
 		newGhe.setVersion(ghe.getVersion());
+		
+		if(ghe.getRisco() != null)
+			newGhe.setRisco(RiscoGheBuilder.newInstance(ghe.getRisco()).getEntity());
 		
 		return newGhe;
 	}	

@@ -20,6 +20,7 @@ public class GheExampleBuilder extends GenericExampleBuilder<Ghe, GheFilter> {
 		addCodigo();
 		addDescricao();
 		addDataCriacao();
+		addDataDesativacao();
 		addRiscoGhe();
 	}
 	
@@ -37,6 +38,10 @@ public class GheExampleBuilder extends GenericExampleBuilder<Ghe, GheFilter> {
 	
 	private void addDataCriacao() {
 		this.addData("dataCriacao", this.filter.getDataCriacao());
+	}
+	
+	private void addDataDesativacao() {
+		this.addData("dataDesativacao", this.filter.getDataDesativacao());
 	}
 	
 	private void addRiscoGhe() throws InstantiationException, IllegalAccessException {

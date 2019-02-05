@@ -3,7 +3,7 @@ package br.com.saude.api.generic;
 public class DateFilter {
 	private long inicio;
 	private long fim;
-	private TypeFilter typeFilter;
+	private String typeFilter;
 	
 	public long getInicio() {
 		return inicio;
@@ -17,10 +17,10 @@ public class DateFilter {
 	public void setFim(long fim) {
 		this.fim = fim;
 	}
-	public TypeFilter getTypeFilter() {
+	public String getTypeFilter() {
 		return typeFilter;
 	}
-	public void setTypeFilter(TypeFilter typeFilter) {
+	public void setTypeFilter(String typeFilter) {
 		this.typeFilter = typeFilter;
 	}
 }

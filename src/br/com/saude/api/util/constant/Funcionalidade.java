@@ -46,6 +46,18 @@ public class Funcionalidade extends GenericConstant {
 	public static final String CURSO_LISTAR							= "CURSO_LISTAR";
 	public static final String CURSO_REMOVER 						= "CURSO_REMOVER";
 	
+	public static final String DIAGNOSTICO_ADICIONAR 			    = "DIAGNOSTICO_ADICIONAR";
+	public static final String DIAGNOSTICO_EDITAR		 			= "DIAGNOSTICO_EDITAR";
+	public static final String DIAGNOSTICO_DETALHAR 				= "DIAGNOSTICO_DETALHAR";
+	public static final String DIAGNOSTICO_LISTAR					= "DIAGNOSTICO_LISTAR";
+	public static final String DIAGNOSTICO_REMOVER 					= "DIAGNOSTICO_REMOVER";
+	
+	public static final String EIXO_ADICIONAR 			    		= "EIXO_ADICIONAR";
+	public static final String EIXO_EDITAR		 					= "EIXO_EDITAR";
+	public static final String EIXO_DETALHAR 						= "EIXO_DETALHAR";
+	public static final String EIXO_LISTAR							= "EIXO_LISTAR";
+	public static final String EIXO_REMOVER 						= "EIXO_REMOVER";
+	
 	public static final String EQUIPE_ADICIONAR 			    	= "EQUIPE_ADICIONAR";
 	public static final String EQUIPE_EDITAR		 				= "EQUIPE_EDITAR";
 	public static final String EQUIPE_DETALHAR 						= "EQUIPE_DETALHAR";
@@ -63,6 +75,18 @@ public class Funcionalidade extends GenericConstant {
 	public static final String IMOVEL_DETALHAR 						= "IMOVEL_DETALHAR";
 	public static final String IMOVEL_LISTAR						= "IMOVEL_LISTAR";
 	public static final String IMOVEL_REMOVER 						= "IMOVEL_REMOVER";
+	
+	public static final String INDICADOR_SAST_ADICIONAR 			= "INDICADOR-SAST_ADICIONAR";
+	public static final String INDICADOR_SAST_EDITAR		 		= "INDICADOR-SAST_EDITAR";
+	public static final String INDICADOR_SAST_DETALHAR 				= "INDICADOR-SAST_DETALHAR";
+	public static final String INDICADOR_SAST_LISTAR				= "INDICADOR-SAST_LISTAR";
+	public static final String INDICADOR_SAST_REMOVER 				= "INDICADOR-SAST_REMOVER";
+	
+	public static final String INTERVENCAO_ADICIONAR 			    = "INTERVENCAO_ADICIONAR";
+	public static final String INTERVENCAO_EDITAR		 			= "INTERVENCAO_EDITAR";
+	public static final String INTERVENCAO_DETALHAR 				= "INTERVENCAO_DETALHAR";
+	public static final String INTERVENCAO_LISTAR					= "INTERVENCAO_LISTAR";
+	public static final String INTERVENCAO_REMOVER 					= "INTERVENCAO_REMOVER";
 	
 	public static final String GHE_ADICIONAR 			    		= "GHE_ADICIONAR";
 	public static final String GHE_EDITAR		 					= "GHE_EDITAR";

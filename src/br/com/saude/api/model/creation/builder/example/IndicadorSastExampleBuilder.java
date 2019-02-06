@@ -37,11 +37,11 @@ public class IndicadorSastExampleBuilder extends GenericExampleBuilder<Indicador
 	}
 	
 	private void addInativo() {
-		this.addBoolean("inativo", this.filter.getInativo());
+		this.entity.setInativo(this.addBoolean("inativo", this.filter.getInativo()));
 	}
 	
-	private void addObrigatorio() {
-		this.addBoolean("obrigatorio", this.filter.getObrigatorio());
+	private void addObrigatorio() {		
+		this.entity.setObrigatorio(this.addBoolean("obrigatorio", this.filter.getObrigatorio()));
 	}
 	
 	private void addEquipe() throws InstantiationException, IllegalAccessException {

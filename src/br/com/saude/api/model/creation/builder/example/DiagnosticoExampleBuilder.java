@@ -23,7 +23,7 @@ public class DiagnosticoExampleBuilder extends GenericExampleBuilder<Diagnostico
 	}
 	
 	private void addInativo() {
-		this.addBoolean("inativo", this.filter.getInativo());
+		this.entity.setInativo(this.addBoolean("inativo", this.filter.getInativo()));
 	}
 	
 	private void addCodigo() {

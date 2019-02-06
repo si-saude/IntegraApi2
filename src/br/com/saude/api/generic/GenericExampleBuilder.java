@@ -140,8 +140,8 @@ public abstract class GenericExampleBuilder<T,F extends GenericFilter> {
 		if(booleanFilter == null || booleanFilter.getValue() <= 0 || booleanFilter.getValue() > 2)
 			this.excludingProperties.add(propertyName);
 		else if(booleanFilter.getValue() == 1)
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 	
 	protected void ilike(String property, String value) {

@@ -26,7 +26,7 @@ public class IntervencaoExampleBuilder extends GenericExampleBuilder<Intervencao
 	}
 	
 	private void addInativo() {
-		this.addBoolean("inativo", this.filter.getInativo());
+		this.entity.setInativo(this.addBoolean("inativo", this.filter.getInativo()));
 	}
 	
 	private void addEquipe() throws InstantiationException, IllegalAccessException {

@@ -18,6 +18,8 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.javatuples.Triplet;
 
+import br.com.saude.api.util.constant.TypeFilter;
+
 public class Helper {
 	private static StringBuilder stringBuilder;
 	
@@ -53,22 +55,26 @@ public class Helper {
 	public static Criterion getCriterionDateFilter(String propertyName, DateFilter dateFilter) {
 		if(dateFilter != null && dateFilter.getTypeFilter() != null && dateFilter.getInicio() > 0) {
 			switch(dateFilter.getTypeFilter()) {
-				case ENTRE:
+				case TypeFilter.ENTRE:
 					return Restrictions.between(propertyName, 
 								dateFilter.getInicio(), 
 								dateFilter.getFim());
-			case MAIOR_IGUAL:return Restrictions.ge(propertyName, dateFilter.getInicio());
-			case MAIOR:return Restrictions.gt(propertyName, dateFilter.getInicio());
-			case MENOR_IGUAL:return Restrictions.le(propertyName, dateFilter.getInicio());
-			case MENOR: return Restrictions.lt(propertyName, dateFilter.getInicio());
-			case IGUAL: return Restrictions.eq(propertyName, dateFilter.getInicio());
-			case DIFERENTE: return Restrictions.ne(propertyName, dateFilter.getInicio());
+			case TypeFilter.MAIOR_IGUAL:return andDifferentZero(propertyName,Restrictions.ge(propertyName, dateFilter.getInicio()));
+			case TypeFilter.MAIOR:return andDifferentZero(propertyName,Restrictions.gt(propertyName, dateFilter.getInicio()));
+			case TypeFilter.MENOR_IGUAL:return andDifferentZero(propertyName,Restrictions.le(propertyName, dateFilter.getInicio()));
+			case TypeFilter.MENOR: return andDifferentZero(propertyName,Restrictions.lt(propertyName, dateFilter.getInicio()));
+			case TypeFilter.IGUAL: return andDifferentZero(propertyName,Restrictions.eq(propertyName, dateFilter.getInicio()));
+			case TypeFilter.DIFERENTE: return andDifferentZero(propertyName,Restrictions.ne(propertyName, dateFilter.getInicio()));
 			default:
 				return null;
 			}
 		}
 		
 		return null;
+	}
+	
+	private static Criterion andDifferentZero(String propertyName, Criterion c) {
+		return Restrictions.and(Restrictions.ne(propertyName, (long)0), c);
 	}
 
 	public static String getStringMonth(int month) {
@@ -144,16 +150,18 @@ public class Helper {
     }
 	
 	public static <E extends Comparable<E>> void simpleSort(List<E> a) {
-        for (int i = 0; i < a.size()  - 1; i++) {
-            int smallest = i;
-            for (int j = i + 1; j < a.size(); j++) {
-                if (a.get(j).compareTo(a.get(smallest))<=0) {
-                    smallest = j;
-                }
-            }
-
-            swap(a, i, smallest);
-        }
+		if (isNotNull(a)) {
+	        for (int i = 0; i < a.size()  - 1; i++) {
+	            int smallest = i;
+	            for (int j = i + 1; j < a.size(); j++) {
+	                if (a.get(j).compareTo(a.get(smallest))<=0) {
+	                    smallest = j;
+	                }
+	            }
+	
+	            swap(a, i, smallest);
+	        }
+		}
     }
 	
 	public static boolean isNull(List<?> list) {

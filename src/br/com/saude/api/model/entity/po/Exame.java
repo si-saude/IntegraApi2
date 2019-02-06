@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Exame {
+public class Exame implements Comparable<Exame> {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -99,5 +99,10 @@ public class Exame {
 	@Override
 	public boolean equals(Object exame) {
 		return ((Exame)exame).id == this.id && this.id > 0;
+	}
+	
+	@Override
+	public int compareTo(Exame o) {
+		return this.codigo.compareTo(o.codigo);
 	}
 }

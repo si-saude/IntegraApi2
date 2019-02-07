@@ -22,6 +22,7 @@ public class IndicadorSastExampleBuilder extends GenericExampleBuilder<Indicador
 		addInativo();
 		addObrigatorio();
 		addEquipe();
+		this.entity.setCritico(0);
 	}
 	
 	private void addCodigo() {
@@ -33,7 +34,7 @@ public class IndicadorSastExampleBuilder extends GenericExampleBuilder<Indicador
 	}
 	
 	private void addAusenteCalculoInterdisciplinar() {
-		this.addBoolean("cusenteCalculoInterdisciplinar", this.filter.getAusenteCalculoInterdisciplinar());
+		this.addBoolean("ausenteCalculoInterdisciplinar", this.filter.getAusenteCalculoInterdisciplinar());
 	}
 	
 	private void addInativo() {

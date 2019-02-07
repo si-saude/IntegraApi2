@@ -21,21 +21,27 @@ public class IndicadorSast {
 	private long id;
 	
 	@Size(max = 128, message="Tamanho máximo para Nome: 128")
+	@NotNull(message="É necessário informar o Nome do Indicador Sast.")
 	private String nome;
 	
 	@Size(max = 1024, message="Tamanho máximo para Índice 0: 1024")
+	@NotNull(message="É necessário informar o Índice 0 do Indicador Sast.")
 	private String indice0;
 	
 	@Size(max = 1024, message="Tamanho máximo para Índice 1: 1024")
+	@NotNull(message="É necessário informar o Índice 1 do Indicador Sast.")
 	private String indice1;
 	
 	@Size(max = 1024, message="Tamanho máximo para Índice 2: 1024")
+	@NotNull(message="É necessário informar o Índice 2 do Indicador Sast.")
 	private String indice2;
 	
 	@Size(max = 1024, message="Tamanho máximo para Índice 3: 1024")
+	@NotNull(message="É necessário informar o Índice 3 do Indicador Sast.")
 	private String indice3;
 	
 	@Size(max = 1024, message="Tamanho máximo para Índice 4: 1024")
+	@NotNull(message="É necessário informar o Índice 4 do Indicador Sast.")
 	private String indice4;
 	
 	private boolean obrigatorio;

@@ -17,7 +17,7 @@ public class IndicadorAssociadoSast {
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@NotNull(message="É necessário informar a Gerência de Empregado.")
+	@NotNull(message="É necessário informar o Indicador SAST do Indicador Associado.")
 	private IndicadorSast indicadorSast;
 	
 	@Size(max = 3, message="Tamanho máximo para Código: 3")

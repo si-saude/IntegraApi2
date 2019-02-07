@@ -1,6 +1,7 @@
 package br.com.saude.api.model.business;
 
 import br.com.saude.api.generic.GenericBo;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.creation.builder.entity.IndicadorSastBuilder;
 import br.com.saude.api.model.creation.builder.example.IndicadorSastExampleBuilder;
@@ -43,5 +44,13 @@ public class IndicadorSastBo extends GenericBo<IndicadorSast, IndicadorSastFilte
 	@Override
 	public IndicadorSast getById(Object id) throws Exception {
 		return super.getById(id, this.functionLoadAll);
+	}
+	
+	@Override
+	public IndicadorSast save(IndicadorSast indicador) throws Exception {
+		if(Helper.isNotNull(indicador.getIndicadorAssociadoSasts())) {
+			indicador.getIndicadorAssociadoSasts().forEach(i->i.setIndicadorSast(indicador));
+		}
+		return super.save(indicador);
 	}
 }

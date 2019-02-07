@@ -1,9 +1,5 @@
 package br.com.saude.api.generic;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -39,17 +35,17 @@ public class Helper {
 		return stringBuilder.toString();
 	}
 	
-	public static Date getNow() {
-		return Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+	public static long getNow() {
+		return new Date().getTime();
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static Date getToday() {
-		Date today = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+	public static long getToday() {
+		Date today = new Date();
 		today.setHours(0);
 		today.setMinutes(0);
 		today.setSeconds(0);
-		return today;
+		return today.getTime();
 	}
 	
 	public static Criterion getCriterionDateFilter(String propertyName, DateFilter dateFilter) {
@@ -132,13 +128,6 @@ public class Helper {
 		if(data != null)
 			return new Date(data.getTime());
 		return data;
-	}
-	
-	public static Period calculateIdade( Date data ) {
-		Period periodo = Period.between(data.toInstant()
-				.atZone(ZoneId.systemDefault()).toLocalDate(), 
-				LocalDate.now());
-		return periodo;
 	}
 	
 	private static <E> void swap(List<E> a, int i, int j) {

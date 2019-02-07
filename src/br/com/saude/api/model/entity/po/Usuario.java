@@ -1,6 +1,5 @@
 package br.com.saude.api.model.entity.po;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -43,7 +42,7 @@ public class Usuario {
 	private String token;
 	
 	@Transient
-	private Date sessionTime;
+	private long sessionTime;
 	
 	@Version
 	private long version;
@@ -90,10 +89,10 @@ public class Usuario {
 	public void setGestorCss(boolean gestorCss) {
 		this.gestorCss = gestorCss;
 	}
-	public Date getSessionTime() {
+	public long getSessionTime() {
 		return sessionTime;
 	}
-	public void setSessionTime(Date sessionTime) {
+	public void setSessionTime(long sessionTime) {
 		this.sessionTime = sessionTime;
 	}
 }

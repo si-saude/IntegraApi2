@@ -1,7 +1,6 @@
 package br.com.saude.api.util;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.crypto.KeyGenerator;
@@ -30,12 +29,8 @@ public class UserManager {
 	
 	public boolean isTokenValid(String token) {
 		
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(Helper.getNow());
-		calendar.add(Calendar.MINUTE, -60);
-		
 		boolean ret = this.usuarios.stream().filter(u->u.getToken().equals(token) && 
-				u.getSessionTime().after(calendar.getTime())).count() > 0;
+				u.getSessionTime() > (Helper.getNow() - (1000*60*60)) ).count() > 0;
 				
 		if(ret) {
 			this.usuarios.stream().filter(u->u.getToken().equals(token)).findFirst()

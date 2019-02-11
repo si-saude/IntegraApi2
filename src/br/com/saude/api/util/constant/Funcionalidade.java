@@ -76,6 +76,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String EXAME_LISTAR							= "EXAME_LISTAR";
 	public static final String EXAME_REMOVER 						= "EXAME_REMOVER";
 	
+	public static final String GERENCIA_ADICIONAR 			    	= "GERENCIA_ADICIONAR";
+	public static final String GERENCIA_EDITAR		 				= "GERENCIA_EDITAR";
+	public static final String GERENCIA_DETALHAR 					= "GERENCIA_DETALHAR";
+	public static final String GERENCIA_LISTAR						= "GERENCIA_LISTAR";
+	public static final String GERENCIA_REMOVER 					= "GERENCIA_REMOVER";
+	
 	public static final String IMOVEL_ADICIONAR 			    	= "IMOVEL_ADICIONAR";
 	public static final String IMOVEL_EDITAR		 				= "IMOVEL_EDITAR";
 	public static final String IMOVEL_DETALHAR 						= "IMOVEL_DETALHAR";
@@ -111,6 +117,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String RISCO_GHE_DETALHAR 					= "RISCO-GHE_DETALHAR";
 	public static final String RISCO_GHE_LISTAR						= "RISCO-GHE_LISTAR";
 	public static final String RISCO_GHE_REMOVER 					= "RISCO-GHE_REMOVER";
+	
+	public static final String TIPO_PERGUNTA_FICHA_COLETA_ADICIONAR = "TIPO-PERGUNTA-FICHA-COLETA_ADICIONAR";
+	public static final String TIPO_PERGUNTA_FICHA_COLETA_EDITAR	= "TIPO-PERGUNTA-FICHA-COLETA_EDITAR";
+	public static final String TIPO_PERGUNTA_FICHA_COLETA_DETALHAR 	= "TIPO-PERGUNTA-FICHA-COLETA_DETALHAR";
+	public static final String TIPO_PERGUNTA_FICHA_COLETA_LISTAR	= "TIPO-PERGUNTA-FICHA-COLETA_LISTAR";
+	public static final String TIPO_PERGUNTA_FICHA_COLETA_REMOVER 	= "TIPO-PERGUNTA-FICHA-COLETA_REMOVER";
 	
 	public static final String USUARIO_ADICIONAR 			    	= "USUARIO_ADICIONAR";
 	public static final String USUARIO_EDITAR		 				= "USUARIO_EDITAR";

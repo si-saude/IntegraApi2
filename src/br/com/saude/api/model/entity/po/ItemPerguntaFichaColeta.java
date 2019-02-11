@@ -15,35 +15,27 @@ public class ItemPerguntaFichaColeta {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
-	@Size(max = 64, message="Tamanho máximo para Label do Item Pergunta Ficha Coleta.: 64")
-	@NotNull(message="É necessário informar o Label da Pergunta.")
-	private String label;
+	@Size(max = 64, message="Tamanho máximo para Título do Item da Pergunta: 64")
+	@NotNull(message="É necessário informar o Título do Item da Pergunta.")
+	private String titulo;
 	
-	@Size(max = 64, message="Tamanho máximo para Path do Item Pergunta Ficha Coleta.: 64")
+	@Size(max = 64, message="Tamanho máximo para Path do Item da Pergunta: 64")
 	private String path; 
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	private PerguntaFichaColeta pergunta;
 	
 	@Version
 	private long version;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getLabel() {
-		return label;
-	}
-
-	public void setLabel(String label) {
-		this.label = label;
 	}
 
 	public long getVersion() {
@@ -68,6 +60,14 @@ public class ItemPerguntaFichaColeta {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 	
 }

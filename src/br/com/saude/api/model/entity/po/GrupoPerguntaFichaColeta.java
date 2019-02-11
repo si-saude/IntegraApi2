@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class TipoPerguntaFichaColeta {
+public class GrupoPerguntaFichaColeta {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -20,6 +20,8 @@ public class TipoPerguntaFichaColeta {
 	@Size(max = 64, message="Tamanho máximo para Nome da Base: 64")
 	@Column(unique=true)
 	private String nome;
+	
+	private int ordem;
 	
 	@Version
 	private long version;
@@ -38,6 +40,14 @@ public class TipoPerguntaFichaColeta {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public int getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(int ordem) {
+		this.ordem = ordem;
 	}
 
 	public long getVersion() {

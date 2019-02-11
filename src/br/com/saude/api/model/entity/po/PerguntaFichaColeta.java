@@ -11,7 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,11 +23,11 @@ public class PerguntaFichaColeta {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	
 	@NotNull(message="É necessário informar o Grupo da Pergunta.")
-	@Size(max = 64, message="Tamanho máximo para Grupo da Pergunta: 64")
-	private String grupo;
+	@ManyToOne(fetch=FetchType.EAGER)
+	private GrupoPerguntaFichaColeta grupo;
 	
 	@NotNull(message="É necessário informar o Tipo da Pergunta.")
 	@Size(max = 64, message="Tamanho máximo para Tipo da Pergunta: 64")
@@ -49,28 +51,27 @@ public class PerguntaFichaColeta {
 	@JoinTable(name="perguntafichacoleta_equipe", 
 	joinColumns = {@JoinColumn(name="perguntafichacoleta_id")}, 
 	inverseJoinColumns = {@JoinColumn(name="equipe_id")})
+	@OrderBy(value="nome")
 	private List<Equipe> equipes;
 	
 	private boolean inativo;
 	
-	private int ordem;
-	
 	@Version
 	private long version;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public String getGrupo() {
+	public GrupoPerguntaFichaColeta getGrupo() {
 		return grupo;
 	}
 
-	public void setGrupo(String grupo) {
+	public void setGrupo(GrupoPerguntaFichaColeta grupo) {
 		this.grupo = grupo;
 	}
 
@@ -120,14 +121,6 @@ public class PerguntaFichaColeta {
 
 	public void setItens(List<ItemPerguntaFichaColeta> itens) {
 		this.itens = itens;
-	}
-
-	public int getOrdem() {
-		return ordem;
-	}
-
-	public void setOrdem(int ordem) {
-		this.ordem = ordem;
 	}
 
 	public List<Equipe> getEquipes() {

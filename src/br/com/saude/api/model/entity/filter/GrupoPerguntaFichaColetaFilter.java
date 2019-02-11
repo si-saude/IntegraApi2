@@ -2,7 +2,7 @@ package br.com.saude.api.model.entity.filter;
 
 import br.com.saude.api.generic.GenericFilter;
 
-public class TipoPerguntaFichaColetaFilter extends GenericFilter {
+public class GrupoPerguntaFichaColetaFilter extends GenericFilter {
 
 	private String nome;
 

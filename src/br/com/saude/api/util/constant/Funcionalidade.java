@@ -82,6 +82,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String GERENCIA_LISTAR						= "GERENCIA_LISTAR";
 	public static final String GERENCIA_REMOVER 					= "GERENCIA_REMOVER";
 	
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_ADICIONAR= "GRUPO-PERGUNTA-FICHA-COLETA_ADICIONAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_EDITAR	= "GRUPO-PERGUNTA-FICHA-COLETA_EDITAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_DETALHAR = "GRUPO-PERGUNTA-FICHA-COLETA_DETALHAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_LISTAR	= "GRUPO-PERGUNTA-FICHA-COLETA_LISTAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_REMOVER 	= "GRUPO-PERGUNTA-FICHA-COLETA_REMOVER";
+	
 	public static final String IMOVEL_ADICIONAR 			    	= "IMOVEL_ADICIONAR";
 	public static final String IMOVEL_EDITAR		 				= "IMOVEL_EDITAR";
 	public static final String IMOVEL_DETALHAR 						= "IMOVEL_DETALHAR";
@@ -112,17 +118,17 @@ public class Funcionalidade extends GenericConstant {
 	public static final String PERFIL_LISTAR						= "PERFIL_LISTAR";
 	public static final String PERFIL_REMOVER 						= "PERFIL_REMOVER";
 	
+	public static final String PERGUNTA_FICHA_COLETA_ADICIONAR 		= "PERGUNTA-FICHA-COLETA_ADICIONAR";
+	public static final String PERGUNTA_FICHA_COLETA_EDITAR		 	= "PERGUNTA-FICHA-COLETA_EDITAR";
+	public static final String PERGUNTA_FICHA_COLETA_DETALHAR 		= "PERGUNTA-FICHA-COLETA_DETALHAR";
+	public static final String PERGUNTA_FICHA_COLETA_LISTAR			= "PERGUNTA-FICHA-COLETA_LISTAR";
+	public static final String PERGUNTA_FICHA_COLETA_REMOVER 		= "PERGUNTA-FICHA-COLETA_REMOVER";
+	
 	public static final String RISCO_GHE_ADICIONAR 			    	= "RISCO-GHE_ADICIONAR";
 	public static final String RISCO_GHE_EDITAR		 				= "RISCO-GHE_EDITAR";
 	public static final String RISCO_GHE_DETALHAR 					= "RISCO-GHE_DETALHAR";
 	public static final String RISCO_GHE_LISTAR						= "RISCO-GHE_LISTAR";
 	public static final String RISCO_GHE_REMOVER 					= "RISCO-GHE_REMOVER";
-	
-	public static final String TIPO_PERGUNTA_FICHA_COLETA_ADICIONAR = "TIPO-PERGUNTA-FICHA-COLETA_ADICIONAR";
-	public static final String TIPO_PERGUNTA_FICHA_COLETA_EDITAR	= "TIPO-PERGUNTA-FICHA-COLETA_EDITAR";
-	public static final String TIPO_PERGUNTA_FICHA_COLETA_DETALHAR 	= "TIPO-PERGUNTA-FICHA-COLETA_DETALHAR";
-	public static final String TIPO_PERGUNTA_FICHA_COLETA_LISTAR	= "TIPO-PERGUNTA-FICHA-COLETA_LISTAR";
-	public static final String TIPO_PERGUNTA_FICHA_COLETA_REMOVER 	= "TIPO-PERGUNTA-FICHA-COLETA_REMOVER";
 	
 	public static final String USUARIO_ADICIONAR 			    	= "USUARIO_ADICIONAR";
 	public static final String USUARIO_EDITAR		 				= "USUARIO_EDITAR";

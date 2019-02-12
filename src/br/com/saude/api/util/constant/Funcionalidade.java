@@ -124,6 +124,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String PERGUNTA_FICHA_COLETA_LISTAR			= "PERGUNTA-FICHA-COLETA_LISTAR";
 	public static final String PERGUNTA_FICHA_COLETA_REMOVER 		= "PERGUNTA-FICHA-COLETA_REMOVER";
 	
+	public static final String REGRA_ATENDIMENTO_ADICIONAR 			= "REGRA-ATENDIMENTO_ADICIONAR";
+	public static final String REGRA_ATENDIMENTO_EDITAR		 		= "REGRA-ATENDIMENTO_EDITAR";
+	public static final String REGRA_ATENDIMENTO_DETALHAR 			= "REGRA-ATENDIMENTO_DETALHAR";
+	public static final String REGRA_ATENDIMENTO_LISTAR				= "REGRA-ATENDIMENTO_LISTAR";
+	public static final String REGRA_ATENDIMENTO_REMOVER 			= "REGRA-ATENDIMENTO_REMOVER";
+	
 	public static final String RISCO_GHE_ADICIONAR 			    	= "RISCO-GHE_ADICIONAR";
 	public static final String RISCO_GHE_EDITAR		 				= "RISCO-GHE_EDITAR";
 	public static final String RISCO_GHE_DETALHAR 					= "RISCO-GHE_DETALHAR";

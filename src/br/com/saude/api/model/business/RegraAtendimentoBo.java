@@ -1,11 +1,5 @@
 package br.com.saude.api.model.business;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import br.com.saude.api.generic.GenericBo;
 import br.com.saude.api.generic.Helper;
 import br.com.saude.api.generic.PagedList;
@@ -13,9 +7,7 @@ import br.com.saude.api.model.creation.builder.entity.RegraAtendimentoBuilder;
 import br.com.saude.api.model.creation.builder.example.RegraAtendimentoExampleBuilder;
 import br.com.saude.api.model.entity.filter.RegraAtendimentoFilter;
 import br.com.saude.api.model.entity.po.RegraAtendimento;
-import br.com.saude.api.model.entity.po.Permissao;
 import br.com.saude.api.model.persistence.RegraAtendimentoDao;
-import br.com.saude.api.util.constant.Funcionalidade;
 
 public class RegraAtendimentoBo extends GenericBo<RegraAtendimento, RegraAtendimentoFilter, RegraAtendimentoDao, 
 										RegraAtendimentoBuilder, RegraAtendimentoExampleBuilder>{

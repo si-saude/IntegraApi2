@@ -5,6 +5,7 @@ public abstract class GenericFilter {
 	protected int pageNumber = 1;
 	protected int pageSize;
 	protected OrderFilter order;
+	protected boolean idNotEq; 
 	
 	public int getPageNumber() {
 		return pageNumber;
@@ -30,5 +31,10 @@ public abstract class GenericFilter {
 	public void setOrder(OrderFilter order) {
 		this.order = order;
 	}
-	
+	public boolean isIdNotEq() {
+		return idNotEq;
+	}
+	public void setIdNotEq(boolean idNotEq) {
+		this.idNotEq = idNotEq;
+	}
 }

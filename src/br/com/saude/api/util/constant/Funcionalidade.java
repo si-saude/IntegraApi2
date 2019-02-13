@@ -94,6 +94,18 @@ public class Funcionalidade extends GenericConstant {
 	public static final String EXAME_LISTAR							= "EXAME_LISTAR";
 	public static final String EXAME_REMOVER 						= "EXAME_REMOVER";
 	
+	public static final String GERENCIA_ADICIONAR 			    	= "GERENCIA_ADICIONAR";
+	public static final String GERENCIA_EDITAR		 				= "GERENCIA_EDITAR";
+	public static final String GERENCIA_DETALHAR 					= "GERENCIA_DETALHAR";
+	public static final String GERENCIA_LISTAR						= "GERENCIA_LISTAR";
+	public static final String GERENCIA_REMOVER 					= "GERENCIA_REMOVER";
+	
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_ADICIONAR= "GRUPO-PERGUNTA-FICHA-COLETA_ADICIONAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_EDITAR	= "GRUPO-PERGUNTA-FICHA-COLETA_EDITAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_DETALHAR = "GRUPO-PERGUNTA-FICHA-COLETA_DETALHAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_LISTAR	= "GRUPO-PERGUNTA-FICHA-COLETA_LISTAR";
+	public static final String GRUPO_PERGUNTA_FICHA_COLETA_REMOVER 	= "GRUPO-PERGUNTA-FICHA-COLETA_REMOVER";
+	
 	public static final String IMOVEL_ADICIONAR 			    	= "IMOVEL_ADICIONAR";
 	public static final String IMOVEL_EDITAR		 				= "IMOVEL_EDITAR";
 	public static final String IMOVEL_DETALHAR 						= "IMOVEL_DETALHAR";
@@ -136,11 +148,23 @@ public class Funcionalidade extends GenericConstant {
 	public static final String PERFIL_LISTAR						= "PERFIL_LISTAR";
 	public static final String PERFIL_REMOVER 						= "PERFIL_REMOVER";
 	
+	public static final String PERGUNTA_FICHA_COLETA_ADICIONAR 		= "PERGUNTA-FICHA-COLETA_ADICIONAR";
+	public static final String PERGUNTA_FICHA_COLETA_EDITAR		 	= "PERGUNTA-FICHA-COLETA_EDITAR";
+	public static final String PERGUNTA_FICHA_COLETA_DETALHAR 		= "PERGUNTA-FICHA-COLETA_DETALHAR";
+	public static final String PERGUNTA_FICHA_COLETA_LISTAR			= "PERGUNTA-FICHA-COLETA_LISTAR";
+	public static final String PERGUNTA_FICHA_COLETA_REMOVER 		= "PERGUNTA-FICHA-COLETA_REMOVER";
+	
 	public static final String REGIME_ADICIONAR 			    	= "REGIME_ADICIONAR";
 	public static final String REGIME_EDITAR		 				= "REGIME_EDITAR";
 	public static final String REGIME_DETALHAR 						= "REGIME_DETALHAR";
 	public static final String REGIME_LISTAR						= "REGIME_LISTAR";
 	public static final String REGIME_REMOVER 						= "REGIME_REMOVER";
+	
+	public static final String REGRA_ATENDIMENTO_ADICIONAR 			= "REGRA-ATENDIMENTO_ADICIONAR";
+	public static final String REGRA_ATENDIMENTO_EDITAR		 		= "REGRA-ATENDIMENTO_EDITAR";
+	public static final String REGRA_ATENDIMENTO_DETALHAR 			= "REGRA-ATENDIMENTO_DETALHAR";
+	public static final String REGRA_ATENDIMENTO_LISTAR				= "REGRA-ATENDIMENTO_LISTAR";
+	public static final String REGRA_ATENDIMENTO_REMOVER 			= "REGRA-ATENDIMENTO_REMOVER";
 	
 	public static final String RISCO_GHE_ADICIONAR 			    	= "RISCO-GHE_ADICIONAR";
 	public static final String RISCO_GHE_EDITAR		 				= "RISCO-GHE_EDITAR";

@@ -157,8 +157,13 @@ public abstract class GenericExampleBuilder<T,F extends GenericFilter> {
 	}
 	
 	private void addId() {
-		if(this.filter.getId() > 0)
-			this.criterions.add(Restrictions.eq("id", (long)this.filter.getId()));
+		if(this.filter.getId() > 0) {
+			if(this.filter.isIdNotEq()) {
+				this.criterions.add(Restrictions.ne("id", (long)this.filter.getId()));
+			} else {
+				this.criterions.add(Restrictions.eq("id", (long)this.filter.getId()));
+			}
+		}
 	}
 	
 	protected void addGenericFilter(String property, GenericFilter filter, GenericExampleBuilder<?,?> builder) throws InstantiationException, IllegalAccessException {

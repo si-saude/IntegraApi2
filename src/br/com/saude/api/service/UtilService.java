@@ -16,6 +16,7 @@ import br.com.saude.api.util.StringSorter;
 import br.com.saude.api.util.constant.Operador;
 import br.com.saude.api.util.constant.Sexo;
 import br.com.saude.api.util.constant.TipoCriterio;
+import br.com.saude.api.util.constant.TipoAlimento;
 import br.com.saude.api.util.constant.TypeFilter;
 import br.com.saude.api.util.constant.Uf;
 
@@ -47,6 +48,15 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSexo(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(Sexo.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/tipo-alimento")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTipoAlimento(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(TipoAlimento.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
 		return Response.ok(values).build();
 	}
 	

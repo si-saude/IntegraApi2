@@ -16,6 +16,18 @@ public class Funcionalidade extends GenericConstant {
 		return instance;
 	}
 	
+	public static final String ALIMENTO_ADICIONAR 			    		= "ALIMENTO_ADICIONAR";
+	public static final String ALIMENTO_EDITAR		 					= "ALIMENTO_EDITAR";
+	public static final String ALIMENTO_DETALHAR 						= "ALIMENTO_DETALHAR";
+	public static final String ALIMENTO_LISTAR							= "ALIMENTO_LISTAR";
+	public static final String ALIMENTO_REMOVER 						= "ALIMENTO_REMOVER";
+	
+	public static final String ATIVIDADE_FISICA_ADICIONAR 			= "ATIVIDADE-FISICA_ADICIONAR";
+	public static final String ATIVIDADE_FISICA_EDITAR		 		= "ATIVIDADE-FISICA_EDITAR";
+	public static final String ATIVIDADE_FISICA_DETALHAR 			= "ATIVIDADE-FISICA_DETALHAR";
+	public static final String ATIVIDADE_FISICA_LISTAR				= "ATIVIDADE-FISICA_LISTAR";
+	public static final String ATIVIDADE_FISICA_REMOVER 			= "ATIVIDADE-FISICA_REMOVER";
+	
 	public static final String BASE_ADICIONAR 			    		= "BASE_ADICIONAR";
 	public static final String BASE_EDITAR		 					= "BASE_EDITAR";
 	public static final String BASE_DETALHAR 						= "BASE_DETALHAR";
@@ -64,6 +76,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String EIXO_LISTAR							= "EIXO_LISTAR";
 	public static final String EIXO_REMOVER 						= "EIXO_REMOVER";
 	
+	public static final String ENFASE_ADICIONAR 			    	= "ENFASE_ADICIONAR";
+	public static final String ENFASE_EDITAR		 				= "ENFASE_EDITAR";
+	public static final String ENFASE_DETALHAR 						= "ENFASE_DETALHAR";
+	public static final String ENFASE_LISTAR						= "ENFASE_LISTAR";
+	public static final String ENFASE_REMOVER 						= "ENFASE_REMOVER";
+	
 	public static final String EQUIPE_ADICIONAR 			    	= "EQUIPE_ADICIONAR";
 	public static final String EQUIPE_EDITAR		 				= "EQUIPE_EDITAR";
 	public static final String EQUIPE_DETALHAR 						= "EQUIPE_DETALHAR";
@@ -94,17 +112,35 @@ public class Funcionalidade extends GenericConstant {
 	public static final String INTERVENCAO_LISTAR					= "INTERVENCAO_LISTAR";
 	public static final String INTERVENCAO_REMOVER 					= "INTERVENCAO_REMOVER";
 	
+	public static final String FUNCAO_ADICIONAR 			    	= "FUNCAO_ADICIONAR";
+	public static final String FUNCAO_EDITAR		 				= "FUNCAO_EDITAR";
+	public static final String FUNCAO_DETALHAR 						= "FUNCAO_DETALHAR";
+	public static final String FUNCAO_LISTAR						= "FUNCAO_LISTAR";
+	public static final String FUNCAO_REMOVER 						= "FUNCAO_REMOVER";
+	
 	public static final String GHE_ADICIONAR 			    		= "GHE_ADICIONAR";
 	public static final String GHE_EDITAR		 					= "GHE_EDITAR";
 	public static final String GHE_DETALHAR 						= "GHE_DETALHAR";
 	public static final String GHE_LISTAR							= "GHE_LISTAR";
 	public static final String GHE_REMOVER 							= "GHE_REMOVER";
 	
+	public static final String MEDIDA_CASEIRA_ADICIONAR 			= "MEDIDA-CASEIRA_ADICIONAR";
+	public static final String MEDIDA_CASEIRA_EDITAR		 		= "MEDIDA-CASEIRA_EDITAR";
+	public static final String MEDIDA_CASEIRA_DETALHAR 				= "MEDIDA-CASEIRA_DETALHAR";
+	public static final String MEDIDA_CASEIRA_LISTAR				= "MEDIDA-CASEIRA_LISTAR";
+	public static final String MEDIDA_CASEIRA_REMOVER 				= "MEDIDA-CASEIRA_REMOVER";
+	
 	public static final String PERFIL_ADICIONAR 			    	= "PERFIL_ADICIONAR";
 	public static final String PERFIL_EDITAR		 				= "PERFIL_EDITAR";
 	public static final String PERFIL_DETALHAR 						= "PERFIL_DETALHAR";
 	public static final String PERFIL_LISTAR						= "PERFIL_LISTAR";
 	public static final String PERFIL_REMOVER 						= "PERFIL_REMOVER";
+	
+	public static final String REGIME_ADICIONAR 			    	= "REGIME_ADICIONAR";
+	public static final String REGIME_EDITAR		 				= "REGIME_EDITAR";
+	public static final String REGIME_DETALHAR 						= "REGIME_DETALHAR";
+	public static final String REGIME_LISTAR						= "REGIME_LISTAR";
+	public static final String REGIME_REMOVER 						= "REGIME_REMOVER";
 	
 	public static final String RISCO_GHE_ADICIONAR 			    	= "RISCO-GHE_ADICIONAR";
 	public static final String RISCO_GHE_EDITAR		 				= "RISCO-GHE_EDITAR";

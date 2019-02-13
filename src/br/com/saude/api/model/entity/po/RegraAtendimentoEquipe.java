@@ -30,6 +30,8 @@ public class RegraAtendimentoEquipe {
 	
 	private boolean acolhimento;
 	
+	private int ordem;
+	
 	@OneToMany(mappedBy="regraAtendimentoEquipe", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<Dependencia> dependencias;
 	
@@ -82,6 +84,14 @@ public class RegraAtendimentoEquipe {
 
 	public void setDependencias(List<Dependencia> dependencias) {
 		this.dependencias = dependencias;
+	}
+
+	public int getOrdem() {
+		return ordem;
+	}
+
+	public void setOrdem(int ordem) {
+		this.ordem = ordem;
 	}
 	
 }

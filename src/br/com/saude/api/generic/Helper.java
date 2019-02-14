@@ -1,5 +1,6 @@
 package br.com.saude.api.generic;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +36,16 @@ public class Helper {
 		return stringBuilder.toString();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static long getNow() {
-		return new Date().getTime();
+		Date today = new Date();
+		today.setSeconds(0);
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(today);
+		c.set(Calendar.MILLISECOND, 0);
+		
+		return c.getTime().getTime();
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -45,7 +54,12 @@ public class Helper {
 		today.setHours(0);
 		today.setMinutes(0);
 		today.setSeconds(0);
-		return today.getTime();
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(today);
+		c.set(Calendar.MILLISECOND, 0);
+		
+		return c.getTime().getTime();
 	}
 	
 	public static Criterion getCriterionDateFilter(String propertyName, DateFilter dateFilter) {

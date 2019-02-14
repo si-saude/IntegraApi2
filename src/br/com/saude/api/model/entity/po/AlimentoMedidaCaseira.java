@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class AlimentoMedidaCaseira {
@@ -16,14 +17,15 @@ public class AlimentoMedidaCaseira {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull(message="É necessário informar o Alimento do Alimento Medida Caseira.")
+	@NotNull(message="É necessário informar o Alimento da Medida Caseira.")
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Alimento alimento;
 	
-	@NotNull(message="É necessário informar a Medida Caseira do Alimento Medida Caseira.")
+	@NotNull(message="É necessário informar a Medida Caseira do Alimento.")
 	@ManyToOne(fetch=FetchType.EAGER)
 	private MedidaCaseira medidaCaseira;
 	
+	@Size(max = 256, message="Tamanho máximo para a Referência da Medida Caseira: 256")
 	private String referencia;
 	
 	private double quantidade;

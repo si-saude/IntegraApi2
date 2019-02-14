@@ -38,7 +38,7 @@ public class GheBo extends GenericBo<Ghe, GheFilter, GheDao, GheBuilder,
 	public Ghe save(Ghe ghe) throws Exception {
 		
 		if(ghe.getId() == 0) {
-			ghe.setDataCriacao(Helper.getNow());
+			ghe.setDataCriacao(Helper.getToday());
 		}
 		
 		return super.save(ghe);

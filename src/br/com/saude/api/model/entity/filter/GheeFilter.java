@@ -9,7 +9,6 @@ public class GheeFilter extends GenericFilter {
 	private String codigo;
 	private DateFilter dataCriacao;
 	private DateFilter dataDesativacao;
-	private String descricao;
 	
 	public String getNome() {
 		return nome;
@@ -34,11 +33,5 @@ public class GheeFilter extends GenericFilter {
 	}
 	public void setDataDesativacao(DateFilter dataDesativacao) {
 		this.dataDesativacao = dataDesativacao;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 }

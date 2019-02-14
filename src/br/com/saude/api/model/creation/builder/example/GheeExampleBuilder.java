@@ -22,7 +22,6 @@ public class GheeExampleBuilder extends GenericExampleBuilder<Ghee, GheeFilter> 
 		addCodigo();
 		addDataCriacao();
 		addDataDesativacao();
-		addDescricao();
 		addNome();
 	}
 	
@@ -42,11 +41,5 @@ public class GheeExampleBuilder extends GenericExampleBuilder<Ghee, GheeFilter> 
 	private void addCodigo() {
 		if(this.filter.getCodigo() != null)
 			this.entity.setCodigo(Helper.filterLike(this.filter.getCodigo()));
-	}
-	
-	private void addDescricao() {
-		if(this.filter.getDescricao() != null)
-			this.entity.setDescricao(Helper.filterLike(this.filter.getDescricao()));
-	}
-	
+	}	
 }

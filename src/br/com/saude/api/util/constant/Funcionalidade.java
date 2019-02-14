@@ -136,6 +136,18 @@ public class Funcionalidade extends GenericConstant {
 	public static final String GHE_LISTAR							= "GHE_LISTAR";
 	public static final String GHE_REMOVER 							= "GHE_REMOVER";
 	
+	public static final String GHEE_ADICIONAR 			    		= "GHEE_ADICIONAR";
+	public static final String GHEE_EDITAR		 					= "GHEE_EDITAR";
+	public static final String GHEE_DETALHAR 						= "GHEE_DETALHAR";
+	public static final String GHEE_LISTAR							= "GHEE_LISTAR";
+	public static final String GHEE_REMOVER 						= "GHEE_REMOVER";
+	
+	public static final String GRUPO_MONITORAMENTO_ADICIONAR		= "GRUPO-MONITORAMENTO_ADICIONAR";
+	public static final String GRUPO_MONITORAMENTO_EDITAR	 		= "GRUPO-MONITORAMENTO_EDITAR";
+	public static final String GRUPO_MONITORAMENTO_DETALHAR			= "GRUPO-MONITORAMENTO_DETALHAR";
+	public static final String GRUPO_MONITORAMENTO_LISTAR			= "GRUPO-MONITORAMENTO_LISTAR";
+	public static final String GRUPO_MONITORAMENTO_REMOVER 			= "GRUPO-MONITORAMENTO_REMOVER";
+	
 	public static final String MEDIDA_CASEIRA_ADICIONAR 			= "MEDIDA-CASEIRA_ADICIONAR";
 	public static final String MEDIDA_CASEIRA_EDITAR		 		= "MEDIDA-CASEIRA_EDITAR";
 	public static final String MEDIDA_CASEIRA_DETALHAR 				= "MEDIDA-CASEIRA_DETALHAR";
@@ -166,6 +178,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String REGRA_ATENDIMENTO_LISTAR				= "REGRA-ATENDIMENTO_LISTAR";
 	public static final String REGRA_ATENDIMENTO_REMOVER 			= "REGRA-ATENDIMENTO_REMOVER";
 	
+	public static final String REQUISITO_ASO_ADICIONAR 				= "REQUISITO-ASO_ADICIONAR";
+	public static final String REQUISITO_ASO_EDITAR		 			= "REQUISITO-ASO_EDITAR";
+	public static final String REQUISITO_ASO_DETALHAR 				= "REQUISITO-ASO_DETALHAR";
+	public static final String REQUISITO_ASO_LISTAR					= "REQUISITO-ASO_LISTAR";
+	public static final String REQUISITO_ASO_REMOVER 				= "REQUISITO-ASO_REMOVER";
+	
 	public static final String RISCO_GHE_ADICIONAR 			    	= "RISCO-GHE_ADICIONAR";
 	public static final String RISCO_GHE_EDITAR		 				= "RISCO-GHE_EDITAR";
 	public static final String RISCO_GHE_DETALHAR 					= "RISCO-GHE_DETALHAR";
@@ -177,6 +195,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String SERVICO_DETALHAR 					= "SERVICO_DETALHAR";
 	public static final String SERVICO_LISTAR						= "SERVICO_LISTAR";
 	public static final String SERVICO_REMOVER 						= "SERVICO_REMOVER";
+	
+	public static final String TIPO_GRUPO_MONITORAMENTO_ADICIONAR 	= "TIPO-GRUPO-MONITORAMENTO_ADICIONAR";
+	public static final String TIPO_GRUPO_MONITORAMENTO_EDITAR 		= "TIPO-GRUPO-MONITORAMENTO_EDITAR";
+	public static final String TIPO_GRUPO_MONITORAMENTO_DETALHAR	= "TIPO-GRUPO-MONITORAMENTO_DETALHAR";
+	public static final String TIPO_GRUPO_MONITORAMENTO_LISTAR		= "TIPO-GRUPO-MONITORAMENTO_LISTAR";
+	public static final String TIPO_GRUPO_MONITORAMENTO_REMOVER 	= "TIPO-GRUPO-MONITORAMENTO_REMOVER";
 	
 	public static final String USUARIO_ADICIONAR 			    	= "USUARIO_ADICIONAR";
 	public static final String USUARIO_EDITAR		 				= "USUARIO_EDITAR";

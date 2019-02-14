@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,6 +27,7 @@ public class RegraAtendimento {
 	@Column(unique=true)
 	private String nome;
 	
+	@OrderBy(value="ordem")
 	@OneToMany(mappedBy="regraAtendimento", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<RegraAtendimentoEquipe> regraAtendimentoEquipes;
 	

@@ -31,6 +31,7 @@ public class RegraAtendimentoEquipeBuilder extends GenericEntityBuilder<RegraAte
 		
 		newRegraAtendimentoEquipe.setId(regra.getId());
 		newRegraAtendimentoEquipe.setAcolhimento(regra.isAcolhimento());
+		newRegraAtendimentoEquipe.setOrdem(regra.getOrdem());
 		newRegraAtendimentoEquipe.setVersion(regra.getVersion());
 		if(regra.getEquipe() != null) {
 			newRegraAtendimentoEquipe.setEquipe(EquipeBuilder

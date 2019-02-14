@@ -8,8 +8,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
@@ -32,8 +35,12 @@ public class RegraAtendimentoEquipe {
 	
 	private int ordem;
 	
-	@OneToMany(mappedBy="regraAtendimentoEquipe", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
-	private List<Dependencia> dependencias;
+	@ManyToMany(fetch=FetchType.EAGER, cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@JoinTable(name="regraatendimentoequipe_equipe", 
+	joinColumns = {@JoinColumn(name="regraatendimentoequipe_id")}, 
+	inverseJoinColumns = {@JoinColumn(name="equipe_id")})
+	@OrderBy(value="nome")
+	private List<Equipe> equipes;
 	
 	@Version
 	private long version;
@@ -78,20 +85,20 @@ public class RegraAtendimentoEquipe {
 		this.acolhimento = acolhimento;
 	}
 
-	public List<Dependencia> getDependencias() {
-		return dependencias;
-	}
-
-	public void setDependencias(List<Dependencia> dependencias) {
-		this.dependencias = dependencias;
-	}
-
 	public int getOrdem() {
 		return ordem;
 	}
 
 	public void setOrdem(int ordem) {
 		this.ordem = ordem;
+	}
+
+	public List<Equipe> getEquipes() {
+		return equipes;
+	}
+
+	public void setEquipes(List<Equipe> equipes) {
+		this.equipes = equipes;
 	}
 	
 }

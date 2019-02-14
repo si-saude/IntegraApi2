@@ -46,9 +46,6 @@ public class RegraAtendimentoBo extends GenericBo<RegraAtendimento, RegraAtendim
 		if(Helper.isNotNull(regra.getRegraAtendimentoEquipes())) {
 			regra.getRegraAtendimentoEquipes().forEach(r -> {
 				r.setRegraAtendimento(regra);
-				if(Helper.isNotNull(r.getDependencias())) {
-					r.getDependencias().forEach(d -> d.setRegraAtendimentoEquipe(r));
-				}
 			});
 		}
 		return super.save(regra);

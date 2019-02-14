@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import br.com.saude.api.generic.GenericConstant;
 import br.com.saude.api.util.RequestInterceptor;
 import br.com.saude.api.util.StringSorter;
+import br.com.saude.api.util.constant.GrupoServico;
 import br.com.saude.api.util.constant.Operador;
 import br.com.saude.api.util.constant.Sexo;
 import br.com.saude.api.util.constant.TipoCriterio;
@@ -34,6 +35,15 @@ public class UtilService {
 	private Object[] getValues(GenericConstant constant, String filter) throws Exception {
 		Map<String, String> map = getMap(constant,filter);
 		return map.values().toArray();
+	}
+	
+	@GET
+	@Path("/grupo-servico")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getGrupoServico(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(GrupoServico.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
 	}
 	
 	@GET

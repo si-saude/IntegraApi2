@@ -35,7 +35,7 @@ public class RegraAtendimentoEquipe {
 	
 	private int ordem;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinTable(name="regraatendimentoequipe_equipe", 
 	joinColumns = {@JoinColumn(name="regraatendimentoequipe_id")}, 
 	inverseJoinColumns = {@JoinColumn(name="equipe_id")})

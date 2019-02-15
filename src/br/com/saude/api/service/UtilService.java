@@ -13,14 +13,18 @@ import javax.ws.rs.core.Response;
 import br.com.saude.api.generic.GenericConstant;
 import br.com.saude.api.util.RequestInterceptor;
 import br.com.saude.api.util.StringSorter;
+import br.com.saude.api.util.constant.Escolaridade;
+import br.com.saude.api.util.constant.EstadoCivil;
 import br.com.saude.api.util.constant.GrupoServico;
 import br.com.saude.api.util.constant.Operador;
 import br.com.saude.api.util.constant.Sexo;
+import br.com.saude.api.util.constant.StatusEmpregado;
 import br.com.saude.api.util.constant.TipoCriterio;
 import br.com.saude.api.util.constant.TipoAlimento;
 import br.com.saude.api.util.constant.TipoPerguntaFichaColeta;
 import br.com.saude.api.util.constant.TypeFilter;
 import br.com.saude.api.util.constant.Uf;
+import br.com.saude.api.util.constant.VinculoEmpregado;
 
 @Path("generic")
 @RequestInterceptor
@@ -35,6 +39,24 @@ public class UtilService {
 	private Object[] getValues(GenericConstant constant, String filter) throws Exception {
 		Map<String, String> map = getMap(constant,filter);
 		return map.values().toArray();
+	}
+	
+	@GET
+	@Path("/escolaridade")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getEscolaridade(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(Escolaridade.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/estado-civil")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getEstadoCivil(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(EstadoCivil.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
 	}
 	
 	@GET
@@ -59,6 +81,15 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSexo(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(Sexo.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/status-empregado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStatusEmpregado(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(StatusEmpregado.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
 		return Response.ok(values).build();
 	}
 	
@@ -102,6 +133,15 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUf(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(Uf.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/vinculo-empregado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getVinculoEmpregado(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(VinculoEmpregado.getInstance(), filter);
 		values = StringSorter.newInstance(values).sort().get();
 		return Response.ok(values).build();
 	}

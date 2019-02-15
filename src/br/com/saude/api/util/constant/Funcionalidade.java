@@ -76,6 +76,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String EIXO_LISTAR							= "EIXO_LISTAR";
 	public static final String EIXO_REMOVER 						= "EIXO_REMOVER";
 	
+	public static final String EMPREGADO_ADICIONAR 			    	= "EMPREGADO_ADICIONAR";
+	public static final String EMPREGADO_EDITAR		 				= "EMPREGADO_EDITAR";
+	public static final String EMPREGADO_DETALHAR 					= "EMPREGADO_DETALHAR";
+	public static final String EMPREGADO_LISTAR						= "EMPREGADO_LISTAR";
+	public static final String EMPREGADO_REMOVER 					= "EMPREGADO_REMOVER";
+	
 	public static final String ENFASE_ADICIONAR 			    	= "ENFASE_ADICIONAR";
 	public static final String ENFASE_EDITAR		 				= "ENFASE_EDITAR";
 	public static final String ENFASE_DETALHAR 						= "ENFASE_DETALHAR";

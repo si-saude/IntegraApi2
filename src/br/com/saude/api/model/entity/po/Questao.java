@@ -63,10 +63,6 @@ public class Questao {
 		return titulo;
 	}
 
-	public void setNome(String titulo) {
-		this.titulo = titulo;
-	}
-
 	public long getVersion() {
 		return version;
 	}

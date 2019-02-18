@@ -3,7 +3,6 @@ package br.com.saude.api.model.entity.po;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,11 +23,10 @@ public class Questionario {
 	
 	@NotNull(message="É necessário informar Nome.")
 	@Size(max = 128, message="Tamanho máximo para Nome: 128")
-	@Column(unique=true)
 	private String nome;
 	
-	@NotNull(message="É necessário informar o Tipo da Questão.")
-	@Size(max = 64, message="Tamanho máximo para o Tipo da Questão: 64")
+	@NotNull(message="É necessário informar o Tipo do Questionário.")
+	@Size(max = 64, message="Tamanho máximo para o Tipo do Questionário: 64")
 	private String tipo;
 	
 	@OrderBy(value="codigo")

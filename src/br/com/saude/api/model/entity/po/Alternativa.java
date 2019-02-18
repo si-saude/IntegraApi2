@@ -50,10 +50,6 @@ public class Alternativa {
 		return titulo;
 	}
 
-	public void setNome(String titulo) {
-		this.titulo = titulo;
-	}
-
 	public long getVersion() {
 		return version;
 	}
@@ -93,7 +89,7 @@ public class Alternativa {
 	public void setCodigoProximo(String codigoProximo) {
 		this.codigoProximo = codigoProximo;
 	}
-
+	
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}

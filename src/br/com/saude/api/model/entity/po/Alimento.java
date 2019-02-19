@@ -28,7 +28,7 @@ public class Alimento {
 	@OneToMany(mappedBy="alimento", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 	private List<AlimentoMedidaCaseira> alimentosMedidaCaseira;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	@JoinTable(name="alimento_substituicao", 
 	joinColumns = {@JoinColumn(name="alimento1_id")}, 
 	inverseJoinColumns = {@JoinColumn(name="alimento2_id")})

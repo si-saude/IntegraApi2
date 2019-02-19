@@ -22,6 +22,8 @@ import br.com.saude.api.util.constant.StatusEmpregado;
 import br.com.saude.api.util.constant.TipoCriterio;
 import br.com.saude.api.util.constant.TipoAlimento;
 import br.com.saude.api.util.constant.TipoPerguntaFichaColeta;
+import br.com.saude.api.util.constant.TipoQuestao;
+import br.com.saude.api.util.constant.TipoQuestionario;
 import br.com.saude.api.util.constant.TypeFilter;
 import br.com.saude.api.util.constant.Uf;
 import br.com.saude.api.util.constant.VinculoEmpregado;
@@ -116,6 +118,24 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTipoPerguntaFichaColeta(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(TipoPerguntaFichaColeta.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/tipo-questao")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTipoQuestao(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(TipoQuestao.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/tipo-questionario")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTipoQuestionario(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(TipoQuestionario.getInstance(), filter);
 		values = StringSorter.newInstance(values).sort().get();
 		return Response.ok(values).build();
 	}

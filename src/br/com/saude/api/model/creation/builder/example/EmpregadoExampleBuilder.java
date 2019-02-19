@@ -83,12 +83,12 @@ public class EmpregadoExampleBuilder extends GenericExampleBuilder<Empregado, Em
 	}
 	
 	private void addGhe() throws InstantiationException, IllegalAccessException {
-		this.addGenericFilter("ghe", this.filter.getGhe(),
+		this.addLeftJoinGenericFilter("ghe", this.filter.getGhe(),
 				GheExampleBuilder.newInstance(this.filter.getGhe()));
 	}
 	
 	private void addGhee() throws InstantiationException, IllegalAccessException {
-		this.addGenericFilter("ghee", this.filter.getGhee(),
+		this.addLeftJoinGenericFilter("ghee", this.filter.getGhee(),
 				GheeExampleBuilder.newInstance(this.filter.getGhee()));
 	}
 }

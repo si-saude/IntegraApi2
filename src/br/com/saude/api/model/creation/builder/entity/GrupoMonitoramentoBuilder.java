@@ -30,7 +30,6 @@ public class GrupoMonitoramentoBuilder extends GenericEntityBuilder<GrupoMonitor
 		
 		newGrupoMonitoramento.setId(grupoMonitoramento.getId());
 		newGrupoMonitoramento.setNome(grupoMonitoramento.getNome());
-		newGrupoMonitoramento.setTipoGrupoMonitoramento(grupoMonitoramento.getTipoGrupoMonitoramento());
 		newGrupoMonitoramento.setRecorrente(grupoMonitoramento.isRecorrente());
 		newGrupoMonitoramento.setRelatorio(grupoMonitoramento.isRelatorio());
 		newGrupoMonitoramento.setAuditoriaAso(grupoMonitoramento.isAuditoriaAso());

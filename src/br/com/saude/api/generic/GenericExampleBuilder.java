@@ -145,13 +145,13 @@ public abstract class GenericExampleBuilder<T,F extends GenericFilter> {
 	}
 	
 	protected void ilike(String property, String value) {
-		if(value != null) {
+		if(value != null && value.trim().length() > 0) {
 			this.criterions.add(Restrictions.ilike(property, Helper.filterLike(value)));
 		}
 	}
 	
 	protected void ilikeEx(String property, String value) {
-		if(value != null) {
+		if(value != null && value.trim().length() > 0) {
 			this.criterions.add(Restrictions.ilike(property, value));
 		}
 	}
@@ -170,6 +170,13 @@ public abstract class GenericExampleBuilder<T,F extends GenericFilter> {
 		if(Helper.isNotNull(filter)) {
 			CriteriaExample criteriaExample = builder.getCriteriaExample();
 			this.criterias.add(new Triplet<String,CriteriaExample,JoinType>(property, criteriaExample, JoinType.INNER_JOIN));
+		}
+	}
+	
+	protected void addLeftJoinGenericFilter(String property, GenericFilter filter, GenericExampleBuilder<?,?> builder) throws InstantiationException, IllegalAccessException {
+		if(Helper.isNotNull(filter)) {
+			CriteriaExample criteriaExample = builder.getCriteriaExample();
+			this.criterias.add(new Triplet<String,CriteriaExample,JoinType>(property, criteriaExample, JoinType.LEFT_OUTER_JOIN));
 		}
 	}
 }

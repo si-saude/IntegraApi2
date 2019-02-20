@@ -93,7 +93,7 @@ public class Empregado {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Ghee ghee;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.PERSIST)
 	@JoinTable(name="empregado_grupomonitoramento", 
 				joinColumns = {@JoinColumn(name="empregado_id")}, 
 				inverseJoinColumns = {@JoinColumn(name="grupomonitoramento_id")})

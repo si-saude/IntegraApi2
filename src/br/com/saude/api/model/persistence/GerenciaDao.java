@@ -42,10 +42,13 @@ public class GerenciaDao extends GenericDao<Gerencia> {
 			criteria.createAlias("gerencia", "gerencia1", JoinType.LEFT_OUTER_JOIN);
 			criteria.createAlias("gerencia1.gerencia", "gerencia2", JoinType.LEFT_OUTER_JOIN);
 			criteria.createAlias("gerencia2.gerencia", "gerencia3", JoinType.LEFT_OUTER_JOIN);
+			criteria.createAlias("gerencia3.gerencia", "gerencia4", JoinType.LEFT_OUTER_JOIN);
+			criteria.createAlias("gerencia4.gerencia", "gerencia5", JoinType.LEFT_OUTER_JOIN);
+			criteria.createAlias("gerencia5.gerencia", "gerencia6", JoinType.LEFT_OUTER_JOIN);
 			
 			Criterion or = null;
 			int i = 0;
-			for(int x = gerencias.length - 1; x <= 3; x++) {
+			for(int x = gerencias.length - 1; x <= 6; x++) {
 				Criterion and = null;
 				for(int y = i; y < gerencias.length + i; y++) {
 					if(and == null) {

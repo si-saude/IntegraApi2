@@ -16,7 +16,9 @@ public class TipoQuestao extends GenericConstant  {
 		return instance;
 	}
 	
-	public static final String OBJETIVA 				= "OBJETIVA";
-	public static final String OBJETIVA_COM_OBSERVA플O	= "OBJETIVA COM OBSERVA플O";
-	public static final String SUBJETIVA 				= "SUBJETIVA";
+	public static final String MULTIPLA_ESCOLHA 				= "MULTIPLA ESCOLHA";
+	public static final String MULTIPLA_ESCOLHA_COM_OBSERVACAO	= "MULTIPLA ESCOLHA COM OBSERVA플O";
+	public static final String OBJETIVA 						= "OBJETIVA";
+	public static final String OBJETIVA_COM_OBSERVACAO			= "OBJETIVA COM OBSERVA플O";
+	public static final String SUBJETIVA 						= "SUBJETIVA";
 }

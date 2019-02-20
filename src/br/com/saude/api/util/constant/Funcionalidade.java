@@ -130,6 +130,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String INTERVENCAO_LISTAR					= "INTERVENCAO_LISTAR";
 	public static final String INTERVENCAO_REMOVER 					= "INTERVENCAO_REMOVER";
 	
+	public static final String LOCALIZACAO_ADICIONAR 			    = "LOCALIZACAO_ADICIONAR";
+	public static final String LOCALIZACAO_EDITAR		 			= "LOCALIZACAO_EDITAR";
+	public static final String LOCALIZACAO_DETALHAR 				= "LOCALIZACAO_DETALHAR";
+	public static final String LOCALIZACAO_LISTAR					= "LOCALIZACAO_LISTAR";
+	public static final String LOCALIZACAO_REMOVER 					= "LOCALIZACAO_REMOVER";
+	
 	public static final String FUNCAO_ADICIONAR 			    	= "FUNCAO_ADICIONAR";
 	public static final String FUNCAO_EDITAR		 				= "FUNCAO_EDITAR";
 	public static final String FUNCAO_DETALHAR 						= "FUNCAO_DETALHAR";

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -98,6 +99,9 @@ public class Empregado {
 				joinColumns = {@JoinColumn(name="empregado_id")}, 
 				inverseJoinColumns = {@JoinColumn(name="grupomonitoramento_id")})
 	private List<GrupoMonitoramento> grupoMonitoramentos;
+	
+	@Lob
+	private String foto;
 	
 	@Version
 	private long version;
@@ -236,6 +240,12 @@ public class Empregado {
 		this.email = email;
 	}
 	
+	public String getFoto() {
+		return foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
 	@Override
 	public boolean equals(Object empregado) {
 		return ((Empregado)empregado).id == this.id && this.id > 0;

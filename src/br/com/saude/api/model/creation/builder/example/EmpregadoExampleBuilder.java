@@ -25,7 +25,6 @@ public class EmpregadoExampleBuilder extends GenericExampleBuilder<Empregado, Em
 		addFuncao();
 		addEnfase();
 		addRegime();
-		addGerencia();
 		addBase();
 		addGhe();
 		addGhee();
@@ -70,11 +69,6 @@ public class EmpregadoExampleBuilder extends GenericExampleBuilder<Empregado, Em
 	private void addRegime() throws InstantiationException, IllegalAccessException {
 		this.addGenericFilter("regime", this.filter.getRegime(),
 				RegimeExampleBuilder.newInstance(this.filter.getRegime()));
-	}
-	
-	private void addGerencia() throws InstantiationException, IllegalAccessException {
-		this.addGenericFilter("gerencia", this.filter.getGerencia(),
-				GerenciaExampleBuilder.newInstance(this.filter.getGerencia()));
 	}
 	
 	private void addBase() throws InstantiationException, IllegalAccessException {

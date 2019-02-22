@@ -38,7 +38,7 @@ public class ProfissionalBo extends GenericBo<Profissional, ProfissionalFilter, 
 	
 	@Override
 	public PagedList<Profissional> getList(ProfissionalFilter filter) throws Exception {
-		return super.getOrderedList(filter,"empregado.matricula");
+		return super.getOrderedList(filter,"pessoa.nome");
 	}
 	
 	@Override

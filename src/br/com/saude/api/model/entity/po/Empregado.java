@@ -101,6 +101,9 @@ public class Empregado {
 	private List<GrupoMonitoramento> grupoMonitoramentos;
 	
 	@Lob
+	private String assinatura;
+	
+	@Lob
 	private String foto;
 	
 	@Version
@@ -245,6 +248,13 @@ public class Empregado {
 	}
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+	
+	public String getAssinatura() {
+		return assinatura;
+	}
+	public void setAssinatura(String assinatura) {
+		this.assinatura = assinatura;
 	}
 	@Override
 	public boolean equals(Object empregado) {

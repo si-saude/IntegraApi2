@@ -19,7 +19,7 @@ public class EmpregadoExampleBuilder extends GenericExampleBuilder<Empregado, Em
 		addChave();
 		addMatricula();
 		addPessoa();
-		addStatu();
+		addStatus();
 		addVinculo();
 		addCargo();
 		addFuncao();
@@ -38,7 +38,7 @@ public class EmpregadoExampleBuilder extends GenericExampleBuilder<Empregado, Em
 		this.ilike("matricula", this.filter.getMatricula());
 	}
 	
-	private void addStatu() {
+	private void addStatus() {
 		this.ilike("status", this.filter.getStatus());
 	}
 	

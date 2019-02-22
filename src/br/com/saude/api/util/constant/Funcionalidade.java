@@ -16,11 +16,11 @@ public class Funcionalidade extends GenericConstant {
 		return instance;
 	}
 	
-	public static final String ALIMENTO_ADICIONAR 			    		= "ALIMENTO_ADICIONAR";
-	public static final String ALIMENTO_EDITAR		 					= "ALIMENTO_EDITAR";
-	public static final String ALIMENTO_DETALHAR 						= "ALIMENTO_DETALHAR";
-	public static final String ALIMENTO_LISTAR							= "ALIMENTO_LISTAR";
-	public static final String ALIMENTO_REMOVER 						= "ALIMENTO_REMOVER";
+	public static final String ALIMENTO_ADICIONAR 			   		= "ALIMENTO_ADICIONAR";
+	public static final String ALIMENTO_EDITAR		 				= "ALIMENTO_EDITAR";
+	public static final String ALIMENTO_DETALHAR 					= "ALIMENTO_DETALHAR";
+	public static final String ALIMENTO_LISTAR						= "ALIMENTO_LISTAR";
+	public static final String ALIMENTO_REMOVER 					= "ALIMENTO_REMOVER";
 	
 	public static final String ATIVIDADE_FISICA_ADICIONAR 			= "ATIVIDADE-FISICA_ADICIONAR";
 	public static final String ATIVIDADE_FISICA_EDITAR		 		= "ATIVIDADE-FISICA_EDITAR";
@@ -177,6 +177,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String PERGUNTA_FICHA_COLETA_DETALHAR 		= "PERGUNTA-FICHA-COLETA_DETALHAR";
 	public static final String PERGUNTA_FICHA_COLETA_LISTAR			= "PERGUNTA-FICHA-COLETA_LISTAR";
 	public static final String PERGUNTA_FICHA_COLETA_REMOVER 		= "PERGUNTA-FICHA-COLETA_REMOVER";
+	
+	public static final String PROFISSIONAL_ADICIONAR 			    = "PROFISSIONAL_ADICIONAR";
+	public static final String PROFISSIONAL_EDITAR		 			= "PROFISSIONAL_EDITAR";
+	public static final String PROFISSIONAL_DETALHAR 				= "PROFISSIONAL_DETALHAR";
+	public static final String PROFISSIONAL_LISTAR					= "PROFISSIONAL_LISTAR";
+	public static final String PROFISSIONAL_REMOVER 				= "PROFISSIONAL_REMOVER";
 	
 	public static final String QUESTIONARIO_ADICIONAR 			    = "QUESTIONARIO_ADICIONAR";
 	public static final String QUESTIONARIO_EDITAR		 			= "QUESTIONARIO_EDITAR";

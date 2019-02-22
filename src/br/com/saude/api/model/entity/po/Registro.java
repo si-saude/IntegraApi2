@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,6 +27,9 @@ public class Registro {
 	private String numero;
 	
 	private long vencimento;
+	
+	@Version
+	private long version;
 
 	public long getId() {
 		return id;
@@ -59,11 +63,19 @@ public class Registro {
 		this.numero = numero;
 	}
 
-	public Long getVencimento() {
+	public long getVencimento() {
 		return vencimento;
 	}
 
-	public void setVencimento(Long vencimento) {
+	public void setVencimento(long vencimento) {
 		this.vencimento = vencimento;
+	}
+	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 }

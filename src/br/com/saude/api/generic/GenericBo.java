@@ -63,6 +63,13 @@ public abstract class GenericBo<T, F extends GenericFilter, D extends GenericDao
 		return getList(filter,null);
 	}
 	
+	public PagedList<T> getDescOrderedList(F filter, String property) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, Exception {
+		filter.setOrder(new OrderFilter());
+		filter.getOrder().setProperty(property);
+		filter.getOrder().setDesc(true);
+		return getList(filter,null);
+	}
+	
 	public PagedList<T> getList(GenericExampleBuilder<T, F> exampleBuilder) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, InstantiationException, Exception{
 		PagedList<T> pagedList = getDao().getList(exampleBuilder);
 		return getList(pagedList,null);

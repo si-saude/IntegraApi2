@@ -22,6 +22,8 @@ public class Funcionalidade extends GenericConstant {
 	public static final String ALIMENTO_LISTAR						= "ALIMENTO_LISTAR";
 	public static final String ALIMENTO_REMOVER 					= "ALIMENTO_REMOVER";
 	
+	public static final String ATENDIMENTO_ATENDIMENTO 				= "ATENDIMENTO_ATENDIMENTO";
+	
 	public static final String ATIVIDADE_FISICA_ADICIONAR 			= "ATIVIDADE-FISICA_ADICIONAR";
 	public static final String ATIVIDADE_FISICA_EDITAR		 		= "ATIVIDADE-FISICA_EDITAR";
 	public static final String ATIVIDADE_FISICA_DETALHAR 			= "ATIVIDADE-FISICA_DETALHAR";

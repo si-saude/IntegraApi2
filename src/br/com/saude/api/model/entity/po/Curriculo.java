@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -20,7 +19,6 @@ public class Curriculo {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull(message="É necessário informar o Histórico do Currículo.")
 	@Size(max = 4096, message="Tamanho máximo para Histórico do Currículo: 4096")
 	private String historico;
 	

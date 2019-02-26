@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -15,14 +14,12 @@ public class Registro {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@NotNull(message="É necessário informar o Nome do Registro.")
 	@Size(max = 200, message="Tamanho máximo para Nome do Registro: 200")
 	private String conselho;
 	
 	@Size(max = 2, message="Tamanho máximo para UF do Registro: 2")
 	private String uf;
 	
-	@NotNull(message="É necessário informar o Número do Registro.")
 	@Size(max = 26, message="Tamanho máximo para Nome do Registro: 26")
 	private String numero;
 	

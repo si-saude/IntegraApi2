@@ -178,6 +178,12 @@ public class Funcionalidade extends GenericConstant {
 	public static final String PERGUNTA_FICHA_COLETA_LISTAR			= "PERGUNTA-FICHA-COLETA_LISTAR";
 	public static final String PERGUNTA_FICHA_COLETA_REMOVER 		= "PERGUNTA-FICHA-COLETA_REMOVER";
 	
+	public static final String PROFISSIOGRAMA_ADICIONAR 			= "PROFISSIOGRAMA_ADICIONAR";
+	public static final String PROFISSIOGRAMA_EDITAR		 		= "PROFISSIOGRAMA_EDITAR";
+	public static final String PROFISSIOGRAMA_DETALHAR 				= "PROFISSIOGRAMA_DETALHAR";
+	public static final String PROFISSIOGRAMA_LISTAR				= "PROFISSIOGRAMA_LISTAR";
+	public static final String PROFISSIOGRAMA_REMOVER 				= "PROFISSIOGRAMA_REMOVER";
+	
 	public static final String PROFISSIONAL_ADICIONAR 			    = "PROFISSIONAL_ADICIONAR";
 	public static final String PROFISSIONAL_EDITAR		 			= "PROFISSIONAL_EDITAR";
 	public static final String PROFISSIONAL_DETALHAR 				= "PROFISSIONAL_DETALHAR";

@@ -21,4 +21,5 @@ public class StatusTarefa extends GenericConstant {
 	public final String EXECUCAO 			= "EXECUÇÃO";
 	public final String CONCLUIDA 			= "CONCLUÍDA";
 	public final String CANCELADA 			= "CANCELADA";
+	public final String PENDENTE 			= "PENDENTE";
 }

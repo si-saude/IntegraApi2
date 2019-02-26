@@ -1,5 +1,7 @@
 package br.com.saude.api.model.business;
 
+import java.util.List;
+
 import br.com.saude.api.generic.GenericBo;
 import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.creation.builder.entity.ServicoBuilder;
@@ -43,5 +45,9 @@ public class ServicoBo extends GenericBo<Servico, ServicoFilter, ServicoDao,
 	@Override
 	public PagedList<Servico> getList(ServicoFilter filter) throws Exception {
 		return super.getOrderedList(filter,"nome");
+	}
+	
+	public List<Servico> getListExisteTarefaAbertaPendenteByEmpregado(long empregadoId) throws Exception {
+		return getBuilder(getDao().getListExisteTarefaAbertaPendenteByEmpregado(empregadoId)).getEntityList();
 	}
 }

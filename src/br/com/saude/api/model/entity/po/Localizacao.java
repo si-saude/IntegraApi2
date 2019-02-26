@@ -21,6 +21,7 @@ public class Localizacao {
 	private String nome;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
+	@NotNull(message="É necessário informar a Base da Localização.")
 	private Base base;
 	
 	@Version

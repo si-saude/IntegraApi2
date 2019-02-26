@@ -220,8 +220,6 @@ public class Funcionalidade extends GenericConstant {
 	public static final String SERVICO_LISTAR						= "SERVICO_LISTAR";
 	public static final String SERVICO_REMOVER 						= "SERVICO_REMOVER";
 	
-	public static final String SOLICITACAO_SOLICITAR 			    = "SOLICITACAO_SOLICITAR";
-	
 	public static final String TIPO_GRUPO_MONITORAMENTO_ADICIONAR 	= "TIPO-GRUPO-MONITORAMENTO_ADICIONAR";
 	public static final String TIPO_GRUPO_MONITORAMENTO_EDITAR 		= "TIPO-GRUPO-MONITORAMENTO_EDITAR";
 	public static final String TIPO_GRUPO_MONITORAMENTO_DETALHAR	= "TIPO-GRUPO-MONITORAMENTO_DETALHAR";
@@ -233,4 +231,10 @@ public class Funcionalidade extends GenericConstant {
 	public static final String USUARIO_DETALHAR 					= "USUARIO_DETALHAR";
 	public static final String USUARIO_LISTAR						= "USUARIO_LISTAR";
 	public static final String USUARIO_REMOVER 						= "USUARIO_REMOVER";
+	
+	
+	
+	public static final String CHECKIN_CHECKIN 			    		= "CHECKIN_CHECKIN";
+	
+	public static final String SOLICITACAO_SOLICITAR 			    = "SOLICITACAO_SOLICITAR";
 }

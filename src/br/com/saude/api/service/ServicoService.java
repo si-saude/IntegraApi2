@@ -62,4 +62,17 @@ public class ServicoService extends GenericService<Servico,ServicoFilter,Servico
 	public Response delete(Object id) {
 		return super.delete(id);
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/get-list-existe-tarefa-aberta-pendente-by-empregado")
+	public Response getListExisteTarefaAbertaPendenteByEmpregado(String empregadoId) {		
+		try {
+			return Response.ok(getBo()
+				.getListExisteTarefaAbertaPendenteByEmpregado(new Long(empregadoId))).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
 }

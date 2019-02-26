@@ -44,7 +44,7 @@ public class Servico {
 	
 	private boolean inativo;
 
-	@ManyToMany(fetch=FetchType.LAZY, cascade= {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToMany(fetch=FetchType.LAZY, cascade= CascadeType.PERSIST)
 	@JoinTable(name="servico_equipe", 
 	joinColumns = {@JoinColumn(name="servico_id")}, 
 	inverseJoinColumns = {@JoinColumn(name="equipe_id")})

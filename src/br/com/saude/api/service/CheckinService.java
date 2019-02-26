@@ -11,23 +11,23 @@ import javax.ws.rs.core.Response;
 
 import br.com.saude.api.generic.CustomValidator;
 import br.com.saude.api.generic.GenericService;
-import br.com.saude.api.model.business.TarefaBo;
-import br.com.saude.api.model.business.validate.TarefaValidator;
-import br.com.saude.api.model.entity.filter.TarefaFilter;
-import br.com.saude.api.model.entity.po.Tarefa;
+import br.com.saude.api.model.business.CheckinBo;
+import br.com.saude.api.model.business.validate.CheckinValidator;
+import br.com.saude.api.model.entity.filter.CheckinFilter;
+import br.com.saude.api.model.entity.po.Checkin;
 import br.com.saude.api.util.RequestInterceptor;
 
-@Path("tarefa")
+@Path("checkin")
 @RequestInterceptor
-public class TarefaService extends GenericService<Tarefa,TarefaFilter,TarefaBo> {
+public class CheckinService extends GenericService<Checkin,CheckinFilter,CheckinBo> {
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@CustomValidator(validatorClass=TarefaValidator.class)
+	@CustomValidator(validatorClass=CheckinValidator.class)
 	@Override
-	public Response save(Tarefa tarefa) {		
-		return super.save(tarefa);
+	public Response save(Checkin checkin) {		
+		return super.save(checkin);
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public class TarefaService extends GenericService<Tarefa,TarefaFilter,TarefaBo> 
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/list")
-	public Response getList(TarefaFilter filter) {		
+	public Response getList(CheckinFilter filter) {		
 		return super.getList(filter);
 	}
 
@@ -44,7 +44,7 @@ public class TarefaService extends GenericService<Tarefa,TarefaFilter,TarefaBo> 
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/selectList")
-	public Response getSelectList(TarefaFilter filter) {		
+	public Response getSelectList(CheckinFilter filter) {		
 		return super.getSelectList(filter);
 	}
 
@@ -61,17 +61,5 @@ public class TarefaService extends GenericService<Tarefa,TarefaFilter,TarefaBo> 
 	@Path("/delete")
 	public Response delete(Object id) {
 		return super.delete(id);
-	}
-	
-	@POST
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/registrar")
-	public Response registrar(Tarefa tarefa) {		
-		try {
-			return Response.ok(getBo().registrar(tarefa)).build();
-		}catch (Exception e) {
-			return returnNotAcceptable(e);
-		}
 	}
 }

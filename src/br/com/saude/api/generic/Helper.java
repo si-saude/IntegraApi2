@@ -1,5 +1,7 @@
 package br.com.saude.api.generic;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -36,16 +38,8 @@ public class Helper {
 		return stringBuilder.toString();
 	}
 	
-	@SuppressWarnings("deprecation")
 	public static long getNow() {
-		Date today = new Date();
-		today.setSeconds(0);
-		
-		Calendar c = Calendar.getInstance();
-		c.setTime(today);
-		c.set(Calendar.MILLISECOND, 0);
-		
-		return c.getTime().getTime();
+		return getTime(new Date());
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -53,13 +47,22 @@ public class Helper {
 		Date today = new Date();
 		today.setHours(0);
 		today.setMinutes(0);
-		today.setSeconds(0);
-		
+		return getTime(today);
+	}
+	
+	@SuppressWarnings("deprecation")
+	private static long getTime(Date date) {
+		date.setSeconds(0);
 		Calendar c = Calendar.getInstance();
-		c.setTime(today);
+		c.setTime(date);
 		c.set(Calendar.MILLISECOND, 0);
-		
 		return c.getTime().getTime();
+	}
+	
+	public static String toStringDate(long longDate) {
+		DateFormat simple = new SimpleDateFormat("dd/MM/yyyy"); 
+		Date date = new Date(longDate);
+		return simple.format(date);
 	}
 	
 	public static Criterion getCriterionDateFilter(String propertyName, DateFilter dateFilter) {

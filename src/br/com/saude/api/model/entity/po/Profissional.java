@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -23,6 +24,7 @@ public class Profissional {
 	
 	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "empregado_id")
+	@NotNull(message="É necessário informar o Empregado.")
 	private Empregado empregado;
 	
 	private long dataAso;

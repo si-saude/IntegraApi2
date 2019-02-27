@@ -21,4 +21,5 @@ public class StatusFilaAtendimento  extends GenericConstant {
 	public final String AGUARDANDO_EMPREGADO		= "AGUARDANDO EMPREGADO";
 	public final String EM_ATENDIMENTO				= "EM ATENDIMENTO";
 	public final String LANCAMENTO_DE_INFORMACOES	= "LANÇAMENTO DE INFORMAÇÕES";
+	public final String ENCERRADO 					= "ENCERRADO";
 }

@@ -168,15 +168,18 @@ public abstract class GenericExampleBuilder<T,F extends GenericFilter> {
 	
 	protected void addGenericFilter(String property, GenericFilter filter, GenericExampleBuilder<?,?> builder) throws InstantiationException, IllegalAccessException {
 		if(Helper.isNotNull(filter)) {
-			CriteriaExample criteriaExample = builder.getCriteriaExample();
-			this.criterias.add(new Triplet<String,CriteriaExample,JoinType>(property, criteriaExample, JoinType.INNER_JOIN));
+			this.addLeftJoinCriteria(property, builder);
 		}
 	}
 	
 	protected void addLeftJoinGenericFilter(String property, GenericFilter filter, GenericExampleBuilder<?,?> builder) throws InstantiationException, IllegalAccessException {
 		if(Helper.isNotNull(filter)) {
-			CriteriaExample criteriaExample = builder.getCriteriaExample();
-			this.criterias.add(new Triplet<String,CriteriaExample,JoinType>(property, criteriaExample, JoinType.LEFT_OUTER_JOIN));
+			this.addLeftJoinCriteria(property, builder);
 		}
+	}
+	
+	private void addLeftJoinCriteria(String property, GenericExampleBuilder<?,?> builder) throws InstantiationException, IllegalAccessException {
+		CriteriaExample criteriaExample = builder.getCriteriaExample();
+		this.criterias.add(new Triplet<String,CriteriaExample,JoinType>(property, criteriaExample, JoinType.LEFT_OUTER_JOIN));
 	}
 }

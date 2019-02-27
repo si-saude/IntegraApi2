@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -105,17 +106,30 @@ public class Helper {
 		return dias[diaSemana];
 	}
 
-	public static Criteria loopCriterias(Criteria criteria, List<Triplet<String,CriteriaExample,JoinType>> criterias) {
-		if(criterias != null)
+	public static Criteria loopCriterias(Criteria criteria, List<Triplet<String,CriteriaExample,JoinType>> criterias, Map<String,String> aliases) {
+		if(aliases == null)
+			aliases = new HashMap<String,String>();
+		if(criterias != null) {
 			for(Triplet<String,CriteriaExample,JoinType> c: criterias) {
-				Criteria example = criteria.createCriteria(c.getValue0(),c.getValue0(),c.getValue2());
+				String alias = getNextAlias(aliases, c.getValue0(),0);
+				aliases.put(alias, alias);
+				Criteria example = criteria.createCriteria(c.getValue0(),alias,c.getValue2());
 				for(Criterion criterion : c.getValue1().getCriterions())
 					example.add(criterion);
 				example.add(c.getValue1().getExample());
 				
-				example = loopCriterias(example, c.getValue1().getCriterias());
+				example = loopCriterias(example, c.getValue1().getCriterias(),aliases);
 			}
+		}
 		return criteria;
+	}
+	
+	private static String getNextAlias(Map<String,String> aliases, String alias, int x) {
+		String newAlias = alias;
+		if(aliases.get(alias) != null) {
+			newAlias = getNextAlias(aliases,alias+x,x+1);
+		}
+		return newAlias;
 	}
 	
 	public static DetachedCriteria loopCriterias(DetachedCriteria criteria, List<Triplet<String,CriteriaExample,JoinType>> criterias) {

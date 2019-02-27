@@ -22,7 +22,7 @@ public class FilaAtendimento {
 	private Localizacao localizacao;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@NotNull(message="É necessário informar a Localização da Fila de Atendimento.")
+	@NotNull(message="É necessário informar o Profissional da Fila de Atendimento.")
 	private Profissional profissional;
 	
 	@NotNull(message="É necessário informar o Status da Fila de Atendimento.")

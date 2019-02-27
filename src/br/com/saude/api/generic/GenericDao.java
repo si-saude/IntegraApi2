@@ -170,7 +170,7 @@ public abstract class GenericDao<T> {
 				for(Criterion criterion : criterions)
 					criteria.add(criterion);
 			
-			criteria = Helper.loopCriterias(criteria, exampleBuilder.getCriterias());			
+			criteria = Helper.loopCriterias(criteria, exampleBuilder.getCriterias(),null);			
 			criteria = finishCriteria(criteria,exampleBuilder);	
 			
 			if(exampleBuilder.getFilter().getOrder() != null) {

@@ -62,4 +62,52 @@ public class FilaAtendimentoService extends GenericService<FilaAtendimento,FilaA
 	public Response delete(Object id) {
 		return super.delete(id);
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/entrar-ou-voltar")
+	public Response entrarOuVoltar(FilaAtendimento fila) {		
+		try {
+			return Response.ok(getBo().entrarOuVoltar(fila)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/pausar")
+	public Response pausar(FilaAtendimento fila) {		
+		try {
+			return Response.ok(getBo().pausar(fila)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/encerrar")
+	public Response encerrar(FilaAtendimento fila) {		
+		try {
+			return Response.ok(getBo().encerrar(fila)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/get-list-nao-encerrado")
+	public Response getListNaoEncerrado(FilaAtendimentoFilter filter) {		
+		try {
+			return Response.ok(getBo().getListNaoEncerrado(filter)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
 }

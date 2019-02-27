@@ -62,4 +62,16 @@ public class CheckinService extends GenericService<Checkin,CheckinFilter,Checkin
 	public Response delete(Object id) {
 		return super.delete(id);
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/registrar")
+	public Response registrar(Checkin checkin) {		
+		try {
+			return Response.ok(getBo().registrar(checkin)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
 }

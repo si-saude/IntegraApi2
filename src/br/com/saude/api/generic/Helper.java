@@ -65,6 +65,10 @@ public class Helper {
 		return simple.format(date);
 	}
 	
+	public static long addDays(long days, int add) {
+		return days + (1000*60*60*24*add);
+	}
+	
 	public static Criterion getCriterionDateFilter(String propertyName, DateFilter dateFilter) {
 		if(dateFilter != null && dateFilter.getTypeFilter() != null && dateFilter.getInicio() > 0) {
 			switch(dateFilter.getTypeFilter()) {
@@ -184,5 +188,16 @@ public class Helper {
 	
 	public static boolean isNotNull(GenericFilter filter) {
 		return filter != null;
+	}
+	
+	public static boolean isStringIn(String str, String[] array) {
+		if(array != null && str != null) {
+			for(String s : array) {
+				if(str.equals(s)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

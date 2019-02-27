@@ -18,6 +18,7 @@ import br.com.saude.api.util.constant.EstadoCivil;
 import br.com.saude.api.util.constant.GrupoServico;
 import br.com.saude.api.util.constant.Operador;
 import br.com.saude.api.util.constant.Sexo;
+import br.com.saude.api.util.constant.StatusCheckin;
 import br.com.saude.api.util.constant.StatusEmpregado;
 import br.com.saude.api.util.constant.StatusFilaAtendimento;
 import br.com.saude.api.util.constant.StatusTarefa;
@@ -85,6 +86,14 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getSexo(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(Sexo.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/status-checkin")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStatusCheckin(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(StatusCheckin.getInstance(), filter);
 		return Response.ok(values).build();
 	}
 	

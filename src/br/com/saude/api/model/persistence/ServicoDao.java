@@ -1,14 +1,13 @@
 package br.com.saude.api.model.persistence;
 
 import java.util.List;
-import java.util.Objects;
-
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import br.com.saude.api.generic.GenericDao;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.generic.HibernateHelper;
 import br.com.saude.api.model.entity.po.Servico;
 
@@ -47,9 +46,9 @@ public class ServicoDao extends GenericDao<Servico> {
 		try {
 			Query<Servico> query = session.createQuery("select distinct s from Tarefa t "
 								+ "inner join t.servico as s "
-								+ "inner join t.cliente as c "
-								+ "where c.id = "+Objects.toString(empregadoId)
-								+ "  and t.status in ('ABERTA','PENDENTE') "
+								+ "where t.cliente.id = " + empregadoId
+								+ "  and ((t.status = 'ABERTA' and t.inicio = " + Helper.getToday()+") or "
+										+ "(t.status = 'PENDENTE'))"
 								+ "order by s.nome");
 			servicos = query.list();
 			

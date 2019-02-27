@@ -11,6 +11,7 @@ import br.com.saude.api.model.creation.builder.example.TarefaExampleBuilder;
 import br.com.saude.api.model.entity.filter.EmpregadoFilter;
 import br.com.saude.api.model.entity.filter.ServicoFilter;
 import br.com.saude.api.model.entity.filter.TarefaFilter;
+import br.com.saude.api.model.entity.po.Checkin;
 import br.com.saude.api.model.entity.po.Empregado;
 import br.com.saude.api.model.entity.po.Equipe;
 import br.com.saude.api.model.entity.po.Servico;
@@ -161,5 +162,10 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 			throw new Exception(message.replace("[replace]", "pendente")
 					+ Helper.toStringDate(pagedList.getList().get(0).getInicio()) + ".");
 		}
+	}
+	
+	public List<Tarefa> getListTarefasByCheckin(Checkin checkin) throws Exception {
+		return getBuilder(getDao().getListTarefasByCheckin(checkin.getEmpregado().getId(), 
+				checkin.getServico().getId())).getEntityList();
 	}
 }

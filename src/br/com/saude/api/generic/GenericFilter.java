@@ -1,6 +1,6 @@
 package br.com.saude.api.generic;
 
-public abstract class GenericFilter {
+public class GenericFilter {
 	protected long id;
 	protected int pageNumber = 1;
 	protected int pageSize;

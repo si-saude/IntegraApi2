@@ -168,6 +168,8 @@ public class Funcionalidade extends GenericConstant {
 	public static final String MEDIDA_CASEIRA_LISTAR				= "MEDIDA-CASEIRA_LISTAR";
 	public static final String MEDIDA_CASEIRA_REMOVER 				= "MEDIDA-CASEIRA_REMOVER";
 	
+	public static final String PARAMETRO_EDITAR 			    	= "PARAMETRO_EDITAR";
+	
 	public static final String PERFIL_ADICIONAR 			    	= "PERFIL_ADICIONAR";
 	public static final String PERFIL_EDITAR		 				= "PERFIL_EDITAR";
 	public static final String PERFIL_DETALHAR 						= "PERFIL_DETALHAR";

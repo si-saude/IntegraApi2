@@ -66,8 +66,8 @@ public class Helper {
 		return simple.format(date);
 	}
 	
-	public static long addDays(long days, int add) {
-		return days + (1000*60*60*24*add);
+	public static long addDays(long day, int add) {
+		return day + (1000*60*60*24*add);
 	}
 	
 	public static Criterion getCriterionDateFilter(String propertyName, DateFilter dateFilter) {

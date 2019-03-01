@@ -122,7 +122,7 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 			case GrupoServico.ATENDIMENTO_OCUPACIONAL:
 				switch(tarefa.getServico().getCodigo()) {
 					case "0003":
-						validarExamePeriodico(tarefa);
+						solicitacao = validarExamePeriodico(tarefa, solicitacao);
 						break;
 				}
 				break;
@@ -130,7 +130,7 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 		return solicitacao;
 	}
 	
-	private void validarExamePeriodico(Tarefa tarefa) throws Exception {
+	private List<Tarefa> validarExamePeriodico(Tarefa tarefa, List<Tarefa> solicitacao) throws Exception {
 		String message = "Não é possível solicitar " + tarefa.getServico().getNome() + " pois o empregado " +
 				tarefa.getCliente().getPessoa().getNome() + " possui solicitação [replace] para o dia ";
 		
@@ -162,6 +162,12 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 			throw new Exception(message.replace("[replace]", "pendente")
 					+ Helper.toStringDate(pagedList.getList().get(0).getInicio()) + ".");
 		}
+		
+		Empregado empregado = EmpregadoBo.getInstance().getById(tarefa.getCliente().getId());
+		if(empregado.getGerencia().isAusentePeriodico()) {
+			solicitacao.removeIf(t->t.getEquipe().getAbreviacao().equals("HIG"));
+		}
+		return solicitacao;
 	}
 	
 	public List<Tarefa> getListTarefasByCheckin(Checkin checkin) throws Exception {

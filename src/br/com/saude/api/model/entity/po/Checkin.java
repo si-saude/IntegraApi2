@@ -17,6 +17,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Checkin {
 
@@ -50,6 +53,7 @@ public class Checkin {
 	@JoinTable(name="checkin_tarefa", 
 				joinColumns = {@JoinColumn(name="checkin_id")}, 
 				inverseJoinColumns = {@JoinColumn(name="tarefa_id")})
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Tarefa> tarefas;
 	
 	@Version

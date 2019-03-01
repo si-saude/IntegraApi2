@@ -74,4 +74,16 @@ public class CheckinService extends GenericService<Checkin,CheckinFilter,Checkin
 			return returnNotAcceptable(e);
 		}
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/checkOut")
+	public Response checkOut(Checkin checkin) {		
+		try {
+			return Response.ok(getBo().checkOut(checkin)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
 }

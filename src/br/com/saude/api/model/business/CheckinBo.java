@@ -78,4 +78,20 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		PagedList<Checkin> list = getList(filter);
 		return list.getTotal() > 0 ? list.getList().get(0) : null;
 	}
+	
+	public String checkOut(Checkin checkin) throws Exception {
+		
+		if(checkin.getStatus() == StatusCheckin.getInstance().FINALIZADO ) {
+			throw new Exception("Não é possível realizar o check-out do(a) empregado(a). "
+					+ "Status atual: " + checkin.getStatus());
+		}
+		
+		checkin.setAtualizacao(Helper.getNow());
+		checkin.setStatus(StatusCheckin.getInstance().AUSENTE);
+		
+		// < ---- GERAR PENDÊNCIAS ---------------------------------------------------->
+		this.save(checkin);
+		
+		return "Check-out registrado com sucesso.";
+	}
 }

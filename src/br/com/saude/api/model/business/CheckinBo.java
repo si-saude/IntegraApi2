@@ -13,6 +13,7 @@ import br.com.saude.api.model.entity.filter.ServicoFilter;
 import br.com.saude.api.model.entity.po.Checkin;
 import br.com.saude.api.model.persistence.CheckinDao;
 import br.com.saude.api.util.constant.StatusCheckin;
+import br.com.saude.api.util.constant.StatusTarefa;
 import br.com.saude.api.util.constant.TypeFilter;
 
 public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, CheckinBuilder, 
@@ -47,7 +48,8 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 			if(Helper.isStringIn(checkinAux.getStatus(), new String[] {
 					StatusCheckin.getInstance().AGUARDANDO, StatusCheckin.getInstance().EM_ATENDIMENTO
 			})) {
-				throw new Exception("Não é possível realizar o check-in do(a) empregado(a). "
+				throw new Exception("Não é possível realizar o check-in do(a) empregado(a) "
+						+ checkinAux.getEmpregado().getPessoa().getNome()+"."
 						+ "Status atual: " + checkinAux.getStatus());
 			} else if (checkinAux.getStatus().equals(StatusCheckin.getInstance().AUSENTE)) {
 				checkin = getBuilder(checkinAux).getEntity();
@@ -81,17 +83,20 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 	
 	public String checkOut(Checkin checkin) throws Exception {
 		
-		if(checkin.getStatus() == StatusCheckin.getInstance().FINALIZADO ) {
+		if(checkin.getStatus().equals(StatusCheckin.getInstance().FINALIZADO)) {
 			throw new Exception("Não é possível realizar o check-out do(a) empregado(a). "
 					+ "Status atual: " + checkin.getStatus());
 		}
 		
+		if(Helper.isNotNull(checkin.getTarefas())) {
+			checkin.getTarefas().stream()
+			.filter(t -> t.getStatus().equals(StatusTarefa.getInstance().ABERTA))
+			.forEach(t -> t.setStatus(StatusTarefa.getInstance().PENDENTE));
+		}
+		
 		checkin.setAtualizacao(Helper.getNow());
 		checkin.setStatus(StatusCheckin.getInstance().AUSENTE);
-		
-		// < ---- GERAR PENDÊNCIAS ---------------------------------------------------->
 		this.save(checkin);
-		
 		return "Check-out registrado com sucesso.";
 	}
 }

@@ -36,7 +36,7 @@ public class RegraAtendimentoEquipe {
 	private int ordem;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinTable(name="regraatendimentoequipe_equipe", 
+	@JoinTable(name="dependencia", 
 	joinColumns = {@JoinColumn(name="regraatendimentoequipe_id")}, 
 	inverseJoinColumns = {@JoinColumn(name="equipe_id")})
 	@OrderBy(value="nome")

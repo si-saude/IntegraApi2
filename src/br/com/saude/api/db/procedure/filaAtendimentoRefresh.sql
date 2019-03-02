@@ -54,7 +54,7 @@ BEGIN
 
                     OPEN dependencias FOR
                     select equipe_id
-                    from regraatendimentoequipe_equipe
+                    from dependencia
                     where regraatendimentoequipe_id = _regra.id;
                     loop
                         fetch next FROM dependencias into _dependencia;

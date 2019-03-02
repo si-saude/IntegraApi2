@@ -39,17 +39,17 @@ public class Helper {
 		return stringBuilder.toString();
 	}
 	
-	@SuppressWarnings("deprecation")
+	// @SuppressWarnings("deprecation")
 	public static long getNow() {
 		Date now = new Date();
-		now.setHours(now.getHours() - (now.getTimezoneOffset()/60));
+		// now.setHours(now.getHours() - (now.getTimezoneOffset()/60));
 		return getTime(now);
 	}
 	
 	@SuppressWarnings("deprecation")
 	public static long getToday() {
 		Date today = new Date();
-		today.setHours(0 - (today.getTimezoneOffset()/60));
+		today.setHours(0 /*- (today.getTimezoneOffset()/60)*/);
 		today.setMinutes(0);
 		return getTime(today);
 	}

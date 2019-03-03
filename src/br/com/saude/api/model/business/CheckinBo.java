@@ -43,16 +43,27 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 	
 	public String registrar(Checkin checkin) throws Exception {
 		
-		Checkin checkinAux = getCheckinByCheckin(checkin, Helper.getToday());
-		if(checkinAux != null) {
-			if(Helper.isStringIn(checkinAux.getStatus(), new String[] {
-					StatusCheckin.getInstance().AGUARDANDO, StatusCheckin.getInstance().EM_ATENDIMENTO
-			})) {
-				throw new Exception("Não é possível realizar o check-in do(a) empregado(a) "
-						+ checkinAux.getEmpregado().getPessoa().getNome()+"."
-						+ "Status atual: " + checkinAux.getStatus());
-			} else if (checkinAux.getStatus().equals(StatusCheckin.getInstance().AUSENTE)) {
-				checkin = getBuilder(checkinAux).getEntity();
+		PagedList<Checkin> checkins = getCheckinByCheckin(checkin, Helper.getToday());
+		
+		if(checkins.getTotal() > 0) {
+			String message = "Não é possível realizar o check-in do(a) empregado(a) "
+					+ checkin.getEmpregado().getPessoa().getNome()+"."
+					+ "Status atual: ";
+			
+			if(checkins.getList().stream()
+				.filter(c->c.getStatus().equals(StatusCheckin.getInstance().AGUARDANDO))
+				.count() > 0) {
+				throw new Exception(message + StatusCheckin.getInstance().AGUARDANDO);
+			} else if(checkins.getList().stream()
+				.filter(c->c.getStatus().equals(StatusCheckin.getInstance().EM_ATENDIMENTO))
+				.count() > 0) {
+				throw new Exception(message + StatusCheckin.getInstance().EM_ATENDIMENTO);
+			} else if(checkins.getList().stream()
+				.filter(c->c.getStatus().equals(StatusCheckin.getInstance().AUSENTE))
+				.count() > 0) {
+				checkin = checkins.getList().stream()
+						.filter(c->c.getStatus().equals(StatusCheckin.getInstance().AUSENTE))
+						.findFirst().get();
 			}
 		}
 		
@@ -64,9 +75,9 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		return "Check-in registrado com sucesso.";
 	}
 	
-	private Checkin getCheckinByCheckin(Checkin checkin, long date) throws Exception {
+	private PagedList<Checkin> getCheckinByCheckin(Checkin checkin, long date) throws Exception {
 		CheckinFilter filter = new CheckinFilter();
-		filter.setPageSize(1);
+		filter.setPageSize(Integer.MAX_VALUE);
 		filter.setEmpregado(new EmpregadoFilter());
 		filter.getEmpregado().setId(checkin.getEmpregado().getId());
 		filter.setServico(new ServicoFilter());
@@ -77,8 +88,7 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		filter.getChegada().setInicio(date);
 		filter.getChegada().setFim(Helper.addDays(date, 1));
 		filter.getChegada().setTypeFilter(TypeFilter.ENTRE);
-		PagedList<Checkin> list = getList(filter);
-		return list.getTotal() > 0 ? list.getList().get(0) : null;
+		return getList(filter);
 	}
 	
 	public String checkOut(Checkin checkin) throws Exception {

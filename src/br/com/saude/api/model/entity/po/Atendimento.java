@@ -1,11 +1,16 @@
 package br.com.saude.api.model.entity.po;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
@@ -27,6 +32,10 @@ public class Atendimento {
 	@NotNull(message="É necessário informar o Check-in do Atendimento.")
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Checkin checkin;
+	
+	@OrderBy(value="codigo")
+	@OneToMany(mappedBy="atendimento", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST, orphanRemoval=true)
+	private List<Triagem> triagens;
 	
 	@Version
 	private long version;
@@ -69,5 +78,13 @@ public class Atendimento {
 
 	public void setCheckin(Checkin checkin) {
 		this.checkin = checkin;
+	}
+
+	public List<Triagem> getTriagens() {
+		return triagens;
+	}
+
+	public void setTriagens(List<Triagem> triagens) {
+		this.triagens = triagens;
 	}
 }

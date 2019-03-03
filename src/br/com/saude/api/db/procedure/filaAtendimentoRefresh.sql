@@ -60,41 +60,36 @@ BEGIN
                         fetch next FROM dependencias into _dependencia;
                         exit when _dependencia is null;
 						
-			IF NOT EXISTS (select 1
+			IF EXISTS (select 1
 				from checkin_tarefa cf
 				inner join tarefa t on cf.tarefa_id = t.id
 				where cf.checkin_id = _checkin.id
 				  and t.equipe_id = _dependencia.equipe_id
-				  and t.status = 'CONCLUÍDA') 
-			  AND EXISTS (select 1 
-				from checkin_tarefa cf
-				inner join tarefa t on cf.tarefa_id = t.id
-				where cf.checkin_id = _checkin.id
-				  and t.equipe_id = _dependencia.equipe_id) 
+				  and t.status in ('ABERTA','PENDENTE','CONFIRMADA'))
 			THEN
 				close dependencias;
 				CONTINUE regra_loop;
 			END IF;                    
-                    end loop;
-                    close dependencias;
+            end loop;
+            close dependencias;
 
-                    OPEN filas FOR
-                    select id,profissional_id
-                    from filaatendimento f
-                    where to_timestamp(f.data/1000.0) = date_trunc('day', now())
-                      and status = 'DISPONÍVEL'
-                      and localizacao_id = _localizacao.id
-                      and exists (select 1 
-                            from profissional_equipe pe
-                            where f.profissional_id = pe.profissional_id
-                              and _regra.equipe_id = pe.equipe_id)
-                      and exists (select 1 
-                            from servico_profissional sp
-                            where f.profissional_id = sp.profissional_id
-                              and _checkin.servico_id = sp.servico_id);
-                    loop
-                        fetch next FROM filas into _fila;
-                        exit when _fila is null;
+            OPEN filas FOR
+            select id,profissional_id
+            from filaatendimento f
+            where to_timestamp(f.data/1000.0) = date_trunc('day', now())
+              and status = 'DISPONÍVEL'
+              and localizacao_id = _localizacao.id
+              and exists (select 1 
+                    from profissional_equipe pe
+                    where f.profissional_id = pe.profissional_id
+                      and _regra.equipe_id = pe.equipe_id)
+              and exists (select 1 
+                    from servico_profissional sp
+                    where f.profissional_id = sp.profissional_id
+                      and _checkin.servico_id = sp.servico_id);
+            loop
+                fetch next FROM filas into _fila;
+                exit when _fila is null;
 				
 			_atendimentoId := (select nextval('atendimento_id_seq'));
 			_now := (EXTRACT(EPOCH FROM date_trunc('second', now())::timestamp without time zone) * 1000)::bigint;

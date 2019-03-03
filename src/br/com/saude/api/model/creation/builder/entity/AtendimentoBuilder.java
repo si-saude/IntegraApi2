@@ -3,6 +3,7 @@ package br.com.saude.api.model.creation.builder.entity;
 import java.util.List;
 
 import br.com.saude.api.generic.GenericEntityBuilder;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.model.entity.filter.AtendimentoFilter;
 import br.com.saude.api.model.entity.po.Atendimento;
 
@@ -41,6 +42,11 @@ public class AtendimentoBuilder extends GenericEntityBuilder<Atendimento, Atendi
 		
 		if(atendimento.getFila()!= null) {
 			newAtendimento.setFila(FilaAtendimentoBuilder.newInstance(atendimento.getFila()).getEntity());
+		}
+		
+		if(Helper.isNotNull(atendimento.getTriagens())) {
+			newAtendimento.setTriagens(TriagemBuilder.newInstance(
+					atendimento.getTriagens()).getEntityList());
 		}
 		
 		return newAtendimento;

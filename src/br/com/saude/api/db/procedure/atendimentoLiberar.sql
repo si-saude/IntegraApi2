@@ -1,5 +1,5 @@
-CREATE OR REPLACE FUNCTION liberarAtendimento(bigint)
-  RETURNS void AS
+CREATE OR REPLACE FUNCTION atendimentoLiberar(bigint)
+  RETURNS bigint AS
 $BODY$
 DECLARE
     atendimento CURSOR for
@@ -11,8 +11,7 @@ BEGIN
     for _atendimento in atendimento loop
     
     	UPDATE tarefa
-        SET atualizacao = _now
-		status = 'CONCLUÍDA',
+        SET atualizacao = _now,
 		version = version + 1
         WHERE id = _atendimento.tarefa_id;
 
@@ -38,6 +37,7 @@ BEGIN
         END IF;
         
     end loop;
+	return 1;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE

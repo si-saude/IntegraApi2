@@ -1,5 +1,5 @@
-CREATE OR REPLACE FUNCTION cancelarAtendimento(bigint,text,text)
-  RETURNS void AS
+CREATE OR REPLACE FUNCTION atendimentoCancelar(bigint,text,text)
+  RETURNS bigint AS
 $BODY$
 DECLARE
     atendimento CURSOR for
@@ -18,7 +18,8 @@ BEGIN
 
         UPDATE checkin
         SET status = $3,
-        version = version + 1
+        version = version + 1,
+        atualizacao = chegada
         WHERE id = _atendimento.checkin_id;
 
         UPDATE tarefa
@@ -32,6 +33,7 @@ BEGIN
         DELETE FROM atendimento WHERE id = _atendimento.id;
         
     end loop;
+	return 1;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE

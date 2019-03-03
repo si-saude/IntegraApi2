@@ -1,5 +1,5 @@
-CREATE OR REPLACE FUNCTION iniciarAtendimento(bigint)
-  RETURNS void AS
+CREATE OR REPLACE FUNCTION atendimentoIniciar(bigint)
+  RETURNS bigint AS
 $BODY$
 DECLARE
     atendimento CURSOR for
@@ -14,6 +14,7 @@ BEGIN
         where id = _atendimento.fila_id;
         
     end loop;
+	return 1;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE

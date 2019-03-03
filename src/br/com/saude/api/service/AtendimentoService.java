@@ -62,4 +62,64 @@ public class AtendimentoService extends GenericService<Atendimento,AtendimentoFi
 	public Response delete(Object id) {
 		return super.delete(id);
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/iniciar")
+	public Response iniciar(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo().iniciar(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/liberar")
+	public Response liberar(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo().liberar(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/finalizar")
+	public Response finalizar(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo().finalizar(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/devolver")
+	public Response devolver(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo().devolver(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/registrar-ausencia")
+	public Response registrarAusencia(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo().registrarAusencia(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
 }

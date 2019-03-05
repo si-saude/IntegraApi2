@@ -1,5 +1,8 @@
 package br.com.saude.api.model.business;
 
+import java.util.ArrayList;
+
+import br.com.saude.api.generic.BooleanFilter;
 import br.com.saude.api.generic.DateFilter;
 import br.com.saude.api.generic.GenericBo;
 import br.com.saude.api.generic.Helper;
@@ -9,9 +12,14 @@ import br.com.saude.api.model.creation.builder.example.CheckinExampleBuilder;
 import br.com.saude.api.model.entity.filter.CheckinFilter;
 import br.com.saude.api.model.entity.filter.EmpregadoFilter;
 import br.com.saude.api.model.entity.filter.LocalizacaoFilter;
+import br.com.saude.api.model.entity.filter.PerguntaFichaColetaFilter;
 import br.com.saude.api.model.entity.filter.ServicoFilter;
 import br.com.saude.api.model.entity.po.Checkin;
+import br.com.saude.api.model.entity.po.PerguntaFichaColeta;
+import br.com.saude.api.model.entity.po.RespostaFichaColeta;
+import br.com.saude.api.model.entity.po.Servico;
 import br.com.saude.api.model.persistence.CheckinDao;
+import br.com.saude.api.util.constant.GrupoServico;
 import br.com.saude.api.util.constant.StatusCheckin;
 import br.com.saude.api.util.constant.StatusTarefa;
 import br.com.saude.api.util.constant.TypeFilter;
@@ -71,6 +79,7 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		checkin.setAtualizacao(checkin.getChegada());
 		checkin.setStatus(StatusCheckin.getInstance().AGUARDANDO);
 		checkin.setTarefas(TarefaBo.getInstance().getListTarefasByCheckin(checkin));
+		checkin = configurarFichaDeColeta(checkin);
 		this.save(checkin);
 		return "Check-in registrado com sucesso.";
 	}
@@ -89,6 +98,52 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		filter.getChegada().setFim(Helper.addDays(date, 1));
 		filter.getChegada().setTypeFilter(TypeFilter.ENTRE);
 		return getList(filter);
+	}
+	
+	private Checkin configurarFichaDeColeta(Checkin checkin) throws Exception {
+		if (checkin.getId() == 0) {
+			Servico servico = checkin.getServico();
+			if(servico.getGrupo().equals(GrupoServico.ATENDIMENTO_OCUPACIONAL) &&
+					servico.getCodigo().equals("0003")) {
+				PerguntaFichaColetaFilter filter = new PerguntaFichaColetaFilter();
+				filter.setPageSize(Integer.MAX_VALUE);
+				filter.setInativo(new BooleanFilter());
+				filter.getInativo().setValue(1);
+				
+				PagedList<PerguntaFichaColeta> perguntas = 
+						PerguntaFichaColetaBo.getInstance().getList(filter);
+				
+				if(perguntas.getTotal() > 0) {
+					checkin.setRespostas(new ArrayList<RespostaFichaColeta>());
+					for(PerguntaFichaColeta pergunta : perguntas.getList()) {
+						RespostaFichaColeta resposta = new RespostaFichaColeta();
+						resposta.setPergunta(pergunta);
+						resposta.setCheckin(checkin);
+						checkin.getRespostas().add(resposta);
+					}
+				}
+			}
+		} else {
+			checkin = definirReferencias(checkin);
+		}
+		return checkin;
+	}
+	
+	public Checkin definirReferencias(Checkin checkin) {
+		if(Helper.isNotNull(checkin.getRespostas())) {
+			checkin.getRespostas().forEach(r -> {
+				r.setCheckin(checkin);
+				if(Helper.isNotNull(r.getItens())) {
+					r.getItens().forEach(i -> {
+						i.setResposta(r);
+						if(Helper.isNotNull(i.getDetalhes())) {
+							i.getDetalhes().forEach(d -> d.setItem(i));
+						}
+					});
+				}
+			});
+		}
+		return checkin;
 	}
 	
 	public String checkOut(Checkin checkin) throws Exception {

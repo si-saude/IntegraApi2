@@ -18,6 +18,9 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class PerguntaFichaColeta {
 
@@ -44,14 +47,18 @@ public class PerguntaFichaColeta {
 	@Size(max = 1024, message="Tamanho máximo para Descrição da Pergunta: 1024")
 	private String descricao;
 	
-	@OneToMany(mappedBy="pergunta", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+	private boolean obrigatorio;
+	
+	@OneToMany(mappedBy="pergunta", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<ItemPerguntaFichaColeta> itens;
 	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="perguntafichacoleta_equipe", 
 	joinColumns = {@JoinColumn(name="perguntafichacoleta_id")}, 
 	inverseJoinColumns = {@JoinColumn(name="equipe_id")})
 	@OrderBy(value="nome")
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Equipe> equipes;
 	
 	private boolean inativo;
@@ -137,6 +144,14 @@ public class PerguntaFichaColeta {
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public boolean isObrigatorio() {
+		return obrigatorio;
+	}
+
+	public void setObrigatorio(boolean obrigatorio) {
+		this.obrigatorio = obrigatorio;
 	}
 	
 }

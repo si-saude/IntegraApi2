@@ -19,6 +19,9 @@ DECLARE
 
     filas REFCURSOR;
     _fila RECORD;
+	
+	indicadores REFCURSOR;
+    _indicador RECORD;
 
     _tarefaId bigint;
 	_atendimentoId bigint;
@@ -91,36 +94,51 @@ BEGIN
                 fetch next FROM filas into _fila;
                 exit when _fila is null;
 				
-			_atendimentoId := (select nextval('atendimento_id_seq'));
-			_now := (EXTRACT(EPOCH FROM date_trunc('second', now())::timestamp without time zone) * 1000)::bigint;
-											  
-			INSERT INTO atendimento(id,version,checkin_id,fila_id,tarefa_id)
-			VALUES (_atendimentoId,0,_checkin.id,_fila.id,_tarefaId);
-											  
-			UPDATE tarefa
-			SET atualizacao = _now,
-				inicio = _now,
-				status = 'EXECUÇÃO',
-				version = version + 1,
-				responsavel_id = _fila.profissional_id
-			WHERE id = _tarefaId;
-					 
-			UPDATE filaatendimento
-			SET status = 'AGUARDANDO EMPREGADO',
-				version = version + 1
-			WHERE id = _fila.id;
-			
-			UPDATE checkin
-			SET atualizacao = _now,
-				status = 'EM ATENDIMENTO',
-				version = version + 1
-			WHERE id = _checkin.id;
+				_atendimentoId := (select nextval('atendimento_id_seq'));
+				_now := (EXTRACT(EPOCH FROM date_trunc('second', now())::timestamp without time zone) * 1000)::bigint;
 
-			--CRIAR FICHA DE TRIAGEM
-			close filas;
-			CONTINUE checkin_loop;
-                    end loop;
-                    close filas;
+				INSERT INTO atendimento(id,version,checkin_id,fila_id,tarefa_id)
+				VALUES (_atendimentoId,0,_checkin.id,_fila.id,_tarefaId);
+
+				UPDATE tarefa
+				SET atualizacao = _now,
+					inicio = _now,
+					status = 'EXECUÇÃO',
+					version = version + 1,
+					responsavel_id = _fila.profissional_id
+				WHERE id = _tarefaId;
+
+				UPDATE filaatendimento
+				SET status = 'AGUARDANDO EMPREGADO',
+					version = version + 1
+				WHERE id = _fila.id;
+
+				UPDATE checkin
+				SET atualizacao = _now,
+					status = 'EM ATENDIMENTO',
+					version = version + 1
+				WHERE id = _checkin.id;
+
+				--CRIAR FICHA DE TRIAGEM
+				OPEN indicadores FOR
+				select id
+				from indicadorsast i
+				where i.inativo = false
+				  and i.equipe_id = _regra.equipe_id
+				order by i.codigo;
+				loop
+					fetch next FROM indicadores into _indicador;
+					exit when _indicador is null;
+						 
+					INSERT INTO triagem (id, indicador_id, atendimento_id, indice, version)
+					VALUES (nextval('triagem_id_seq'), _indicador.id, _atendimentoId, -1, 0);
+				end loop;
+				close indicadores;
+						 
+				close filas;
+				CONTINUE checkin_loop;
+				end loop;
+				close filas;
 
                 END IF;
             end loop;
@@ -131,3 +149,5 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
+
+select * from triagem

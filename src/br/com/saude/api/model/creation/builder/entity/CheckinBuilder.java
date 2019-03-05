@@ -48,6 +48,11 @@ public class CheckinBuilder extends GenericEntityBuilder<Checkin, CheckinFilter>
 			newCheckin.setTarefas(TarefaBuilder.newInstance(checkin.getTarefas()).getEntityList());
 		}
 		
+		if(Helper.isNotNull(checkin.getRespostas())) {
+			newCheckin.setRespostas(RespostaFichaColetaBuilder
+					.newInstance(checkin.getRespostas()).getEntityList());
+		}
+		
 		return newCheckin;
 	}	
 }

@@ -3,6 +3,7 @@ package br.com.saude.api.model.creation.builder.entity;
 import java.util.List;
 
 import br.com.saude.api.generic.GenericEntityBuilder;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.model.entity.filter.PerguntaFichaColetaFilter;
 import br.com.saude.api.model.entity.po.PerguntaFichaColeta;
 
@@ -34,11 +35,23 @@ public class PerguntaFichaColetaBuilder extends GenericEntityBuilder<PerguntaFic
 		newPerguntaFichaColeta.setInativo(pergunta.isInativo());
 		newPerguntaFichaColeta.setPath(pergunta.getPath());
 		newPerguntaFichaColeta.setTipo(pergunta.getTipo());
+		newPerguntaFichaColeta.setObrigatorio(pergunta.isObrigatorio());
 		newPerguntaFichaColeta.setVersion(pergunta.getVersion());
 		
 		if(pergunta.getGrupo() != null) {
 			newPerguntaFichaColeta.setGrupo(GrupoPerguntaFichaColetaBuilder
 					.newInstance(pergunta.getGrupo()).getEntity());
+		}
+		
+		if(Helper.isNotNull(pergunta.getEquipes())) {
+			newPerguntaFichaColeta.setEquipes(EquipeBuilder.newInstance(pergunta.getEquipes())
+					.getEntityList());
+		}
+		
+		if(Helper.isNotNull(pergunta.getItens())) {
+			newPerguntaFichaColeta.setItens(ItemPerguntaFichaColetaBuilder
+					.newInstance(pergunta.getItens())
+					.getEntityList());
 		}
 		
 		return newPerguntaFichaColeta;

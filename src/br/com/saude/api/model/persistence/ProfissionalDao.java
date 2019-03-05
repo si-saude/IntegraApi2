@@ -3,7 +3,9 @@ package br.com.saude.api.model.persistence;
 import org.hibernate.Hibernate;
 
 import br.com.saude.api.generic.GenericDao;
+import br.com.saude.api.generic.GenericExampleBuilder;
 import br.com.saude.api.generic.Helper;
+import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.entity.po.Profissional;
 
 public class ProfissionalDao extends GenericDao<Profissional> {
@@ -34,6 +36,13 @@ public class ProfissionalDao extends GenericDao<Profissional> {
 
 			return profissional;
 		};
+		
+		this.functionLoad = profissional -> {
+			if(Helper.isNotNull(profissional.getEquipes())) {
+				Hibernate.initialize(profissional.getEquipes());
+			}
+			return profissional;
+		};
 	}
 	
 	public static ProfissionalDao getInstance() {
@@ -47,4 +56,7 @@ public class ProfissionalDao extends GenericDao<Profissional> {
 		return super.getById(id, this.functionLoadAll);
 	}
 	
+	public PagedList<Profissional> getListEquipes(GenericExampleBuilder<?, ?> exampleBuilder) throws Exception {
+		return super.getList(exampleBuilder, this.functionLoad);
+	}
 }

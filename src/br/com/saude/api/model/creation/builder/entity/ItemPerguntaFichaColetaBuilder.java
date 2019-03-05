@@ -31,6 +31,7 @@ public class ItemPerguntaFichaColetaBuilder extends GenericEntityBuilder<ItemPer
 		newItemPerguntaFichaColeta.setId(item.getId());
 		newItemPerguntaFichaColeta.setPath(item.getPath());
 		newItemPerguntaFichaColeta.setTitulo(item.getTitulo());
+		newItemPerguntaFichaColeta.setOrdem(item.getOrdem());
 		newItemPerguntaFichaColeta.setVersion(item.getVersion());
 		
 		return newItemPerguntaFichaColeta;

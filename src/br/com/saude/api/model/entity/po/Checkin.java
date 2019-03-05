@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -49,12 +51,17 @@ public class Checkin {
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Servico servico;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinTable(name="checkin_tarefa", 
 				joinColumns = {@JoinColumn(name="checkin_id")}, 
 				inverseJoinColumns = {@JoinColumn(name="tarefa_id")})
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Tarefa> tarefas;
+	
+	@OneToMany(mappedBy="checkin", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
+	@Fetch(FetchMode.SUBSELECT)
+	@OrderBy(value="codigo")
+	private List<RespostaFichaColeta> respostas;
 	
 	@Version
 	private long version;
@@ -130,5 +137,12 @@ public class Checkin {
 	public void setTarefas(List<Tarefa> tarefas) {
 		this.tarefas = tarefas;
 	}
-		
+
+	public List<RespostaFichaColeta> getRespostas() {
+		return respostas;
+	}
+
+	public void setRespostas(List<RespostaFichaColeta> respostas) {
+		this.respostas = respostas;
+	}
 }

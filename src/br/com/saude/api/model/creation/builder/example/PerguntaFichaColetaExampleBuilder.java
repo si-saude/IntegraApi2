@@ -20,6 +20,7 @@ public class PerguntaFichaColetaExampleBuilder extends GenericExampleBuilder<Per
 		addPath();
 		addTipo();
 		addInativo();
+		addObrigatorio();
 		addGrupo();
 	}
 	
@@ -37,6 +38,10 @@ public class PerguntaFichaColetaExampleBuilder extends GenericExampleBuilder<Per
 	
 	private void addInativo() {
 		this.entity.setInativo(this.addBoolean("inativo", this.filter.getInativo()));
+	}
+	
+	private void addObrigatorio() {		
+		this.entity.setObrigatorio(this.addBoolean("obrigatorio", this.filter.getObrigatorio()));
 	}
 	
 	private void addGrupo() throws InstantiationException, IllegalAccessException {

@@ -6,6 +6,8 @@ import org.hibernate.Transaction;
 import br.com.saude.api.generic.GenericDao;
 import br.com.saude.api.generic.HibernateHelper;
 import br.com.saude.api.model.entity.po.Atendimento;
+import br.com.saude.api.model.entity.po.Checkin;
+import br.com.saude.api.util.constant.StatusCheckin;
 
 public class AtendimentoDao extends GenericDao<Atendimento> {
 
@@ -27,11 +29,12 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void iniciar(long id) {
+	public void iniciar(Atendimento atendimento) {
 		Session session = HibernateHelper.getSession();
 		try {
 			Transaction transaction = session.beginTransaction();
-			session.createSQLQuery("select atendimentoIniciar(" + id + ")").uniqueResult();
+			session.merge(atendimento);
+			session.createSQLQuery("select atendimentoIniciar(" + atendimento.getId() + ")").uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
 			throw ex;
@@ -42,11 +45,12 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void liberar(long id) {
+	public void liberar(Atendimento atendimento) {
 		Session session = HibernateHelper.getSession();
 		try {
 			Transaction transaction = session.beginTransaction();
-			session.createSQLQuery("select atendimentoLiberar(" + id + ")").uniqueResult();
+			session.merge(atendimento);
+			session.createSQLQuery("select atendimentoLiberar(" + atendimento.getId() + ")").uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
 			throw ex;
@@ -57,12 +61,19 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void finalizar(long id, String statusFila) {
+	public void finalizar(Atendimento atendimento) {
 		Session session = HibernateHelper.getSession();
 		try {
 			Transaction transaction = session.beginTransaction();
+			
+			if(!atendimento.getCheckin().getStatus().equals(StatusCheckin.getInstance().EM_ATENDIMENTO)) {
+				atendimento.setCheckin(session.get(Checkin.class, atendimento.getCheckin().getId()));
+			}
+			
+			session.merge(atendimento);
 			session
-				.createSQLQuery("select atendimentoFinalizar(" + id + ",'" + statusFila + "')")
+				.createSQLQuery("select atendimentoFinalizar(" + atendimento.getId() + 
+						",'" + atendimento.getFila().getStatus() + "')")
 				.uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
@@ -74,12 +85,14 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void cancelar(long id, String statusFila, String statusCheckin) {
+	public void cancelar(Atendimento atendimento) {
 		Session session = HibernateHelper.getSession();
 		try {
 			Transaction transaction = session.beginTransaction();
 			session
-				.createSQLQuery("select atendimentoCancelar(" + id + ",'" + statusFila + "','" + statusCheckin + "')")
+				.createSQLQuery("select atendimentoCancelar(" + atendimento.getId() + 
+						",'" + atendimento.getFila().getStatus() + 
+						"','" + atendimento.getCheckin().getStatus() + "')")
 				.uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {

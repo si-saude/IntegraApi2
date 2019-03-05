@@ -11,23 +11,20 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class ItemPerguntaFichaColeta {
+public class DetalheRespostaFichaColeta {
 
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	
-	@Size(max = 64, message="Tamanho máximo para Título do Item da Pergunta: 64")
-	@NotNull(message="É necessário informar o Título do Item da Pergunta.")
-	private String titulo;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@NotNull(message="É necessário informar o Item do Detalhe.")
+	private ItemRespostaFichaColeta item;
 	
-	@Size(max = 64, message="Tamanho máximo para Path do Item da Pergunta: 64")
-	private String path; 
+	@Size(max = 2048, message="Tamanho máximo para Conteúdo da Resposta da Ficha de Coleta: 2048")
+	private String conteudo;
 	
 	private int ordem;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	private PerguntaFichaColeta pergunta;
 	
 	@Version
 	private long version;
@@ -48,28 +45,20 @@ public class ItemPerguntaFichaColeta {
 		this.version = version;
 	}
 
-	public PerguntaFichaColeta getPergunta() {
-		return pergunta;
+	public ItemRespostaFichaColeta getItem() {
+		return item;
 	}
 
-	public void setPergunta(PerguntaFichaColeta pergunta) {
-		this.pergunta = pergunta;
+	public void setItem(ItemRespostaFichaColeta item) {
+		this.item = item;
 	}
 
-	public String getPath() {
-		return path;
+	public String getConteudo() {
+		return conteudo;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
 	}
 
 	public int getOrdem() {
@@ -78,6 +67,5 @@ public class ItemPerguntaFichaColeta {
 
 	public void setOrdem(int ordem) {
 		this.ordem = ordem;
-	}
-	
+	}	
 }

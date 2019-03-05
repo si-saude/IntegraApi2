@@ -38,6 +38,18 @@ public class ProfissionalService extends GenericService<Profissional,Profissiona
 	public Response getList(ProfissionalFilter filter) {		
 		return super.getList(filter);
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/list-equipes")
+	public Response getListEquipes(ProfissionalFilter filter) {		
+		try {
+			return Response.ok(getBo().getListEquipes(filter).getGenericPagedList()).build();
+		} catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
 
 	@Override
 	@POST

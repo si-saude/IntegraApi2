@@ -34,11 +34,24 @@ public class ProfissionalBo extends GenericBo<Profissional, ProfissionalFilter, 
 				return null;
 			}
 		};
+		
+		this.functionLoad = builder -> {
+			try {
+				return builder.loadEquipes();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		};
 	}
 	
 	@Override
 	public PagedList<Profissional> getList(ProfissionalFilter filter) throws Exception {
 		return super.getOrderedList(filter,"pessoa.nome");
+	}
+	
+	public PagedList<Profissional> getListEquipes(ProfissionalFilter filter) throws Exception {
+		return super.getList(getDao().getListEquipes(getExampleBuilder(filter).example()), this.functionLoad);
 	}
 	
 	@Override

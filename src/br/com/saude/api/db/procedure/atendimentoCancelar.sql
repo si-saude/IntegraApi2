@@ -30,6 +30,8 @@ BEGIN
 		version = version + 1
         WHERE id = _atendimento.tarefa_id;
 
+        DELETE FROM triagem where atendimento_id = _atendimento.id; 
+        
         DELETE FROM atendimento WHERE id = _atendimento.id;
         
     end loop;

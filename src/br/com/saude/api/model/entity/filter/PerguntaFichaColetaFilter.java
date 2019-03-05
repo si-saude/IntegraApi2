@@ -9,6 +9,7 @@ public class PerguntaFichaColetaFilter extends GenericFilter {
 	private String codigo;
 	private String path;
 	private BooleanFilter inativo;
+	private BooleanFilter obrigatorio;
 	
 	public String getTipo() {
 		return tipo;
@@ -40,5 +41,10 @@ public class PerguntaFichaColetaFilter extends GenericFilter {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
+	public BooleanFilter getObrigatorio() {
+		return obrigatorio;
+	}
+	public void setObrigatorio(BooleanFilter obrigatorio) {
+		this.obrigatorio = obrigatorio;
+	}
 }

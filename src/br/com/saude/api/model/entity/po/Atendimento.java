@@ -14,6 +14,9 @@ import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Atendimento {
 
@@ -30,11 +33,12 @@ public class Atendimento {
 	private Tarefa tarefa;
 	
 	@NotNull(message="É necessário informar o Check-in do Atendimento.")
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Checkin checkin;
 	
 	@OrderBy(value="codigo")
-	@OneToMany(mappedBy="atendimento", fetch=FetchType.EAGER, cascade=CascadeType.PERSIST, orphanRemoval=true)
+	@OneToMany(mappedBy="atendimento", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Triagem> triagens;
 	
 	@Version

@@ -20,25 +20,13 @@ public class PerguntaFichaColetaBo extends GenericBo<PerguntaFichaColeta, Pergun
 	
 	@Override
 	protected void initializeFunctions() {
-		this.functionLoadAll = builder -> {
-			try {
-				return builder.loadEquipes().loadItens();
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		};
+
 	}
 	
 	public static PerguntaFichaColetaBo getInstance() {
 		if(instance == null)
 			instance = new PerguntaFichaColetaBo();
 		return instance;
-	}
-	
-	@Override
-	public PerguntaFichaColeta getById(Object id) throws Exception {
-		return this.getById(id, this.functionLoadAll);
 	}
 	
 	@Override

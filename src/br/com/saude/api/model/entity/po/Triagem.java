@@ -28,7 +28,7 @@ public class Triagem {
 	
 	private int indice = -1;
 	
-	@Formula(value="indicador.codigo")
+	@Formula(value="(select i.codigo from indicadorsast i where i.id = indicador_id)")
 	private String codigo;
 	
 	@Version

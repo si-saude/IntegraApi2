@@ -161,6 +161,7 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		
 		checkin.setAtualizacao(Helper.getNow());
 		checkin.setStatus(StatusCheckin.getInstance().AUSENTE);
+		checkin = configurarFichaDeColeta(checkin);
 		this.save(checkin);
 		return "Check-out registrado com sucesso.";
 	}

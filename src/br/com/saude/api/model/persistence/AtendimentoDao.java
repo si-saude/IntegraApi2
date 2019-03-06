@@ -7,7 +7,8 @@ import br.com.saude.api.generic.GenericDao;
 import br.com.saude.api.generic.HibernateHelper;
 import br.com.saude.api.model.entity.po.Atendimento;
 import br.com.saude.api.model.entity.po.Checkin;
-import br.com.saude.api.util.constant.StatusCheckin;
+import br.com.saude.api.model.entity.po.FilaAtendimento;
+import br.com.saude.api.util.constant.StatusFilaAtendimento;
 
 public class AtendimentoDao extends GenericDao<Atendimento> {
 
@@ -66,7 +67,8 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		try {
 			Transaction transaction = session.beginTransaction();
 			
-			if(!atendimento.getCheckin().getStatus().equals(StatusCheckin.getInstance().EM_ATENDIMENTO)) {
+			FilaAtendimento fila = session.get(FilaAtendimento.class, atendimento.getFila().getId());
+			if(fila.getStatus().equals(StatusFilaAtendimento.getInstance().LANCAMENTO_DE_INFORMACOES)) {
 				atendimento.setCheckin(session.get(Checkin.class, atendimento.getCheckin().getId()));
 			}
 			

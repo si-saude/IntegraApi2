@@ -36,6 +36,11 @@ BEGIN
 				        SET status = 'FINALIZADO',
 				        version = version + 1
 				        WHERE id = _atendimento.checkin_id;
+				        
+				        --CRIAR AVALIAÇÃO DE ATENDIMENTO
+						INSERT INTO avaliacaoatendimento(id, status, version, checkin_id, questionario_id)
+				        VALUES(nextval('avaliacaoatendimento_id_seq'), 'PENDENTE', 0, _atendimento.checkin_id,
+							  (select id from questionario where inativo = false order by id limit 1));
 		        END IF;
 	    END IF;
         

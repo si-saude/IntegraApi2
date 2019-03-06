@@ -1,6 +1,7 @@
 package br.com.saude.api.model.business;
 
 import br.com.saude.api.generic.GenericBo;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.creation.builder.entity.QuestionarioBuilder;
 import br.com.saude.api.model.creation.builder.example.QuestionarioExampleBuilder;
@@ -43,5 +44,18 @@ public class QuestionarioBo extends GenericBo<Questionario, QuestionarioFilter, 
 	@Override
 	public Questionario getById(Object id) throws Exception {
 		return super.getById(id, this.functionLoadAll);
+	}
+	
+	@Override
+	public Questionario save(Questionario questionario) throws Exception {
+		if(Helper.isNotNull(questionario.getQuestoes())) {
+			questionario.getQuestoes().forEach(q -> {
+				q.setQuestionario(questionario);
+				if(Helper.isNotNull(q.getAlternativas())) {
+					q.getAlternativas().forEach(a -> a.setQuestao(q));
+				}
+			});
+		}
+		return super.save(questionario);
 	}
 }

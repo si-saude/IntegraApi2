@@ -19,5 +19,4 @@ public class StatusRiscoPotencial extends GenericConstant {
 	public final String ABERTO 					= "ABERTO";
 	public final String PLANEJAMENTO			= "PLANEJAMENTO";
 	public final String VALIDADO				= "VALIDADO";
-	public final String ENCERRADO				= "ENCERRADO";
 }

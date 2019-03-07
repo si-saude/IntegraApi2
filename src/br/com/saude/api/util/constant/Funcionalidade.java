@@ -240,7 +240,8 @@ public class Funcionalidade extends GenericConstant {
 	public static final String USUARIO_LISTAR						= "USUARIO_LISTAR";
 	public static final String USUARIO_REMOVER 						= "USUARIO_REMOVER";
 	
-	public static final String ATENDIMENTO_ATENDIMENTO 				= "ATENDIMENTO_ATENDIMENTO";	
+	public static final String ATENDIMENTO_ATENDIMENTO 				= "ATENDIMENTO_ATENDIMENTO";
+	public static final String ATENDIMENTO_FILA 					= "ATENDIMENTO_FILA";
 	
 	public static final String CHECKIN_CHECKIN 			    		= "CHECKIN_CHECKIN";
 	public static final String CHECKIN_CHECKOUT 			    	= "CHECKIN_CHECKOUT";

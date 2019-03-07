@@ -122,4 +122,30 @@ public class AtendimentoService extends GenericService<Atendimento,AtendimentoFi
 			return returnNotAcceptable(e);
 		}
 	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/get-list-atendimentos-aguardando-empregado-by-localizacao")
+	public Response getListAtendimentosAguardandoEmpregadoByLocalizacao(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo()
+				.getListAtendimentosAguardandoEmpregadoByLocalizacao(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/get-list-filas-atendimento-by-localizacao")
+	public Response getListFilasAtendimentoByLocalizacao(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo()
+				.getListFilasAtendimentoByLocalizacao(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
 }

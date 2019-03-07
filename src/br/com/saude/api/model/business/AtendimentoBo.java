@@ -1,5 +1,7 @@
 package br.com.saude.api.model.business;
 
+import java.util.List;
+
 import br.com.saude.api.generic.GenericBo;
 import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.creation.builder.entity.AtendimentoBuilder;
@@ -70,5 +72,15 @@ public class AtendimentoBo extends GenericBo<Atendimento, AtendimentoFilter, Ate
 		atendimento.getCheckin().setStatus(StatusCheckin.getInstance().AUSENTE);
 		getDao().cancelar(atendimento);
 		return "Realizado o Check-out do empregado.";
+	}
+	
+	public List<Atendimento> getListFilasAtendimentoByLocalizacao(Atendimento atendimento) throws Exception {
+		return getBuilder(getDao().getListFilasAtendimentoByLocalizacao(
+				atendimento.getFila().getLocalizacao().getId())).getEntityList();	
+	}
+	
+	public List<Atendimento> getListAtendimentosAguardandoEmpregadoByLocalizacao(Atendimento atendimento) throws Exception {
+		return getBuilder(getDao().getListAtendimentosAguardandoEmpregadoByLocalizacao(
+				atendimento.getFila().getLocalizacao().getId())).getEntityList();	
 	}
 }

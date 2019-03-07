@@ -1,9 +1,13 @@
 package br.com.saude.api.model.persistence;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import br.com.saude.api.generic.GenericDao;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.generic.HibernateHelper;
 import br.com.saude.api.model.entity.po.Atendimento;
 import br.com.saude.api.model.entity.po.Checkin;
@@ -103,5 +107,46 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		finally {
 			HibernateHelper.close(session);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Atendimento> getListAtendimentosAguardandoEmpregadoByLocalizacao(long localizacaoId) {
+		Session session = HibernateHelper.getSession();
+		List<Atendimento> atendimentos;
+		try {
+			Query<Atendimento> query = session
+					.createQuery("select distinct a from Atendimento a "
+								+ "inner join a.fila as f "
+								+ "where f.status = " + StatusFilaAtendimento.getInstance().AGUARDANDO_EMPREGADO
+								+ "  and f.localizacao.id = " + localizacaoId
+								+ "  and f.data = " + Helper.getToday());
+			atendimentos = query.list();
+		}catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			HibernateHelper.close(session);
+		}
+		return atendimentos;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Atendimento> getListFilasAtendimentoByLocalizacao(long localizacaoId) {
+		Session session = HibernateHelper.getSession();
+		List<Atendimento> atendimentos;
+		try {
+			Query<Atendimento> query = session
+					.createQuery("select a from Atendimento a "
+								+ "rigth join a.fila as f "
+								+ "where f.localizacao.id = " + localizacaoId
+								+ "  and f.data = " + Helper.getToday());
+			atendimentos = query.list();
+		}catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			HibernateHelper.close(session);
+		}
+		return atendimentos;
 	}
 }

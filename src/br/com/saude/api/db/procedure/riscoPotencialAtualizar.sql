@@ -94,6 +94,11 @@ BEGIN
 						  and ia.codigo in (select ii.codigo from indicadorsast ii 
 									where ii.inativo = false
 									  and ii.equipe_id = _equipe.id)));
+
+		_valor := _valor + (_qtdIndice * (0.05 / _qtdAssociacoes));
+
+		INSERT INTO riscoempregado(id, status, valor, version, risco_id)
+		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId);
 	end loop;
     return 1;
 END;

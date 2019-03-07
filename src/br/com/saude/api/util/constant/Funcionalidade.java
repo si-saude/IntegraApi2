@@ -248,5 +248,7 @@ public class Funcionalidade extends GenericConstant {
 	
 	public static final String AVALIACAO_ATENDIMENTO_RESPONDER		= "AVALIACAO-ATENDIMENTO_RESPONDER";
 	
+	public static final String RISCO_POTENCIAL_LISTAR 			    = "RISCO-POTENCIAL_LISTAR";
+	
 	public static final String SOLICITACAO_SOLICITAR 			    = "SOLICITACAO_SOLICITAR";
 }

@@ -79,7 +79,7 @@ BEGIN
             OPEN filas FOR
             select id,profissional_id
             from filaatendimento f
-            where to_timestamp(f.data/1000.0) = date_trunc('day', now())
+            where date_trunc('day', to_timestamp(f.data/1000.0)) = date_trunc('day', now())
               and status = 'DISPONÍVEL'
               and localizacao_id = _localizacao.id
               and exists (select 1 
@@ -149,5 +149,3 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-
-select * from triagem

@@ -1,5 +1,6 @@
 package br.com.saude.api.model.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -117,8 +118,8 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			Query<Atendimento> query = session
 					.createQuery("select distinct a from Atendimento a "
 								+ "inner join a.fila as f "
-								+ "where f.status = " + StatusFilaAtendimento.getInstance().AGUARDANDO_EMPREGADO
-								+ "  and f.localizacao.id = " + localizacaoId
+								+ "where f.status = '" + StatusFilaAtendimento.getInstance().AGUARDANDO_EMPREGADO
+								+ "'  and f.localizacao.id = " + localizacaoId
 								+ "  and f.data = " + Helper.getToday());
 			atendimentos = query.list();
 		}catch (Exception ex) {
@@ -133,14 +134,26 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 	@SuppressWarnings("unchecked")
 	public List<Atendimento> getListFilasAtendimentoByLocalizacao(long localizacaoId) {
 		Session session = HibernateHelper.getSession();
-		List<Atendimento> atendimentos;
+		List<Atendimento> atendimentos = new ArrayList<Atendimento>();
 		try {
-			Query<Atendimento> query = session
-					.createQuery("select a from Atendimento a "
-								+ "rigth join a.fila as f "
+			Query<Object[]> query = session
+					.createQuery("select a, f from Atendimento a "
+								+ "right join a.fila as f "
 								+ "where f.localizacao.id = " + localizacaoId
 								+ "  and f.data = " + Helper.getToday());
-			atendimentos = query.list();
+			List<Object[]> result = query.list();
+			if(Helper.isNotNull(result)) {
+				for(Object[] r : result) {
+					Atendimento a;
+					if(r[0] != null) {
+						a = (Atendimento)r[0]; 
+					} else {
+						a = new Atendimento();
+						a.setFila((FilaAtendimento)r[1]);
+					}
+					atendimentos.add(a);
+				}
+			}
 		}catch (Exception ex) {
 			throw ex;
 		}

@@ -41,6 +41,8 @@ BEGIN
 						INSERT INTO avaliacaoatendimento(id, status, version, checkin_id, questionario_id)
 				        VALUES(nextval('avaliacaoatendimento_id_seq'), 'PENDENTE', 0, _atendimento.checkin_id,
 							  (select id from questionario where inativo = false order by id limit 1));
+							  
+						--GERAR/ATUALIZAR O RISCO
 		        END IF;
 	    END IF;
         

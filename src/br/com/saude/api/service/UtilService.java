@@ -23,6 +23,8 @@ import br.com.saude.api.util.constant.StatusAvaliacaoAtendimento;
 import br.com.saude.api.util.constant.StatusCheckin;
 import br.com.saude.api.util.constant.StatusEmpregado;
 import br.com.saude.api.util.constant.StatusFilaAtendimento;
+import br.com.saude.api.util.constant.StatusRiscoEmpregado;
+import br.com.saude.api.util.constant.StatusRiscoPotencial;
 import br.com.saude.api.util.constant.StatusTarefa;
 import br.com.saude.api.util.constant.TipoCriterio;
 import br.com.saude.api.util.constant.TipoAlimento;
@@ -121,6 +123,22 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getStatusFilaAtendimento(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(StatusFilaAtendimento.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/status-risco-empregado")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStatusRiscoEmpregado(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(StatusRiscoEmpregado.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/status-risco-potencial")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStatusRiscoPotencial(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(StatusRiscoPotencial.getInstance(), filter);
 		return Response.ok(values).build();
 	}
 	

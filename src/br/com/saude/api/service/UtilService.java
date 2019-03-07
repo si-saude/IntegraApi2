@@ -13,10 +13,26 @@ import javax.ws.rs.core.Response;
 import br.com.saude.api.generic.GenericConstant;
 import br.com.saude.api.util.RequestInterceptor;
 import br.com.saude.api.util.StringSorter;
+import br.com.saude.api.util.constant.Abrangencia;
+import br.com.saude.api.util.constant.AptidaoCardiorrespiratoria;
+import br.com.saude.api.util.constant.AptidaoFisicaBrigadista;
+import br.com.saude.api.util.constant.AutoavaliacaoHabitosAlimentares;
+import br.com.saude.api.util.constant.DireitoEsquerdo;
+import br.com.saude.api.util.constant.DoresCorporais;
 import br.com.saude.api.util.constant.Escolaridade;
 import br.com.saude.api.util.constant.EstadoCivil;
+import br.com.saude.api.util.constant.ExposicaoRiscosAmbientaisCategoria;
+import br.com.saude.api.util.constant.Flexibilidade;
+import br.com.saude.api.util.constant.ForcaAbdominal;
+import br.com.saude.api.util.constant.ForcaPreensaoManual;
+import br.com.saude.api.util.constant.Fuma;
+import br.com.saude.api.util.constant.FumaClassificacao;
 import br.com.saude.api.util.constant.GrupoServico;
+import br.com.saude.api.util.constant.Intensidade;
+import br.com.saude.api.util.constant.NivelAtividadeFisica;
 import br.com.saude.api.util.constant.Operador;
+import br.com.saude.api.util.constant.PartesCorpo;
+import br.com.saude.api.util.constant.RefereQualidadeAgua;
 import br.com.saude.api.util.constant.Sexo;
 import br.com.saude.api.util.constant.SimNao;
 import br.com.saude.api.util.constant.StatusAvaliacaoAtendimento;
@@ -26,6 +42,8 @@ import br.com.saude.api.util.constant.StatusFilaAtendimento;
 import br.com.saude.api.util.constant.StatusRiscoEmpregado;
 import br.com.saude.api.util.constant.StatusRiscoPotencial;
 import br.com.saude.api.util.constant.StatusTarefa;
+import br.com.saude.api.util.constant.TempoAnos;
+import br.com.saude.api.util.constant.TempoMeses;
 import br.com.saude.api.util.constant.TipoCriterio;
 import br.com.saude.api.util.constant.TipoAlimento;
 import br.com.saude.api.util.constant.TipoPerguntaFichaColeta;
@@ -51,6 +69,56 @@ public class UtilService {
 	}
 	
 	@GET
+	@Path("/abrangencia")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAbrangencia(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(Abrangencia.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/aptidao-cardiorrespiratoria")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAptidaoCardiorrespiratoria(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(AptidaoCardiorrespiratoria.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/aptidao-fisica-brigadista")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAptidaoFisicaBrigadista(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(AptidaoFisicaBrigadista.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/autoavaliacao-habitos-alimentares")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAutoavaliacaoHabitosAlimentares(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(AutoavaliacaoHabitosAlimentares.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/direito-esquerdo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDireitoEsquerdo(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(DireitoEsquerdo.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/dores-corporais")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getDoresCorporais(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(DoresCorporais.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
 	@Path("/escolaridade")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getEscolaridade(@QueryParam("filter") String filter) throws Exception {
@@ -69,6 +137,54 @@ public class UtilService {
 	}
 	
 	@GET
+	@Path("/exposicao-riscos-ambientais")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getExposicaoRiscosAmbientais(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(ExposicaoRiscosAmbientaisCategoria.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/flexibilidade")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFlexibilidade(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(Flexibilidade.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/forca-abdominal")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getForcaAbdominal(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(ForcaAbdominal.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/forca-prenssao-manual")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getForcaPreensaoManual(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(ForcaPreensaoManual.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/fuma")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFuma(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(Fuma.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/fuma-classificacao")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFumaClassificacao(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(FumaClassificacao.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
 	@Path("/grupo-servico")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getGrupoServico(@QueryParam("filter") String filter) throws Exception {
@@ -78,10 +194,42 @@ public class UtilService {
 	}
 	
 	@GET
+	@Path("/intensidade")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getIntensidade(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(Intensidade.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/nivel-atividade-fisica")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getNivelAtividadeFisica(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(NivelAtividadeFisica.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
 	@Path("/operador")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getOperador(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(Operador.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/partes-corpo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getPartesCorpo(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(PartesCorpo.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/refere-qualidade-agua")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getRefereQualidadeAgua(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(RefereQualidadeAgua.getInstance(), filter);
 		return Response.ok(values).build();
 	}
 	
@@ -156,6 +304,22 @@ public class UtilService {
 	public Response getSimNao(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(SimNao.getInstance(), filter);
 		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/tempo-anos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTempoAnos(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(TempoAnos.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/tempo-meses")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTempoMeses(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(TempoMeses.getInstance(), filter);
 		return Response.ok(values).build();
 	}
 	

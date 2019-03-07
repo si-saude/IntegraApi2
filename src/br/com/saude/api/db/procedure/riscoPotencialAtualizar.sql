@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION riscoPotencialAtualizar(bigint)
+CREATE OR REPLACE FUNCTION riscoPotencialAtualizar(bigint,bigint)
   RETURNS bigint AS
 $BODY$
 DECLARE
@@ -97,8 +97,8 @@ BEGIN
 
 		_valor := _valor + (_qtdIndice * (0.05 / _qtdAssociacoes));
 
-		INSERT INTO riscoempregado(id, status, valor, version, risco_id)
-		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId);
+		INSERT INTO riscoempregado(id, status, valor, version, risco_id, data)
+		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId, $1);
 	end loop;
     return 1;
 END;

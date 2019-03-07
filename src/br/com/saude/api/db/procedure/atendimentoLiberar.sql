@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION atendimentoLiberar(bigint)
+CREATE OR REPLACE FUNCTION atendimentoLiberar(bigint,bigint)
   RETURNS bigint AS
 $BODY$
 DECLARE
     atendimento CURSOR for
     select * from atendimento where id = $1;
     
-    _now bigint := (EXTRACT(EPOCH FROM date_trunc('minute', now())) * 1000)::bigint;
+    _now bigint := $2;
 BEGIN
 
     for _atendimento in atendimento loop

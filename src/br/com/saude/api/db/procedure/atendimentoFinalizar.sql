@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION atendimentoFinalizar(bigint,text)
+CREATE OR REPLACE FUNCTION atendimentoFinalizar(bigint,text,bigint)
   RETURNS bigint AS
 $BODY$
 DECLARE
     atendimento CURSOR for
     select * from atendimento where id = $1;
     
-    _now bigint := (EXTRACT(EPOCH FROM date_trunc('minute', now())) * 1000)::bigint;
+    _now bigint := $3;
 BEGIN
 
     for _atendimento in atendimento loop
@@ -43,6 +43,7 @@ BEGIN
 							  (select id from questionario where inativo = false order by id limit 1));
 							  
 						--GERAR/ATUALIZAR O RISCO
+						select riscoPotencialAtualizar(_atendimento.checkin_id, _now);
 		        END IF;
 	    END IF;
         

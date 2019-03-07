@@ -56,7 +56,7 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		try {
 			Transaction transaction = session.beginTransaction();
 			session.merge(atendimento);
-			session.createSQLQuery("select atendimentoLiberar(" + atendimento.getId() + ")").uniqueResult();
+			session.createSQLQuery("select atendimentoLiberar(" + atendimento.getId() + ","+Helper.getNow()+")").uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
 			throw ex;
@@ -80,7 +80,7 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			session.merge(atendimento);
 			session
 				.createSQLQuery("select atendimentoFinalizar(" + atendimento.getId() + 
-						",'" + atendimento.getFila().getStatus() + "')")
+						",'" + atendimento.getFila().getStatus() + "'," + Helper.getNow() +")")
 				.uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
@@ -99,7 +99,7 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			session
 				.createSQLQuery("select atendimentoCancelar(" + atendimento.getId() + 
 						",'" + atendimento.getFila().getStatus() + 
-						"','" + atendimento.getCheckin().getStatus() + "')")
+						"','" + atendimento.getCheckin().getStatus() + "'," + Helper.getNow() +")")
 				.uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {

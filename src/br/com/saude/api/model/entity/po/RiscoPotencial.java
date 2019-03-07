@@ -35,7 +35,9 @@ public class RiscoPotencial {
 	private List<RiscoEmpregado> riscos;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinFormula("(select * from equipe e where e.id = getEquipeResponsavel(id))")
+	@JoinFormula("(select e.* from equipe e inner join riscoempregado r on r.equipe_id = e.id "
+				+ "where r.risco_id = id "
+				+ "order by r.valor desc limit 1)")
 	private Equipe responsavel;
 	
 	@Version

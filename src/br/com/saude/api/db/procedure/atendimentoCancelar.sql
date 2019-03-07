@@ -1,12 +1,12 @@
-CREATE OR REPLACE FUNCTION atendimentoCancelar(bigint,text,text)
+CREATE OR REPLACE FUNCTION atendimentoCancelar(bigint,text,text,bigint)
   RETURNS bigint AS
 $BODY$
 DECLARE
     atendimento CURSOR for
     select * from atendimento where id = $1;
     
-    _now bigint := (EXTRACT(EPOCH FROM date_trunc('minute', now())) * 1000)::bigint;
-    _today bigint := (EXTRACT(EPOCH FROM date_trunc('day', now())) * 1000)::bigint;
+    _now bigint := $4;
+    _today bigint := (EXTRACT(EPOCH FROM date_trunc('day', to_timestamp(_now/1000) )) * 1000)::bigint;
 BEGIN
 
     for _atendimento in atendimento loop

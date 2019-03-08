@@ -14,6 +14,9 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
 import org.hibernate.annotations.JoinFormula;
 
 @Entity
@@ -35,10 +38,17 @@ public class RiscoPotencial {
 	private List<RiscoEmpregado> riscos;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinFormula("(select e.* from equipe e inner join riscoempregado r on r.equipe_id = e.id "
-				+ "where r.risco_id = id "
-				+ "order by r.valor desc limit 1)")
+	@JoinColumnsOrFormulas({
+	    @JoinColumnOrFormula(formula=@JoinFormula(value="(select e.id "
+	    		+ "from equipe e "
+	    		+ "inner join riscoempregado r on r.equipe_id = e.id "
+	    		+ "where r.risco_id = id "
+	    		+ "order by r.valor desc limit 1)", referencedColumnName="id")),
+	})
 	private Equipe responsavel;
+	
+	@Formula(value="(select riscoPotencialObterValor(id))")
+	private double valor;
 	
 	@Version
 	private long version;
@@ -89,5 +99,13 @@ public class RiscoPotencial {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
 }

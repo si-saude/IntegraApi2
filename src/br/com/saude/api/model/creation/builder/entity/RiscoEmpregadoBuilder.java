@@ -34,6 +34,10 @@ public class RiscoEmpregadoBuilder extends GenericEntityBuilder<RiscoEmpregado, 
 		newRiscoEmpregado.setValor(risco.getValor());
 		newRiscoEmpregado.setVersion(risco.getVersion());
 		
+		if(risco.getEquipe() != null) {
+			newRiscoEmpregado.setEquipe(EquipeBuilder.newInstance(risco.getEquipe()).getEntity());
+		}
+		
 		return newRiscoEmpregado;
 	}	
 

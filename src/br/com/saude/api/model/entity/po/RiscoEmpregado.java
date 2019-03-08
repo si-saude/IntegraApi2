@@ -21,6 +21,10 @@ public class RiscoEmpregado {
 	@NotNull(message="É necessário informar o Risco Potencial do Risco Empregado.")
 	private RiscoPotencial risco;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@NotNull(message="É necessário informar a Equipe do Risco Empregado.")
+	private Equipe equipe;
+	
 	@Size(max = 32, message="Tamanho máximo para Status: 32")
 	@NotNull(message="É necessário informar o Status do Risco Empregado.")
 	private String status;
@@ -78,5 +82,13 @@ public class RiscoEmpregado {
 
 	public void setData(long data) {
 		this.data = data;
+	}
+
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+	public void setEquipe(Equipe equipe) {
+		this.equipe = equipe;
 	}
 }

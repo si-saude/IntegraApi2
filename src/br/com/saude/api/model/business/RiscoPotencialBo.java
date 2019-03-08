@@ -37,7 +37,7 @@ public class RiscoPotencialBo extends GenericBo<RiscoPotencial, RiscoPotencialFi
 	
 	@Override
 	public PagedList<RiscoPotencial> getList(RiscoPotencialFilter filter) throws Exception {
-		return super.getOrderedList(filter,"nome");
+		return super.getDescOrderedList(filter,"valor");
 	}
 	
 	@Override

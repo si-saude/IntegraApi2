@@ -18,6 +18,4 @@ public class StatusRiscoEmpregado extends GenericConstant {
 	
 	public final String ENCERRADO			= "ENCERRADO";
 	public final String REALIZADO			= "REALIZADO";
-	public final String VALIDADO			= "VALIDADO";
-	public final String REAVALIADO			= "REAVALIADO";
 }

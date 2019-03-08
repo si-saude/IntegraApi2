@@ -30,6 +30,7 @@ public class RiscoPotencialBuilder extends GenericEntityBuilder<RiscoPotencial,R
 		
 		newRiscoPotencial.setId(risco.getId());
 		newRiscoPotencial.setVersion(risco.getVersion());
+		newRiscoPotencial.setValor(risco.getValor());
 		newRiscoPotencial.setStatus(risco.getStatus());
 		
 		if(risco.getEmpregado() != null)

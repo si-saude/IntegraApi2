@@ -53,7 +53,7 @@ public class PerguntaFichaColeta {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ItemPerguntaFichaColeta> itens;
 	
-	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 	@JoinTable(name="perguntafichacoleta_equipe", 
 	joinColumns = {@JoinColumn(name="perguntafichacoleta_id")}, 
 	inverseJoinColumns = {@JoinColumn(name="equipe_id")})

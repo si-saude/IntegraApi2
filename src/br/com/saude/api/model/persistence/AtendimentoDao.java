@@ -14,6 +14,7 @@ import br.com.saude.api.model.entity.po.Atendimento;
 import br.com.saude.api.model.entity.po.Checkin;
 import br.com.saude.api.model.entity.po.FilaAtendimento;
 import br.com.saude.api.util.constant.StatusFilaAtendimento;
+import br.com.saude.api.util.constant.StatusTarefa;
 
 public class AtendimentoDao extends GenericDao<Atendimento> {
 
@@ -136,20 +137,26 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		Session session = HibernateHelper.getSession();
 		List<Atendimento> atendimentos = new ArrayList<Atendimento>();
 		try {
-			Query<Object[]> query = session
-					.createQuery("select a, f from Atendimento a "
-								+ "right join a.fila as f "
+			Query<FilaAtendimento> queryFila = session
+					.createQuery("select f from FilaAtendimento f "
 								+ "where f.localizacao.id = " + localizacaoId
 								+ "  and f.data = " + Helper.getToday());
-			List<Object[]> result = query.list();
-			if(Helper.isNotNull(result)) {
-				for(Object[] r : result) {
+			List<FilaAtendimento> filas = queryFila.list();
+			if(Helper.isNotNull(filas)) {
+				for(FilaAtendimento f : filas) {
+					
+					List<Atendimento> aux = session
+						.createQuery("select a from Atendimento a "
+							+ "where a.fila.id = " + f.getId()
+							+ "  and a.tarefa.status = '" + StatusTarefa.getInstance().EXECUCAO + "'")
+						.list();
+					
 					Atendimento a;
-					if(r[0] != null) {
-						a = (Atendimento)r[0]; 
-					} else {
+					if(Helper.isNotNull(aux) && aux.size() > 0) {
+						a = aux.get(0); 						
+					} else {						
 						a = new Atendimento();
-						a.setFila((FilaAtendimento)r[1]);
+						a.setFila(f);
 					}
 					atendimentos.add(a);
 				}

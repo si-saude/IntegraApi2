@@ -40,7 +40,7 @@ public class RespostaFichaColeta {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<ItemRespostaFichaColeta> itens;
 	
-	@Formula(value="(select p.codigo from perguntafichacoleta p where p.id = pergunta_id)")
+	@Formula(value="(select respostaFichaColetaGetCodigo(id))")
 	private String codigo;
 	
 	@Version

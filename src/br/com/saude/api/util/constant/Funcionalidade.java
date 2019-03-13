@@ -251,4 +251,6 @@ public class Funcionalidade extends GenericConstant {
 	public static final String RISCO_POTENCIAL_LISTAR 			    = "RISCO-POTENCIAL_LISTAR";
 	
 	public static final String SOLICITACAO_SOLICITAR 			    = "SOLICITACAO_SOLICITAR";
+	
+	public static final String REPORT_AGENDA 			    		= "REPORT_AGENDA";
 }

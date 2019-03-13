@@ -14,7 +14,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Version;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -38,7 +37,6 @@ public class Pessoa {
 	@NotNull(message="É necessário informar o Cpf.")
 	private String cpf;
 	
-	@Min(value=1, message="É necessário informar a Data de Nascimento.")
 	private long dataNascimento;
 	
 	@Size(max = 16, message="Tamanho máximo para Sexo: 16")

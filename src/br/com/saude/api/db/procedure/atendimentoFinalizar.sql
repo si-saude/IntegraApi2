@@ -6,6 +6,7 @@ DECLARE
     select * from atendimento where id = $1;
     
     _now bigint := $3;
+    _rtn bigint;
 BEGIN
 
     for _atendimento in atendimento loop
@@ -43,7 +44,7 @@ BEGIN
 							  (select id from questionario where inativo = false order by id limit 1));
 							  
 						--GERAR/ATUALIZAR O RISCO
-						select riscoPotencialAtualizar(_atendimento.checkin_id, _now);
+						_rtn := (select riscoPotencialAtualizar(_atendimento.checkin_id, _now));
 		        END IF;
 	    END IF;
         

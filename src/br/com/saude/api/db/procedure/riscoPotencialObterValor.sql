@@ -14,7 +14,7 @@ DECLARE
 					    where r.risco_id = _riscoPotencialId
 					      and r.status = 'REALIZADO');
    _peso integer := 4;
-   _qtd integer := 1 + (select count(r.id) from riscoempregado r
+   _qtd integer := (select count(r.id) from riscoempregado r
 					    where r.risco_id = _riscoPotencialId
 					      and r.status = 'REALIZADO');
 BEGIN

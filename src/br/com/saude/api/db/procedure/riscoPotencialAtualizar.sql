@@ -13,7 +13,7 @@ DECLARE
 
 	_checkinId bigint := $1;
 	_empregadoId bigint := (select empregado_id from checkin where id = _checkinId limit 1);
-	_riscoPotencialId bigint := (select id from riscopotencial where empregado_id = _empregadoId limit 1);
+	_riscoPotencialId bigint := (select coalesce((select id from riscopotencial where empregado_id = _empregadoId limit 1),0));
 	_riscoEmpregadoId bigint;
 
 	_qtdEquipe integer := (select count(id) from equipe where prioridadesast > 0);
@@ -37,7 +37,7 @@ BEGIN
 
 	UPDATE riscoempregado
 	SET status = 'ENCERRADO'
-	WHERE riscopotencial_id = _riscoPotencialId;
+	WHERE risco_id = _riscoPotencialId;
 	
 	for _equipe in equipes loop
 		_valor := 0;
@@ -67,9 +67,10 @@ BEGIN
 		    _qtdTriagem := _qtdTriagem + 1;
 
 		    IF _triagem.indice <= _triagem.critico THEN
-			_critico := true;
+				_critico := true;
 		    END IF;
 		end loop;
+		close triagens;
 
 		_valor := log(_equipe.prioridadesast + 1) / (_equipe.prioridadesast + _qtdEquipe);
 		_valor := _valor / (_qtdTriagem + _equipe.prioridadesast);
@@ -77,7 +78,7 @@ BEGIN
 		IF _critico THEN
 			_valor := _valor + 0.95;
 		ELSE
-			_valor := _valor + 0.95 - (((_somaIndice + 0.00) / _qtdTriagem) / 4.3);
+			_valor := _valor + 0.95 - (((_somaIndice + 0.00) / (_qtdTriagem + 1)) / 4.3);
 		END IF;
 
 		_qtdIndice := (select count(tr.id)
@@ -89,16 +90,16 @@ BEGIN
 				  and tr.indice >= 0
 				  and tr.indice < 3
 				  and exists (select 1 
-						from indicadorassocialdosast ia 
-						where ia.indicador_id = tr.indicador_id
+						from indicadorassociadosast ia 
+						where ia.indicadorsast_id = tr.indicador_id
 						  and ia.codigo in (select ii.codigo from indicadorsast ii 
 									where ii.inativo = false
 									  and ii.equipe_id = _equipe.id)));
 
 		_valor := _valor + (_qtdIndice * (0.05 / _qtdAssociacoes));
 
-		INSERT INTO riscoempregado(id, status, valor, version, risco_id, data)
-		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId, $1);
+		INSERT INTO riscoempregado(id, status, valor, version, risco_id, data, equipe_id)
+		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId, $1, _equipe.id);
 	end loop;
     return 1;
 END;

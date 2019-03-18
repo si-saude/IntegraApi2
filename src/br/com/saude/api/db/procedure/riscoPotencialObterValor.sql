@@ -16,7 +16,7 @@ DECLARE
    _peso integer := 4;
    _qtd integer := (select count(r.id) from riscoempregado r
 					    where r.risco_id = _riscoPotencialId
-					      and r.status = 'REALIZADO');
+					      and r.status = 'REALIZADO') + 1;
 BEGIN
 
 	IF _idade >= 60 THEN
@@ -29,7 +29,7 @@ BEGIN
 		_peso := 3;
 	END IF;
 	
-    return ((0.95 - (_peso / 3.3)) + _valor) / _qtd;
+    return ( ((0.95 - (_peso / 3.3)) + ((log(_qtd + 1) / (_qtd + _qtd - 1)) / (_qtd + 1))   ) + _valor) / _qtd;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE

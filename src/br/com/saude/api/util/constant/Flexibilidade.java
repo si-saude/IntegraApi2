@@ -21,4 +21,5 @@ public class Flexibilidade extends GenericConstant {
 	public final String MEDIA 				= "MÉDIA";
 	public final String ABAIXO_DA_MEDIA		= "ABAIXO DA MÉDIA";
 	public final String RUIM				= "RUIM";
+	public final String NAO_APLICAVEL		= "NÃO APLICÁVEL";
 }

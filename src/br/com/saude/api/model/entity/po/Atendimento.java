@@ -41,6 +41,8 @@ public class Atendimento {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Triagem> triagens;
 	
+	private boolean acolhimento;
+	
 	@Version
 	private long version;
 
@@ -90,5 +92,13 @@ public class Atendimento {
 
 	public void setTriagens(List<Triagem> triagens) {
 		this.triagens = triagens;
+	}
+
+	public boolean isAcolhimento() {
+		return acolhimento;
+	}
+
+	public void setAcolhimento(boolean acolhimento) {
+		this.acolhimento = acolhimento;
 	}
 }

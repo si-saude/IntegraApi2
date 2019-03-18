@@ -48,7 +48,7 @@ BEGIN
 		_riscoEmpregadoId := (select nextval('riscoempregado_id_seq'));
 
 		OPEN triagens FOR
-		select tr.indice, tr.atendimento_id, i.critico
+		select tr.indice, tr.atendimento_id, i.critico, i.ausentecalculointerdisciplinar
 		from triagem tr
 		inner join atendimento a on tr.atendimento_id = a.id
 		inner join tarefa t on t.id = a.tarefa_id
@@ -56,7 +56,7 @@ BEGIN
 		inner join indicadorsast i on i.id = tr.indicador_id
 		where ct.checkin_id = _checkinId
 		  and t.equipe_id = _equipe.id
-		  and i.ausentecalculointerdisciplinar = false
+		  --and i.ausentecalculointerdisciplinar = false
 		  and i.inativo = false
 		  and tr.indice >= 0;
 		loop 
@@ -72,13 +72,13 @@ BEGIN
 		end loop;
 		close triagens;
 
-		_valor := log(_equipe.prioridadesast + 1) / (_equipe.prioridadesast + _qtdEquipe);
+		_valor := log( (_equipe.prioridadesast + 1 + 0.00) / (_equipe.prioridadesast + _qtdEquipe) );
 		_valor := _valor / (_qtdTriagem + _equipe.prioridadesast);
 
 		IF _critico THEN
 			_valor := _valor + 0.95;
 		ELSE
-			_valor := _valor + 0.95 - (((_somaIndice + 0.00) / (_qtdTriagem + 1)) / 4.3);
+			_valor := _valor + (0.95 - (((_somaIndice + 0.00) / _qtdTriagem) / 4.3));
 		END IF;
 
 		_qtdIndice := (select count(tr.id)
@@ -86,15 +86,15 @@ BEGIN
 				inner join atendimento a on tr.atendimento_id = a.id
 				inner join tarefa t on t.id = a.tarefa_id
 				inner join checkin_tarefa ct on ct.tarefa_id = t.id
+				inner join indicadorsast i on tr.indicador_id = i.id
 				where ct.checkin_id = _checkinId
 				  and tr.indice >= 0
 				  and tr.indice < 3
 				  and exists (select 1 
-						from indicadorassociadosast ia 
-						where ia.indicadorsast_id = tr.indicador_id
-						  and ia.codigo in (select ii.codigo from indicadorsast ii 
-									where ii.inativo = false
-									  and ii.equipe_id = _equipe.id)));
+						from indicadorassociadosast ia
+						inner join indicadorsast i2 on ia.indicadorsast_id = i2.id
+						where ia.codigo = i.codigo
+						  and i2.equipe_id = _equipe.id));
 
 		_valor := _valor + (_qtdIndice * (0.05 / _qtdAssociacoes));
 

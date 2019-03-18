@@ -30,6 +30,7 @@ public class AtendimentoBuilder extends GenericEntityBuilder<Atendimento, Atendi
 		Atendimento newAtendimento = new Atendimento();
 		
 		newAtendimento.setId(atendimento.getId());
+		newAtendimento.setAcolhimento(atendimento.isAcolhimento());
 		newAtendimento.setVersion(atendimento.getVersion());
 		
 		if(atendimento.getCheckin() != null) {

@@ -19,6 +19,11 @@ public class AtendimentoExampleBuilder extends GenericExampleBuilder<Atendimento
 		addCheckin();
 		addFila();
 		addTarefa();
+		addAcolhimento();
+	}
+	
+	private void addAcolhimento() {
+		this.entity.setAcolhimento(this.addBoolean("acolhimento", this.filter.getAcolhimento()));
 	}
 	
 	private void addCheckin() throws InstantiationException, IllegalAccessException {

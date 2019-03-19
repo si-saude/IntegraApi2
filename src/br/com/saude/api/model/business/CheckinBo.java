@@ -165,4 +165,10 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		this.save(checkin);
 		return "Check-out registrado com sucesso.";
 	}
+	
+	@Override
+	public Checkin save(Checkin checkin) throws Exception {
+		checkin = definirReferencias(checkin);
+		return super.save(checkin);
+	}
 }

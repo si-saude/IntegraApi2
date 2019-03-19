@@ -119,9 +119,11 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			Query<Atendimento> query = session
 					.createQuery("select distinct a from Atendimento a "
 								+ "inner join a.fila as f "
+								+ "inner join a.tarefa as t "
 								+ "where f.status = '" + StatusFilaAtendimento.getInstance().AGUARDANDO_EMPREGADO
 								+ "'  and f.localizacao.id = " + localizacaoId
-								+ "  and f.data = " + Helper.getToday());
+								+ "  and t.status = '" + StatusTarefa.getInstance().EXECUCAO
+								+ "'  and f.data = " + Helper.getToday());
 			atendimentos = query.list();
 		}catch (Exception ex) {
 			throw ex;

@@ -14,8 +14,7 @@ BEGIN
     	UPDATE tarefa
         SET atualizacao = _now,
         fim = _now,
-		status = 'CONCLUÍDA',
-		version = version + 1
+		status = 'CONCLUÍDA'
         WHERE id = _atendimento.tarefa_id;
         
         IF not exists (select 1

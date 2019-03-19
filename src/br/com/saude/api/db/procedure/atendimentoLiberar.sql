@@ -12,8 +12,7 @@ BEGIN
     for _atendimento in atendimento loop
     
     	UPDATE tarefa
-        SET atualizacao = _now,
-		version = version + 1
+        SET atualizacao = _now
         WHERE id = _atendimento.tarefa_id;
 
         UPDATE filaatendimento

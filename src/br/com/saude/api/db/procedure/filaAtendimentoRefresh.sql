@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION filaAtendimentoRefresh(bigint)
-  RETURNS void AS
+  RETURNS bigint AS
 $BODY$
 DECLARE
     localizacoes CURSOR for
@@ -145,6 +145,7 @@ BEGIN
         end loop;
         close checkins;
     end loop;
+    return 1;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE

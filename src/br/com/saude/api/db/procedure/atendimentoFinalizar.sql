@@ -36,14 +36,6 @@ BEGIN
 				        SET status = 'FINALIZADO',
 				        version = version + 1
 				        WHERE id = _atendimento.checkin_id;
-				        
-				        --CRIAR AVALIAÇÃO DE ATENDIMENTO
-						INSERT INTO avaliacaoatendimento(id, status, version, checkin_id, questionario_id)
-				        VALUES(nextval('avaliacaoatendimento_id_seq'), 'PENDENTE', 0, _atendimento.checkin_id,
-							  (select id from questionario where inativo = false order by id limit 1));
-							  
-						--GERAR/ATUALIZAR O RISCO
-						_rtn := (select riscoPotencialAtualizar(_atendimento.checkin_id, _now));
 		        END IF;
 	    END IF;
         
@@ -52,6 +44,14 @@ BEGIN
         version = version + 1
         where id = _atendimento.fila_id;
         
+        IF not exists (select 1 
+        			from checkin_tarefa ct
+        			inner join tarefa t on ct.tarefa_id = t.id
+        			where ct.checkin_id = _atendimento.checkin_id
+        			  and t.status != 'CONCLUÍDA') THEN
+    		--GERAR/ATUALIZAR O RISCO
+			_rtn := (select riscoPotencialAtualizar(_atendimento.checkin_id, _now));
+        END IF;
     end loop;
 	return 1;
 END;

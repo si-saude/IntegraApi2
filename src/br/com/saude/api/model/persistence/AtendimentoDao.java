@@ -40,7 +40,6 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		Session session = HibernateHelper.getSession();
 		try {
 			Transaction transaction = session.beginTransaction();
-			session.merge(atendimento);
 			session.createSQLQuery("select atendimentoIniciar(" + atendimento.getId() + ")").uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
@@ -56,6 +55,10 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		Session session = HibernateHelper.getSession();
 		try {
 			Transaction transaction = session.beginTransaction();
+			
+			Checkin checkin = session.get(Checkin.class, atendimento.getCheckin().getId());
+			atendimento.getCheckin().setTarefas(checkin.getTarefas());
+			
 			session.merge(atendimento);
 			session.createSQLQuery("select atendimentoLiberar(" + atendimento.getId() + ","+Helper.getNow()+")").uniqueResult();
 			transaction.commit();
@@ -74,8 +77,12 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			Transaction transaction = session.beginTransaction();
 			
 			FilaAtendimento fila = session.get(FilaAtendimento.class, atendimento.getFila().getId());
+			Checkin checkin = session.get(Checkin.class, atendimento.getCheckin().getId());
+			
 			if(fila.getStatus().equals(StatusFilaAtendimento.getInstance().LANCAMENTO_DE_INFORMACOES)) {
-				atendimento.setCheckin(session.get(Checkin.class, atendimento.getCheckin().getId()));
+				atendimento.setCheckin(checkin);
+			} else {
+				atendimento.getCheckin().setTarefas(checkin.getTarefas());	
 			}
 			
 			session.merge(atendimento);
@@ -102,6 +109,21 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 						",'" + atendimento.getFila().getStatus() + 
 						"','" + atendimento.getCheckin().getStatus() + "'," + Helper.getNow() +")")
 				.uniqueResult();
+			transaction.commit();
+		}catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			HibernateHelper.close(session);
+		}
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void atualizar(Atendimento atendimento) {
+		Session session = HibernateHelper.getSession();
+		try {
+			Transaction transaction = session.beginTransaction();
+			session.createSQLQuery("select filaatendimentorefresh(regraperiodico_id) from parametro").uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
 			throw ex;

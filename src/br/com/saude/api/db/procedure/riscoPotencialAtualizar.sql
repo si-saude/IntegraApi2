@@ -101,6 +101,12 @@ BEGIN
 		INSERT INTO riscoempregado(id, status, valor, version, risco_id, data, equipe_id)
 		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId, $1, _equipe.id);
 	end loop;
+	
+	--CRIAR AVALIAÇÃO DE ATENDIMENTO
+	INSERT INTO avaliacaoatendimento(id, status, version, checkin_id, questionario_id)
+    VALUES(nextval('avaliacaoatendimento_id_seq'), 'PENDENTE', 0, _checkinId,
+		  (select id from questionario where inativo = false order by id limit 1));
+	
     return 1;
 END;
 $BODY$

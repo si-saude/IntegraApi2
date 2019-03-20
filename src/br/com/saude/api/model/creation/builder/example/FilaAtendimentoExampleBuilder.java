@@ -19,6 +19,11 @@ public class FilaAtendimentoExampleBuilder extends GenericExampleBuilder<FilaAte
 		addData();
 		addProfissional();
 		addLocalizacao();
+		addStatus();
+	}
+	
+	private void addStatus() {
+		this.ilike("status", this.filter.getStatus());
 	}
 	
 	private void addData() {

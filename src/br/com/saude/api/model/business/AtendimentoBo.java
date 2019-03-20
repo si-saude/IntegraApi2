@@ -7,6 +7,8 @@ import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.creation.builder.entity.AtendimentoBuilder;
 import br.com.saude.api.model.creation.builder.example.AtendimentoExampleBuilder;
 import br.com.saude.api.model.entity.filter.AtendimentoFilter;
+import br.com.saude.api.model.entity.filter.CheckinFilter;
+import br.com.saude.api.model.entity.filter.FilaAtendimentoFilter;
 import br.com.saude.api.model.entity.po.Atendimento;
 import br.com.saude.api.model.persistence.AtendimentoDao;
 import br.com.saude.api.util.constant.StatusCheckin;
@@ -51,13 +53,31 @@ public class AtendimentoBo extends GenericBo<Atendimento, AtendimentoFilter, Ate
 	public String liberar(Atendimento atendimento) throws Exception {
 		atendimento = definirReferencias(atendimento);
 		getDao().liberar(atendimento);
-		return "Empregado liberado.";
+		return "Empregado liberado. " + getProximoAtendimento(atendimento);
 	}
 	
 	public String finalizar(Atendimento atendimento) throws Exception {
 		atendimento = definirReferencias(atendimento);
 		getDao().finalizar(atendimento);
-		return "Atendimento finalizado.";
+		return "Atendimento finalizado. " + getProximoAtendimento(atendimento);
+	}
+	
+	private String getProximoAtendimento(Atendimento atendimento) throws Exception {
+		getDao().atualizar(atendimento);
+		AtendimentoFilter filter = new AtendimentoFilter();
+		filter.setPageSize(1);
+		filter.setCheckin(new CheckinFilter());
+		filter.getCheckin().setId(atendimento.getCheckin().getId());
+		filter.setFila(new FilaAtendimentoFilter());
+		filter.getFila().setStatus(StatusFilaAtendimento.getInstance().AGUARDANDO_EMPREGADO);
+		PagedList<Atendimento> list = getList(filter);
+		if(list.getTotal() > 0) {
+			Atendimento a = list.getList().get(0); 
+			return " Próximo atendimento do(a) empregado(a): " 
+					+ a.getFila().getProfissional().getEmpregado().getPessoa().getNome() + " - "
+					+ a.getTarefa().getEquipe().getNome() + ".";
+		}
+		return "";
 	}
 	
 	public String devolver(Atendimento atendimento) throws Exception {

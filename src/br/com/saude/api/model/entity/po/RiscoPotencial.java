@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,6 +36,7 @@ public class RiscoPotencial {
 	private Empregado empregado;
 	
 	@OneToMany(mappedBy="risco", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+	@OrderBy(value="data DESC")
 	private List<RiscoEmpregado> riscos;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -49,6 +51,9 @@ public class RiscoPotencial {
 	
 	@Formula(value="(select riscoPotencialObterValor(id))")
 	private double valor;
+	
+	@Formula(value="(select riscoPotencialObterData(id))")
+	private long data;
 	
 	@Version
 	private long version;
@@ -107,5 +112,13 @@ public class RiscoPotencial {
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public long getData() {
+		return data;
+	}
+
+	public void setData(long data) {
+		this.data = data;
 	}
 }

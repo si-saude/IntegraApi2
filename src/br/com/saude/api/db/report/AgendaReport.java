@@ -1,6 +1,5 @@
 package br.com.saude.api.db.report;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,9 @@ public class AgendaReport {
 		
 		List<AgendaDto> agendas = new ArrayList<AgendaDto>();
 		
-		String query = "select e.matricula||' - '||p.nome, s.nome, t.inicio, t.status, string_agg(eq.abreviacao, ' - ') " + 
+		String query = "select e.matricula||' - '||p.nome, s.nome, "
+				+ " (extract(epoch from date_trunc('day', to_timestamp(t.inicio/1000))) * 1000) as data, "
+				+ "t.status, string_agg(eq.abreviacao, ' - ') " + 
 				"from tarefa t " + 
 				"inner join servico s on t.servico_id = s.id " + 
 				"inner join empregado e on t.cliente_id = e.id " + 
@@ -38,8 +39,10 @@ public class AgendaReport {
 				"inner join equipe eq on t.equipe_id = eq.id " +
 				"where t.inicio between " + filter.getInicio().getInicio() + 
 					" and " + (Helper.addDays(filter.getInicio().getFim(),1) - 1) + 
-				" group by e.matricula||' - '||p.nome, s.nome, t.inicio, t.status " +
-				"order by t.inicio";
+				" group by e.matricula||' - '||p.nome, s.nome, "
+				+ "extract(epoch from date_trunc('day', to_timestamp(t.inicio/1000))) * 1000, "
+				+ "t.status " +
+				"order by 3";
 		
 		List<Object[]> list = new ArrayList<Object[]>();
 		Session session = HibernateHelper.getSession();
@@ -58,7 +61,7 @@ public class AgendaReport {
 			dto = new AgendaDto();
 			dto.setCliente((String) row[0]);
 			dto.setServico((String) row[1]);
-			dto.setData(((BigInteger) row[2]).longValue());
+			dto.setData(((Double) row[2]).longValue());
 			dto.setStatus((String) row[3]);
 			dto.setStatus((String) row[3]);
 			dto.setEquipes((String) row[4]);

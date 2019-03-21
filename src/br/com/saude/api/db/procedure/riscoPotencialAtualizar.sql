@@ -99,7 +99,7 @@ BEGIN
 		_valor := _valor + (_qtdIndice * (0.05 / _qtdAssociacoes));
 
 		INSERT INTO riscoempregado(id, status, valor, version, risco_id, data, equipe_id)
-		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId, $1, _equipe.id);
+		VALUES (_riscoEmpregadoId, 'REALIZADO', _valor, 0, _riscoPotencialId, $2, _equipe.id);
 	end loop;
 	
 	--CRIAR AVALIAÇÃO DE ATENDIMENTO

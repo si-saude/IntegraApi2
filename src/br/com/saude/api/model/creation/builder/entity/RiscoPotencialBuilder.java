@@ -32,6 +32,7 @@ public class RiscoPotencialBuilder extends GenericEntityBuilder<RiscoPotencial,R
 		newRiscoPotencial.setVersion(risco.getVersion());
 		newRiscoPotencial.setValor(risco.getValor());
 		newRiscoPotencial.setStatus(risco.getStatus());
+		newRiscoPotencial.setData(risco.getData());
 		
 		if(risco.getEmpregado() != null)
 			newRiscoPotencial.setEmpregado(EmpregadoBuilder.newInstance(risco.getEmpregado()).getEntity());
@@ -46,5 +47,9 @@ public class RiscoPotencialBuilder extends GenericEntityBuilder<RiscoPotencial,R
 		return (RiscoPotencialBuilder) this.loadProperty("riscos", risco -> {
 			return RiscoEmpregadoBuilder.newInstance(risco.getRiscos()).getEntityList();
 		});
+	}
+	
+	public RiscoPotencial getNewEntity() {
+		return this.newEntity;
 	}
 }

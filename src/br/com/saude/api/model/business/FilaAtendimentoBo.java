@@ -11,6 +11,7 @@ import br.com.saude.api.model.creation.builder.example.FilaAtendimentoExampleBui
 import br.com.saude.api.model.entity.filter.FilaAtendimentoFilter;
 import br.com.saude.api.model.entity.filter.LocalizacaoFilter;
 import br.com.saude.api.model.entity.filter.ProfissionalFilter;
+import br.com.saude.api.model.entity.po.Atendimento;
 import br.com.saude.api.model.entity.po.FilaAtendimento;
 import br.com.saude.api.model.persistence.FilaAtendimentoDao;
 import br.com.saude.api.util.constant.StatusFilaAtendimento;
@@ -85,5 +86,10 @@ public class FilaAtendimentoBo extends GenericBo<FilaAtendimento, FilaAtendiment
 	public FilaAtendimento encerrar(FilaAtendimento fila) throws Exception {
 		fila.setStatus(StatusFilaAtendimento.getInstance().ENCERRADO);
 		return super.save(fila);
+	}
+	
+	public List<FilaAtendimento> getListDisponivel(Atendimento atendimento) throws Exception {
+		return getBuilder(getDao().getListDisponivel(atendimento.getCheckin().getLocalizacao().getId(), 
+				atendimento.getTarefa().getEquipe().getId())).getEntityList();
 	}
 }

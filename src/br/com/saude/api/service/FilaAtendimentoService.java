@@ -14,6 +14,7 @@ import br.com.saude.api.generic.GenericService;
 import br.com.saude.api.model.business.FilaAtendimentoBo;
 import br.com.saude.api.model.business.validate.FilaAtendimentoValidator;
 import br.com.saude.api.model.entity.filter.FilaAtendimentoFilter;
+import br.com.saude.api.model.entity.po.Atendimento;
 import br.com.saude.api.model.entity.po.FilaAtendimento;
 import br.com.saude.api.util.RequestInterceptor;
 
@@ -106,6 +107,18 @@ public class FilaAtendimentoService extends GenericService<FilaAtendimento,FilaA
 	public Response getListNaoEncerrado(FilaAtendimentoFilter filter) {		
 		try {
 			return Response.ok(getBo().getListNaoEncerrado(filter)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/get-list-disponivel")
+	public Response getListNaoEncerrado(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo().getListDisponivel(atendimento)).build();
 		}catch (Exception e) {
 			return returnNotAcceptable(e);
 		}

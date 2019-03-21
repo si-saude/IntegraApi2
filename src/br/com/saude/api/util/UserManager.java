@@ -30,7 +30,7 @@ public class UserManager {
 	public boolean isTokenValid(String token) {
 		
 		boolean ret = this.usuarios.stream().filter(u->u.getToken().equals(token) && 
-				u.getSessionTime() > (Helper.getNow() - (1000*60*60)) ).count() > 0;
+				u.getSessionTime() > (Helper.getNow() - (1000*60*90)) ).count() > 0;
 				
 		if(ret) {
 			this.usuarios.stream().filter(u->u.getToken().equals(token)).findFirst()

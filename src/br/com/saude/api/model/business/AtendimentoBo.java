@@ -62,6 +62,20 @@ public class AtendimentoBo extends GenericBo<Atendimento, AtendimentoFilter, Ate
 		return "Atendimento finalizado. " + getProximoAtendimento(atendimento);
 	}
 	
+	public String encaminhar(Atendimento atendimento) throws Exception {
+		
+		if(atendimento.getCheckin() == null || atendimento.getCheckin().getId() == 0) {
+			throw new Exception("É necessário informar o Checkin do Atendimento.");
+		} else if (atendimento.getTarefa() == null || atendimento.getTarefa().getId() == 0) {
+			throw new Exception("É necessário informar a Equipe do Atendimento.");
+		} else if (atendimento.getFila() == null || atendimento.getFila().getId() == 0) {
+			throw new Exception("É necessário informar o Profissional do Atendimento.");
+		}
+		
+		getDao().encaminhar(atendimento);
+		return "Atendimento criado com sucesso.";
+	}
+	
 	private String getProximoAtendimento(Atendimento atendimento) throws Exception {
 		getDao().atualizar(atendimento);
 		AtendimentoFilter filter = new AtendimentoFilter();

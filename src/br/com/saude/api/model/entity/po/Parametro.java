@@ -17,6 +17,9 @@ public class Parametro {
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	private RegraAtendimento regraPeriodico;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private Equipe acolhimento;
 		
 	@Version
 	private long version;
@@ -43,5 +46,13 @@ public class Parametro {
 
 	public void setVersion(long version) {
 		this.version = version;
+	}
+
+	public Equipe getAcolhimento() {
+		return acolhimento;
+	}
+
+	public void setAcolhimento(Equipe acolhimento) {
+		this.acolhimento = acolhimento;
 	}
 }

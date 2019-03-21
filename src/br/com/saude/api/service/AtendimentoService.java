@@ -126,6 +126,18 @@ public class AtendimentoService extends GenericService<Atendimento,AtendimentoFi
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/encaminhar")
+	public Response encaminhar(Atendimento atendimento) {		
+		try {
+			return Response.ok(getBo().encaminhar(atendimento)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/get-list-atendimentos-aguardando-empregado-by-localizacao")
 	public Response getListAtendimentosAguardandoEmpregadoByLocalizacao(Atendimento atendimento) {		
 		try {

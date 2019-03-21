@@ -247,6 +247,7 @@ public class Funcionalidade extends GenericConstant {
 	
 	public static final String CHECKIN_CHECKIN 			    		= "CHECKIN_CHECKIN";
 	public static final String CHECKIN_CHECKOUT 			    	= "CHECKIN_CHECKOUT";
+	public static final String CHECKIN_CRIAR_ATENDIMENTO	    	= "CHECKIN_CRIAR-ATENDIMENTO";
 	
 	public static final String FICHA_COLETA_EDITAR					= "FICHA-COLETA_EDITAR";
 	

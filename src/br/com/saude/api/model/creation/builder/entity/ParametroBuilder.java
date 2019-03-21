@@ -36,6 +36,11 @@ public class ParametroBuilder extends GenericEntityBuilder<Parametro, GenericFil
 					.newInstance(parametro.getRegraPeriodico()).getEntity());
 		}
 		
+		if(parametro.getAcolhimento() != null) {
+			newParametro.setAcolhimento(EquipeBuilder
+					.newInstance(parametro.getAcolhimento()).getEntity());
+		}
+		
 		return newParametro;
 	}	
 

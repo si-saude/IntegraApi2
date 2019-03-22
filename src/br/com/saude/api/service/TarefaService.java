@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import br.com.saude.api.db.report.AgendaReport;
+import br.com.saude.api.db.report.TempoAtendimentoReport;
 import br.com.saude.api.generic.CustomValidator;
 import br.com.saude.api.generic.GenericService;
 import br.com.saude.api.model.business.TarefaBo;
@@ -83,6 +84,18 @@ public class TarefaService extends GenericService<Tarefa,TarefaFilter,TarefaBo> 
 	public Response reportAgenda(TarefaFilter filter) {		
 		try {
 			return Response.ok(AgendaReport.getInstance().getList(filter)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/report-tempo-atendimento")
+	public Response reportTempoAtendimento(TarefaFilter filter) {		
+		try {
+			return Response.ok(TempoAtendimentoReport.getInstance().getList(filter)).build();
 		}catch (Exception e) {
 			return returnNotAcceptable(e);
 		}

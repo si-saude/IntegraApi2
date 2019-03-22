@@ -32,6 +32,7 @@ public class CheckinBuilder extends GenericEntityBuilder<Checkin, CheckinFilter>
 		newCheckin.setId(checkin.getId());
 		newCheckin.setAtualizacao(checkin.getAtualizacao());
 		newCheckin.setChegada(checkin.getChegada());
+		newCheckin.setConduta(checkin.getConduta());
 		newCheckin.setStatus(checkin.getStatus());
 		newCheckin.setVersion(checkin.getVersion());
 

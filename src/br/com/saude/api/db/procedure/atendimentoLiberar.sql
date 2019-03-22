@@ -25,10 +25,13 @@ BEGIN
         			inner join tarefa t on ct.tarefa_id = t.id
         			where ct.checkin_id = _atendimento.checkin_id
         			  and t.status in ('PENDENTE','ABERTA')) THEN
+        			  
+			IF not exists (select 1 from checkin where id = _atendimento.checkin_id and status = 'AUSENTE') THEN
         		UPDATE checkin
 		        SET status = 'AGUARDANDO',
 		        version = version + 1
-		        WHERE id = _atendimento.checkin_id;  
+		        WHERE id = _atendimento.checkin_id;
+	        END IF;
         ELSE
         		UPDATE checkin
 		        SET status = 'FINALIZADO',

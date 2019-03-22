@@ -58,6 +58,7 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			
 			Checkin checkin = session.get(Checkin.class, atendimento.getCheckin().getId());
 			atendimento.getCheckin().setTarefas(checkin.getTarefas());
+			atendimento.getCheckin().setVersion(checkin.getVersion());
 			
 			session.merge(atendimento);
 			session.createSQLQuery("select atendimentoLiberar(" + atendimento.getId() + ","+Helper.getNow()+")").uniqueResult();
@@ -80,15 +81,17 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			Checkin checkin = session.get(Checkin.class, atendimento.getCheckin().getId());
 			
 			if(fila.getStatus().equals(StatusFilaAtendimento.getInstance().LANCAMENTO_DE_INFORMACOES)) {
+				checkin.setConduta(atendimento.getCheckin().getConduta());
 				atendimento.setCheckin(checkin);
 			} else {
-				atendimento.getCheckin().setTarefas(checkin.getTarefas());	
+				atendimento.getCheckin().setTarefas(checkin.getTarefas());
+				atendimento.getCheckin().setVersion(checkin.getVersion());
 			}
 			
 			session.merge(atendimento);
 			session
 				.createSQLQuery("select atendimentoFinalizar(" + atendimento.getId() + 
-						",'" + atendimento.getFila().getStatus() + "'," + Helper.getNow() +")")
+						",'" + atendimento.getFila().getStatus() + "'," + Helper.getNow() +"," + Helper.getToday() + ")")
 				.uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {

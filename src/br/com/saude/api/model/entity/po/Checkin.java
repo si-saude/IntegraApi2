@@ -47,6 +47,9 @@ public class Checkin {
 	@Size(max = 64, message="Tamanho máximo para Status do Check-in: 64")
 	private String status;
 	
+	@Size(max = 2048, message="Tamanho máximo para Conduta/Percepção: 2048")
+	private String conduta;
+	
 	@NotNull(message="É necessário informar o Serviço do Check-in.")
 	@ManyToOne(fetch=FetchType.EAGER)
 	private Servico servico;
@@ -144,5 +147,13 @@ public class Checkin {
 
 	public void setRespostas(List<RespostaFichaColeta> respostas) {
 		this.respostas = respostas;
+	}
+
+	public String getConduta() {
+		return conduta;
+	}
+
+	public void setConduta(String conduta) {
+		this.conduta = conduta;
 	}
 }

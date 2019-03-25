@@ -33,7 +33,7 @@ public class TempoAtendimentoReport {
 		String query = "select empregado, equipe, profissional, inicio, fim, duracao, " + 
 				"chegada, coalesce(saida,0) as saida, status, " + 
 				"    CASE WHEN coalesce(saida,0) != 0 " + 
-				"        THEN (saida - chegada) " + 
+				"        THEN (saida - chegada) + (1000*60*60*3) " + 
 				"        ELSE 0 END as tempo_total " + 
 				"from ( " + 
 				"    select p.nome as empregado, " + 
@@ -41,7 +41,7 @@ public class TempoAtendimentoReport {
 				"        PP.NOME as profissional, " + 
 				"        t.inicio, " + 
 				"        t.fim, " + 
-				"        (t.fim - t.inicio)/1000/60 as duracao, " + 
+				"        (t.fim - t.inicio) + (1000*60*60*3) as duracao, " + 
 				"        c.chegada, " + 
 				"        (select tt.fim " + 
 				"        from tarefa tt " + 
@@ -63,7 +63,7 @@ public class TempoAtendimentoReport {
 				"      and c.chegada between " + filter.getInicio().getInicio() +
 				" and " + (Helper.addDays(filter.getInicio().getFim(),1) - 1) +
 				")x " + 
-				"order by empregado, inicio";
+				"order by inicio, empregado";
 		
 		List<Object[]> list = new ArrayList<Object[]>();
 		Session session = HibernateHelper.getSession();

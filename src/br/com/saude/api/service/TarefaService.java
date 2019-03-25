@@ -80,6 +80,18 @@ public class TarefaService extends GenericService<Tarefa,TarefaFilter,TarefaBo> 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/cancelar")
+	public Response cancelar(Tarefa tarefa) {		
+		try {
+			return Response.ok(getBo().cancelar(tarefa)).build();
+		}catch (Exception e) {
+			return returnNotAcceptable(e);
+		}
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/report-agenda")
 	public Response reportAgenda(TarefaFilter filter) {		
 		try {

@@ -245,6 +245,7 @@ public class Funcionalidade extends GenericConstant {
 	
 	public static final String AVALIACAO_ATENDIMENTO_RESPONDER		= "AVALIACAO-ATENDIMENTO_RESPONDER";
 	
+	
 	public static final String CHECKIN_CHECKIN 			    		= "CHECKIN_CHECKIN";
 	public static final String CHECKIN_CHECKOUT 			    	= "CHECKIN_CHECKOUT";
 	public static final String CHECKIN_CRIAR_ATENDIMENTO	    	= "CHECKIN_CRIAR-ATENDIMENTO";
@@ -253,6 +254,7 @@ public class Funcionalidade extends GenericConstant {
 	
 	public static final String RISCO_POTENCIAL_LISTAR 			    = "RISCO-POTENCIAL_LISTAR";
 	
+	public static final String SOLICITACAO_CANCELAR	    			= "SOLICITACAO_CANCELAR";
 	public static final String SOLICITACAO_SOLICITAR 			    = "SOLICITACAO_SOLICITAR";
 	
 	public static final String REPORT_AGENDA 			    		= "REPORT_AGENDA";

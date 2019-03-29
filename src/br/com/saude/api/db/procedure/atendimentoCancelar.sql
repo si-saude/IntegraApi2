@@ -3,10 +3,14 @@ CREATE OR REPLACE FUNCTION atendimentoCancelar(bigint,text,text,bigint)
 $BODY$
 DECLARE
     atendimento CURSOR for
-    select * from atendimento where id = $1;
+    select a.*, c.status as status_checkin 
+    from atendimento a
+    inner join checkin c on a.checkin_id = c.id
+    where a.id = $1;
     
     _now bigint := $4;
     _today bigint := (EXTRACT(EPOCH FROM date_trunc('day', to_timestamp(_now/1000) )) * 1000)::bigint;
+    _statusCheckin text := $3;
 BEGIN
 
     for _atendimento in atendimento loop
@@ -15,9 +19,13 @@ BEGIN
         SET status = $2,
         version = version + 1
         where id = _atendimento.fila_id;
+        
+        IF _atendimento.status_checkin = 'AUSENTE' THEN
+        	_statusCheckin = _atendimento.status_checkin; 
+        END IF;
 
         UPDATE checkin
-        SET status = $3,
+        SET status = _statusCheckin,
         version = version + 1,
         atualizacao = chegada
         WHERE id = _atendimento.checkin_id;

@@ -84,7 +84,7 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		return "Check-in registrado com sucesso.";
 	}
 	
-	private PagedList<Checkin> getCheckinByCheckin(Checkin checkin, long date) throws Exception {
+	protected PagedList<Checkin> getCheckinByCheckin(Checkin checkin, long date) throws Exception {
 		CheckinFilter filter = new CheckinFilter();
 		filter.setPageSize(Integer.MAX_VALUE);
 		filter.setEmpregado(new EmpregadoFilter());
@@ -100,11 +100,14 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 		return getList(filter);
 	}
 	
-	private Checkin configurarFichaDeColeta(Checkin checkin) throws Exception {
+	protected Checkin configurarFichaDeColeta(Checkin checkin) throws Exception {
 		if (checkin.getId() == 0) {
 			Servico servico = checkin.getServico();
 			if(servico.getGrupo().equals(GrupoServico.ATENDIMENTO_OCUPACIONAL) &&
 					servico.getCodigo().equals("0003")) {
+				//VERIFICAR SE HÁ FICHA DE COLETA ANTERIOR PARA CRIAR UMA NOVA A PARTIR DA DELA
+				
+				
 				PerguntaFichaColetaFilter filter = new PerguntaFichaColetaFilter();
 				filter.setPageSize(Integer.MAX_VALUE);
 				filter.setInativo(new BooleanFilter());

@@ -1,8 +1,10 @@
 package br.com.saude.api.model.business;
 
 import java.util.List;
+import java.util.Optional;
 
 import br.com.saude.api.generic.GenericBo;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.generic.PagedList;
 import br.com.saude.api.model.creation.builder.entity.AtendimentoBuilder;
 import br.com.saude.api.model.creation.builder.example.AtendimentoExampleBuilder;
@@ -10,9 +12,12 @@ import br.com.saude.api.model.entity.filter.AtendimentoFilter;
 import br.com.saude.api.model.entity.filter.CheckinFilter;
 import br.com.saude.api.model.entity.filter.FilaAtendimentoFilter;
 import br.com.saude.api.model.entity.po.Atendimento;
+import br.com.saude.api.model.entity.po.Checkin;
+import br.com.saude.api.model.entity.po.Tarefa;
 import br.com.saude.api.model.persistence.AtendimentoDao;
 import br.com.saude.api.util.constant.StatusCheckin;
 import br.com.saude.api.util.constant.StatusFilaAtendimento;
+import br.com.saude.api.util.constant.StatusTarefa;
 
 public class AtendimentoBo extends GenericBo<Atendimento, AtendimentoFilter, AtendimentoDao, AtendimentoBuilder, 
 	AtendimentoExampleBuilder> {
@@ -73,6 +78,56 @@ public class AtendimentoBo extends GenericBo<Atendimento, AtendimentoFilter, Ate
 		}
 		
 		getDao().encaminhar(atendimento);
+		return "Atendimento criado com sucesso.";
+	}
+	
+	public String encaminharAvulso(Atendimento atendimento) throws Exception {
+		
+		if (atendimento.getFila() == null || atendimento.getFila().getId() == 0) {
+			throw new Exception("É necessário informar o Profissional do Atendimento.");
+		}
+		
+		//VERIFICAR SE HÁ SOLICITAÇÃO PENDENTE/ABERTA PARA EMPREGADO/EQUIPE/SERVICO
+		List<Tarefa> tarefas =  TarefaBo.getInstance().getListTarefasByAtendimento(atendimento);
+		if(Helper.isNull(tarefas) || tarefas.size() == 0) {
+			throw new Exception("Não há solicitação ABERTA ou PENDENTE.");	
+		}
+		
+		Checkin checkin = new Checkin();
+		checkin.setLocalizacao(atendimento.getFila().getLocalizacao());
+		checkin.setEmpregado(atendimento.getTarefa().getCliente());
+		checkin.setServico(atendimento.getTarefa().getServico());
+		
+		PagedList<Checkin> checkins = CheckinBo.getInstance().getCheckinByCheckin(checkin, Helper.getToday());
+		
+		if(checkins.getTotal() > 0) {
+			//SE HOUVER, OBTER CHECKIN DO EMPREGADO/SERVICO/LOCALIZACAO/DATA
+			checkin = checkins.getList().get(0);
+		} else {
+			//SE NÃO HOUVER, CRIAR SETANDO TODAS AS TAREFAS ABERTA/PENDENTE/CONCLUÍDA
+			checkin.setChegada(Helper.getToday());
+			checkin.setTarefas(TarefaBo.getInstance().getListTarefasAbertasPendentesConcluidasByAtendimento(atendimento));
+		}
+		
+		//DEFINIR STATUS DO CHECKIN = AUSENTE
+		//CHAMAR PROCEDURE PARA CRIAR ATENDIMENTO NO BANCO
+		checkin.setAtualizacao(Helper.getNow());
+		checkin.setStatus(StatusCheckin.getInstance().AUSENTE);
+		checkin = CheckinBo.getInstance().configurarFichaDeColeta(checkin);
+		checkin.getTarefas().forEach(t -> t.setStatus(StatusTarefa.getInstance().PENDENTE));
+		atendimento.setCheckin(checkin);
+		
+		//DEFINIR TAREFA DO ATENDIMENTO
+		Optional<Tarefa> tarefa =  checkin.getTarefas().stream().filter(t -> t.getEquipe().getId() == atendimento.getTarefa().getEquipe().getId())
+			.findFirst();
+		
+		if(!tarefa.isPresent()) {
+			throw new Exception("Não foi possível obter a solicitação.");
+		}
+		
+		atendimento.setTarefa(tarefa.get());
+		getDao().encaminharAvulso(atendimento);		
+		
 		return "Atendimento criado com sucesso.";
 	}
 	

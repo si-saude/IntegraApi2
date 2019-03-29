@@ -146,4 +146,26 @@ public class TarefaDao extends GenericDao<Tarefa> {
 		}
 		return tarefas;
 	}
+	
+	@SuppressWarnings({ "unchecked" })
+	public List<Tarefa> getListTarefasAbertasByData(long empregadoId, long servicoId, long data) {
+		Session session = HibernateHelper.getSession();
+		List<Tarefa> tarefas;
+		try {
+			Query<Tarefa> query = session.createQuery("select distinct t from Tarefa t "
+								+ "where t.cliente.id = " + empregadoId
+								+ "  and t.servico.id = " + servicoId
+								+ "  and ((t.status = '" + StatusTarefa.getInstance().ABERTA + "') or"
+									  + " (t.status = '" + StatusTarefa.getInstance().PENDENTE + "'))"
+									  + "  and t.inicio between " + data + " and " + Helper.addDays(data, 1));
+			tarefas = query.list();
+			
+		}catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			HibernateHelper.close(session);
+		}
+		return tarefas;
+	}
 }

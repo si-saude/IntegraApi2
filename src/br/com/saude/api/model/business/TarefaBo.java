@@ -71,6 +71,18 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 		return "Solicitação registrada com sucesso.";
 	}
 	
+	public String cancelar(Tarefa tarefa) throws Exception {
+		List<Tarefa> tarefas = configurarCancelamento(tarefa);
+		
+		if(Helper.isNull(tarefas) || tarefas.size() == 0) {
+			throw new Exception("Não há Solicitações a serem canceladas.");	
+		}
+		
+		saveList(tarefas);
+		
+		return "Solicitação cancelada com sucesso.";
+	}
+	
 	private boolean validarServico(Tarefa tarefa) {
 		Servico servico = tarefa.getServico();
 		if(servico == null || servico.getId() == 0) {
@@ -116,6 +128,17 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 		solicitacao = aplicarRegrasDeNegocio(tarefa, solicitacao);
 		
 		return solicitacao;
+	}
+	
+	private List<Tarefa> configurarCancelamento(Tarefa tarefa) throws Exception {
+		List<Tarefa> tarefas = getListTarefasAbertasByData(tarefa);
+		
+		for(Tarefa newTarefa : tarefas) {
+			newTarefa.setAtualizacao(Helper.getNow());
+			newTarefa.setStatus(StatusTarefa.getInstance().CANCELADA);
+		}
+		
+		return tarefas;
 	}
 	
 	private List<Tarefa> aplicarRegrasDeNegocio(Tarefa tarefa, List<Tarefa> solicitacao) throws Exception {
@@ -187,5 +210,10 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 		return getBuilder(getDao().getListTarefasAbertasPendentesConcluidasByAtendimento(
 				atendimento.getTarefa().getCliente().getId(), 
 				atendimento.getTarefa().getServico().getId())).getEntityList();
+	}
+	
+	public List<Tarefa> getListTarefasAbertasByData(Tarefa tarefa) throws Exception {
+		return getBuilder(getDao().getListTarefasAbertasByData(
+				tarefa.getCliente().getId(),tarefa.getServico().getId(), tarefa.getInicio())).getEntityList();
 	}
 }

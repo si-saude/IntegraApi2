@@ -5,6 +5,7 @@ public class TempoAtendimentoDto {
 	private String empregado;
 	private String equipe;
 	private String profissional;
+	private String status;
 	private long inicio;
 	private long fim;
 	private long duracao;
@@ -30,6 +31,12 @@ public class TempoAtendimentoDto {
 	}
 	public void setProfissional(String profissional) {
 		this.profissional = profissional;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	public long getInicio() {
 		return inicio;

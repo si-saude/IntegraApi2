@@ -95,7 +95,7 @@ BEGIN
                 exit when _fila is null;
 				
 				_atendimentoId := (select nextval('atendimento_id_seq'));
-				_now := (EXTRACT(EPOCH FROM date_trunc('second', now())::timestamp without time zone) * 1000)::bigint;
+				_now := (EXTRACT(EPOCH FROM date_trunc('second', now())) * 1000)::bigint;
 
 				INSERT INTO atendimento(id,version,checkin_id,fila_id,tarefa_id,acolhimento)
 				VALUES (_atendimentoId,0,_checkin.id,_fila.id,_tarefaId,_regra.acolhimento);

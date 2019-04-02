@@ -87,6 +87,67 @@ public class TarefaDao extends GenericDao<Tarefa> {
 	}
 	
 	@SuppressWarnings({ "unchecked" })
+	public List<Tarefa> getListTarefasAbertasPendentesByAtendimento(long empregadoId, long equipeId, long servicoId) {
+		Session session = HibernateHelper.getSession();
+		List<Tarefa> tarefas;
+		try {
+			Query<Tarefa> query = session.createQuery("select distinct t from Tarefa t "
+								+ "where t.cliente.id = " + empregadoId
+								+ "  and t.servico.id = " + servicoId
+								+ "  and t.equipe.id = " + equipeId
+								+ "  and t.status in ('" + StatusTarefa.getInstance().ABERTA + "','" 
+									+ StatusTarefa.getInstance().PENDENTE + "')");
+			tarefas = query.list();
+		}catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			HibernateHelper.close(session);
+		}
+		return tarefas;
+	}
+	
+	@SuppressWarnings({ "unchecked" })
+	public List<Tarefa> getListTarefasAbertasPendentesConcluidasByAtendimento(long empregadoId, long servicoId) {
+		Session session = HibernateHelper.getSession();
+		List<Tarefa> tarefas;
+		try {
+			Query<Tarefa> query = session.createQuery("select distinct t from Tarefa t "
+								+ "where t.cliente.id = " + empregadoId
+								+ "  and t.servico.id = " + servicoId
+								+ "  and t.status in ('" + StatusTarefa.getInstance().ABERTA + "','" 
+									+ StatusTarefa.getInstance().PENDENTE + "')");
+			tarefas = query.list();
+			
+			if(Helper.isNotNull(tarefas)) {
+				
+				Optional<Long> optional = tarefas.stream().filter(t->t.getStatus().equals(StatusTarefa.getInstance().PENDENTE))
+						.map(t->t.getInicio()).findFirst();
+				
+				if(optional.isPresent()) {
+					List<Tarefa> concluidas;
+					query = session.createQuery("select distinct t from Tarefa t "
+							+ "where t.cliente.id = " + empregadoId
+							+ "  and t.servico.id = " + servicoId
+							+ "  and t.status = '"+StatusTarefa.getInstance().CONCLUIDA+"' "
+							+ "  and t.inicio between " + optional.get() + " and " + Helper.getNow());
+					
+					concluidas = query.list();
+					if(Helper.isNotNull(concluidas)) {
+						tarefas.addAll(concluidas);
+					}
+				}
+			}
+		}catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			HibernateHelper.close(session);
+		}
+		return tarefas;
+	}
+	
+	@SuppressWarnings({ "unchecked" })
 	public List<Tarefa> getListTarefasAbertasByData(long empregadoId, long servicoId, long data) {
 		Session session = HibernateHelper.getSession();
 		List<Tarefa> tarefas;

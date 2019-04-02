@@ -11,6 +11,7 @@ import br.com.saude.api.model.creation.builder.example.TarefaExampleBuilder;
 import br.com.saude.api.model.entity.filter.EmpregadoFilter;
 import br.com.saude.api.model.entity.filter.ServicoFilter;
 import br.com.saude.api.model.entity.filter.TarefaFilter;
+import br.com.saude.api.model.entity.po.Atendimento;
 import br.com.saude.api.model.entity.po.Checkin;
 import br.com.saude.api.model.entity.po.Empregado;
 import br.com.saude.api.model.entity.po.Equipe;
@@ -70,7 +71,7 @@ public class TarefaBo extends GenericBo<Tarefa, TarefaFilter, TarefaDao, TarefaB
 		return "Solicitação registrada com sucesso.";
 	}
 	
-public String cancelar(Tarefa tarefa) throws Exception {
+	public String cancelar(Tarefa tarefa) throws Exception {
 		List<Tarefa> tarefas = configurarCancelamento(tarefa);
 		
 		if(Helper.isNull(tarefas) || tarefas.size() == 0) {
@@ -196,6 +197,19 @@ public String cancelar(Tarefa tarefa) throws Exception {
 	public List<Tarefa> getListTarefasByCheckin(Checkin checkin) throws Exception {
 		return getBuilder(getDao().getListTarefasByCheckin(checkin.getEmpregado().getId(), 
 				checkin.getServico().getId())).getEntityList();
+	}
+	
+	public List<Tarefa> getListTarefasByAtendimento(Atendimento atendimento) throws Exception {
+		return getBuilder(getDao().getListTarefasAbertasPendentesByAtendimento(
+				atendimento.getTarefa().getCliente().getId(), 
+				atendimento.getTarefa().getEquipe().getId(),
+				atendimento.getTarefa().getServico().getId())).getEntityList();
+	}
+	
+	public List<Tarefa> getListTarefasAbertasPendentesConcluidasByAtendimento(Atendimento atendimento) throws Exception {
+		return getBuilder(getDao().getListTarefasAbertasPendentesConcluidasByAtendimento(
+				atendimento.getTarefa().getCliente().getId(), 
+				atendimento.getTarefa().getServico().getId())).getEntityList();
 	}
 	
 	public List<Tarefa> getListTarefasAbertasByData(Tarefa tarefa) throws Exception {

@@ -153,6 +153,28 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
+	public void encaminharAvulso(Atendimento atendimento) {
+		Session session = HibernateHelper.getSession(); 
+		try {
+			Transaction transaction = session.beginTransaction();
+			
+			if(atendimento.getCheckin().getId() == 0) {
+				atendimento.setCheckin((Checkin)session.merge(atendimento.getCheckin()));
+			}
+			
+			session.createSQLQuery("select atendimentoEncaminharAvulso(" + 
+					atendimento.getCheckin().getId() + "," + atendimento.getTarefa().getId() +"," + 
+					atendimento.getFila().getId() +", " + Helper.getNow() +") ").uniqueResult();
+			transaction.commit();
+		}catch (Exception ex) {
+			throw ex;
+		}
+		finally {
+			HibernateHelper.close(session);
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Atendimento> getListAtendimentosAguardandoEmpregadoByLocalizacao(long localizacaoId) {
 		Session session = HibernateHelper.getSession();

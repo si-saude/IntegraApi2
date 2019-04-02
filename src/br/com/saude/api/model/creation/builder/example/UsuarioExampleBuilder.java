@@ -26,9 +26,9 @@ public class UsuarioExampleBuilder extends GenericExampleBuilder<Usuario,Usuario
 		this.ilikeEx("chave", this.filter.getChave());
 	}
 	
-	private void addSenhaEq() {
-		if(this.filter.getSenha()!= null)
-			this.entity.setSenha(this.filter.getSenha());
+	private void addPasswordEq() {
+		if(this.filter.getPassword()!= null)
+			this.entity.setPassword(this.filter.getPassword());
 	}
 	
 	protected void addGestoCss() {
@@ -39,7 +39,7 @@ public class UsuarioExampleBuilder extends GenericExampleBuilder<Usuario,Usuario
 		if(this.filter != null) {
 			initialize();
 			addChaveEx();
-			addSenhaEq();
+			addPasswordEq();
 			addGestoCss();
 			this.criterions.add(this.finishExampleFunction.apply(Example.create(this.entity)));
 			return this.criterions;

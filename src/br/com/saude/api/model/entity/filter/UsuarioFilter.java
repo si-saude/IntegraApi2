@@ -6,7 +6,7 @@ import br.com.saude.api.generic.GenericFilter;
 public class UsuarioFilter extends GenericFilter {
 	
 	private String chave;
-	private String senha;
+	private String password;
 	private BooleanFilter gestorCss;
 	
 	public String getChave() {
@@ -15,11 +15,11 @@ public class UsuarioFilter extends GenericFilter {
 	public void setChave(String chave) {
 		this.chave = chave;
 	}
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public BooleanFilter getGestorCss() {
 		return gestorCss;

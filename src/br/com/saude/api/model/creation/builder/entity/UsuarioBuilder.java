@@ -30,7 +30,6 @@ public class UsuarioBuilder extends GenericEntityBuilder<Usuario,UsuarioFilter> 
 		
 		newUsuario.setId(usuario.getId());
 		newUsuario.setChave(usuario.getChave());
-		newUsuario.setSenha(usuario.getSenha());
 		newUsuario.setGestorCss(usuario.isGestorCss());
 		newUsuario.setVersion(usuario.getVersion());
 		
@@ -54,7 +53,7 @@ public class UsuarioBuilder extends GenericEntityBuilder<Usuario,UsuarioFilter> 
 	public Usuario cloneFromFilter(UsuarioFilter filter) {
 		Usuario usuario = new Usuario();
 		usuario.setChave(filter.getChave());
-		usuario.setSenha(filter.getSenha());
+		usuario.setPassword(filter.getPassword());
 		return usuario;
 	}
 }

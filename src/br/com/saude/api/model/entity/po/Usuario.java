@@ -14,6 +14,9 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.ColumnTransformer;
+
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -27,8 +30,11 @@ public class Usuario {
 	@Column(unique=true)
 	private String chave;
 	
-	@NotNull(message="É necessário informar a Senha do Usuário.")
 	private String senha;
+	
+	@NotNull(message="É necessário informar a Senha do Usuário.")
+	@ColumnTransformer(read = "pgp_sym_decrypt(password::bytea, 'PgLnnJb7i00GNXrLlBUyyhAcgiVwA7Du')", write = "pgp_sym_encrypt(?, 'PgLnnJb7i00GNXrLlBUyyhAcgiVwA7Du')")
+	private String password;
 	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="usuario_perfil", 
@@ -64,6 +70,12 @@ public class Usuario {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public long getVersion() {
 		return version;

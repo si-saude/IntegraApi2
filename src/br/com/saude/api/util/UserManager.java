@@ -51,6 +51,7 @@ public class UserManager {
 			usuario.setPerfis(user.getPerfis());
 		
 		usuario.setSenha(null);
+		usuario.setPassword(null);
 		usuario.setToken(token);
 		this.usuarios.removeIf(u->u.getId() == usuario.getId());
 		usuario.setSessionTime(Helper.getNow());

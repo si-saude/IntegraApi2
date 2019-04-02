@@ -13,23 +13,32 @@ DECLARE
    _valor double precision := (select sum(r.valor) from riscoempregado r
 					    where r.risco_id = _riscoPotencialId
 					      and r.status = 'REALIZADO');
-   _peso integer := 4;
+   _peso double precision := 4.0;
    _qtd integer := (select count(r.id) from riscoempregado r
 					    where r.risco_id = _riscoPotencialId
 					      and r.status = 'REALIZADO') + 1;
+  _valorRisco double precision := 0.0;
 BEGIN
 
 	IF _idade >= 60 THEN
-		_peso := 0;
+		_peso := 0.0;
 	ELSEIF _idade >= 50 THEN
-		_peso := 1;
+		_peso := 1.0;
 	ELSEIF _idade >= 40 THEN
-		_peso := 2;
+		_peso := 2.0;
 	ELSEIF _idade >= 30 THEN
-		_peso := 3;
+		_peso := 3.0;
 	END IF;
 	
-    return ( ((0.95 - (_peso / 3.3)) + ((log(_qtd + 1) / (_qtd + _qtd - 1)) / (_qtd + 1))   ) + _valor) / _qtd;
+	IF _peso >= 0 THEN
+		_valorRisco := 0.95 - (_peso/3.3);
+		_valorRisco := _valorRisco + (log(1.0) / (_qtd + _qtd + 1.0));
+		_valorRisco := (_valor + _valorRisco) / (_qtd + 0.0);
+	ELSE
+		_valorRisco := _valor / (_qtd - 1.0);
+	END IF;
+	
+    return _valorRisco;
 END;
 $BODY$
   LANGUAGE plpgsql VOLATILE

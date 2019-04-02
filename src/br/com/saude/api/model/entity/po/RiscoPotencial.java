@@ -15,6 +15,8 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.JoinColumnOrFormula;
 import org.hibernate.annotations.JoinColumnsOrFormulas;
@@ -35,8 +37,9 @@ public class RiscoPotencial {
 	@NotNull(message="É necessário informar o Empregado do Risco Potencial.")
 	private Empregado empregado;
 	
-	@OneToMany(mappedBy="risco", fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="risco", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
 	@OrderBy(value="data DESC")
+	@Fetch(FetchMode.SUBSELECT)
 	private List<RiscoEmpregado> riscos;
 	
 	@ManyToOne(fetch = FetchType.EAGER)

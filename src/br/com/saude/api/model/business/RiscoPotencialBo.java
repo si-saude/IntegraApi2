@@ -25,23 +25,11 @@ public class RiscoPotencialBo extends GenericBo<RiscoPotencial, RiscoPotencialFi
 
 	@Override
 	protected void initializeFunctions() {
-		this.functionLoadAll = builder -> {
-			try {
-				return builder.loadRiscos();
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
-			}
-		};
+
 	}
 	
 	@Override
 	public PagedList<RiscoPotencial> getList(RiscoPotencialFilter filter) throws Exception {
 		return super.getDescOrderedList(filter,"valor");
-	}
-	
-	@Override
-	public RiscoPotencial getById(Object id) throws Exception {
-		return super.getById(id, this.functionLoadAll);
 	}
 }

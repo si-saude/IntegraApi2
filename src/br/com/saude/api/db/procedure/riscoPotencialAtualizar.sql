@@ -72,7 +72,7 @@ BEGIN
 		end loop;
 		close triagens;
 
-		_valor := log( (_equipe.prioridadesast + 1 + 0.00) / (_equipe.prioridadesast + _qtdEquipe) );
+		_valor := log(_equipe.prioridadesast + 1 + 0.00) / (_equipe.prioridadesast + _qtdEquipe);
 		_valor := _valor / (_qtdTriagem + _equipe.prioridadesast);
 
 		IF _critico THEN

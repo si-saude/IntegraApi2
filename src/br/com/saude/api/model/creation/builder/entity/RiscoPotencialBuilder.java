@@ -3,6 +3,7 @@ package br.com.saude.api.model.creation.builder.entity;
 import java.util.List;
 
 import br.com.saude.api.generic.GenericEntityBuilder;
+import br.com.saude.api.generic.Helper;
 import br.com.saude.api.model.entity.filter.RiscoPotencialFilter;
 import br.com.saude.api.model.entity.po.RiscoPotencial;
 
@@ -40,13 +41,12 @@ public class RiscoPotencialBuilder extends GenericEntityBuilder<RiscoPotencial,R
 		if(risco.getResponsavel() != null)
 			newRiscoPotencial.setResponsavel(EquipeBuilder.newInstance(risco.getResponsavel()).getEntity());
 		
+		if(Helper.isNotNull(risco.getRiscos())) {
+			newRiscoPotencial.setRiscos(RiscoEmpregadoBuilder.newInstance(
+					risco.getRiscos()).getEntityList());
+		}
+		
 		return newRiscoPotencial;
-	}
-	
-	public RiscoPotencialBuilder loadRiscos() throws Exception {
-		return (RiscoPotencialBuilder) this.loadProperty("riscos", risco -> {
-			return RiscoEmpregadoBuilder.newInstance(risco.getRiscos()).getEntityList();
-		});
 	}
 	
 	public RiscoPotencial getNewEntity() {

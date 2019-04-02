@@ -33,15 +33,15 @@ public class TempoAtendimentoReport {
 		String query = "select empregado, equipe, profissional, inicio, fim, duracao, " + 
 				"chegada, coalesce(saida,0) as saida, status, " + 
 				"    CASE WHEN coalesce(saida,0) != 0 " + 
-				"        THEN (saida - chegada) + (1000*60*60*3) " + 
-				"        ELSE 0 END as tempo_total " + 
+				"        THEN substring((select (to_timestamp(saida/1000) - to_timestamp(chegada/1000))||''),1,5)" + 
+				"        ELSE '' END as tempo_total " + 
 				"from ( " + 
 				"    select p.nome as empregado, " + 
 				"        eq.nome as equipe, " + 
 				"        PP.NOME as profissional, " + 
 				"        t.inicio, " + 
 				"        t.fim, " + 
-				"        (t.fim - t.inicio) + (1000*60*60*3) as duracao, " + 
+				"        substring((select (to_timestamp(t.fim/1000) - to_timestamp(t.inicio/1000))||''),1,5) as duracao, " + 
 				"        c.chegada, " + 
 				"        (select tt.fim " + 
 				"        from tarefa tt " + 
@@ -85,11 +85,11 @@ public class TempoAtendimentoReport {
 			dto.setProfissional((String) row[2]);
 			dto.setInicio(((BigInteger) row[3]).longValue());
 			dto.setFim(((BigInteger) row[4]).longValue());
-			dto.setDuracao(((BigInteger) row[5]).longValue());
+			dto.setDuracao((String) row[5]);
 			dto.setChegada(((BigInteger) row[6]).longValue());
 			dto.setSaida(((BigInteger) row[7]).longValue());
 			dto.setStatus((String) row[8]);
-			dto.setTempoTotal(((BigInteger) row[9]).longValue());
+			dto.setTempoTotal((String) row[9]);
 			tempoAtendimentos.add(dto);
 		}
 		

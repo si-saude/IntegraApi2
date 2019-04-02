@@ -6,13 +6,13 @@ public class TempoAtendimentoDto {
 	private String equipe;
 	private String profissional;
 	private String status;
+	private String duracao;
+	private String tempoTotal;
+	
 	private long inicio;
 	private long fim;
-	private long duracao;
-	
 	private long chegada;
 	private long saida;
-	private long tempoTotal;
 	
 	public String getEmpregado() {
 		return empregado;
@@ -50,10 +50,10 @@ public class TempoAtendimentoDto {
 	public void setFim(long fim) {
 		this.fim = fim;
 	}
-	public long getDuracao() {
+	public String getDuracao() {
 		return duracao;
 	}
-	public void setDuracao(long duracao) {
+	public void setDuracao(String duracao) {
 		this.duracao = duracao;
 	}
 	public long getChegada() {
@@ -68,10 +68,10 @@ public class TempoAtendimentoDto {
 	public void setSaida(long saida) {
 		this.saida = saida;
 	}
-	public long getTempoTotal() {
+	public String getTempoTotal() {
 		return tempoTotal;
 	}
-	public void setTempoTotal(long tempoTotal) {
+	public void setTempoTotal(String tempoTotal) {
 		this.tempoTotal = tempoTotal;
 	}
 	

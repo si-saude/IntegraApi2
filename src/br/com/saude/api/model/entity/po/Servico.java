@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -50,6 +51,9 @@ public class Servico {
 	inverseJoinColumns = {@JoinColumn(name="equipe_id")})
 	@OrderBy(value="nome")
 	private List<Equipe> equipes;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	private RegraAtendimento regraAtendimento;
 	
 	@Version
 	private long version;
@@ -124,5 +128,13 @@ public class Servico {
 
 	public void setEquipes(List<Equipe> equipes) {
 		this.equipes = equipes;
+	}
+	
+	public RegraAtendimento getRegraAtendimento() {
+		return regraAtendimento;
+	}
+
+	public void setRegraAtendimento(RegraAtendimento regraAtendimento) {
+		this.regraAtendimento = regraAtendimento;
 	}
 }

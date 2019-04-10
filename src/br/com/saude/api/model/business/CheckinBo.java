@@ -105,7 +105,31 @@ public class CheckinBo extends GenericBo<Checkin, CheckinFilter, CheckinDao, Che
 			Servico servico = checkin.getServico();
 			if(servico.getGrupo().equals(GrupoServico.ATENDIMENTO_OCUPACIONAL) &&
 					servico.getCodigo().equals("0003")) {
-				//VERIFICAR SE HÁ FICHA DE COLETA ANTERIOR PARA CRIAR UMA NOVA A PARTIR DA DELA
+				
+				CheckinFilter checkinFilter = new CheckinFilter();
+				checkinFilter.setPageSize(1);
+				checkinFilter.setEmpregado(new EmpregadoFilter());
+				checkinFilter.getEmpregado().setId(checkin.getEmpregado().getId());
+				checkinFilter.setServico(new ServicoFilter());
+				checkinFilter.getServico().setId(checkin.getServico().getId());
+				checkinFilter.setLocalizacao(new LocalizacaoFilter());
+				checkinFilter.setChegada(new DateFilter());
+				checkinFilter.getChegada().setInicio(checkin.getChegada());
+				checkinFilter.getChegada().setTypeFilter(TypeFilter.MENOR);
+				
+				PagedList<Checkin> checkins = super.getDescOrderedList(checkinFilter,"chegada");
+				
+				if(checkins != null && checkins.getTotal() > 0) {
+					Checkin checkinAnterior = checkins.getList().get(0);
+					
+					if(checkinAnterior.getTarefas().stream()
+							.filter(t -> !t.getStatus().equals(StatusTarefa.getInstance().CANCELADA)
+							&& !t.getStatus().equals(StatusTarefa.getInstance().CONCLUIDA)).count() > 0) {
+						checkin.setRespostas(checkinAnterior.getRespostas());						
+						checkin = definirReferencias(checkin);
+						return checkin;
+					}
+				}
 				
 				
 				PerguntaFichaColetaFilter filter = new PerguntaFichaColetaFilter();

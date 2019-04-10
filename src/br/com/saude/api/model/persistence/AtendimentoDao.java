@@ -164,8 +164,8 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 			}
 			
 			session.createSQLQuery("select atendimentoEncaminharAvulso(" + 
-					atendimento.getCheckin().getId() + "," + atendimento.getTarefa().getId() +"," + 
-					atendimento.getFila().getId() +", " + Helper.getNow() +") ").uniqueResult();
+					"cast(" + atendimento.getCheckin().getId() + " as bigint), cast(" + atendimento.getTarefa().getId() +" as bigint)," + 
+					"cast(" + atendimento.getFila().getId() +" as bigint), cast(" + Helper.getNow() +" as bigint)) ").uniqueResult();
 			transaction.commit();
 		}catch (Exception ex) {
 			throw ex;

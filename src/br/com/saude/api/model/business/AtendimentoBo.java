@@ -114,7 +114,9 @@ public class AtendimentoBo extends GenericBo<Atendimento, AtendimentoFilter, Ate
 		checkin.setAtualizacao(Helper.getNow());
 		checkin.setStatus(StatusCheckin.getInstance().AUSENTE);
 		checkin = CheckinBo.getInstance().configurarFichaDeColeta(checkin);
-		checkin.getTarefas().forEach(t -> t.setStatus(StatusTarefa.getInstance().PENDENTE));
+		checkin.getTarefas().stream()
+			.filter(t -> !t.getStatus().equals(StatusTarefa.getInstance().CANCELADA) && !t.getStatus().equals(StatusTarefa.getInstance().CONCLUIDA))
+			.forEach(t -> t.setStatus(StatusTarefa.getInstance().PENDENTE));
 		atendimento.setCheckin(checkin);
 		
 		//DEFINIR TAREFA DO ATENDIMENTO

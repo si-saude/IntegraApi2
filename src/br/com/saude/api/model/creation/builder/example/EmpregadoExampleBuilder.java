@@ -21,6 +21,7 @@ public class EmpregadoExampleBuilder extends GenericExampleBuilder<Empregado, Em
 		addPessoa();
 		addStatus();
 		addVinculo();
+		addMatriculaNome();
 		addCargo();
 		addFuncao();
 		addEnfase();
@@ -44,6 +45,10 @@ public class EmpregadoExampleBuilder extends GenericExampleBuilder<Empregado, Em
 	
 	private void addVinculo() {
 		this.ilike("vinculo", this.filter.getVinculo());
+	}
+	
+	private void addMatriculaNome() {
+		this.ilike("matriculaNome", this.filter.getMatriculaNome());
 	}
 	
 	private void addPessoa() throws InstantiationException, IllegalAccessException {

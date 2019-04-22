@@ -48,6 +48,7 @@ public class RiscoPotencial {
 	    		+ "from equipe e "
 	    		+ "inner join riscoempregado r on r.equipe_id = e.id "
 	    		+ "where r.risco_id = id "
+	    		+ "  and r.status = 'REALIZADO' "
 	    		+ "order by r.valor desc limit 1)", referencedColumnName="id")),
 	})
 	private Equipe responsavel;

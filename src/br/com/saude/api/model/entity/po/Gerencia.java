@@ -18,7 +18,7 @@ public class Gerencia implements Comparable<Gerencia> {
 	private long id;
 	
 	@NotNull(message="É necessário informar Código da Gerência.")
-	@Size(max = 10, message="Tamanho máximo para Código da Gerência: 10")
+	@Size(max = 16, message="Tamanho máximo para Código da Gerência: 10")
 	private String codigo;
 	
 	@Transient

@@ -77,7 +77,6 @@ public class Empregado {
 	private Enfase enfase;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@NotNull(message="É necessário informar o Regime de Empregado.")
 	private Regime regime;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

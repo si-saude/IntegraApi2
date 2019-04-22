@@ -11,6 +11,7 @@ import br.com.saude.api.generic.GenericDao;
 import br.com.saude.api.generic.Helper;
 import br.com.saude.api.generic.HibernateHelper;
 import br.com.saude.api.model.entity.po.Atendimento;
+import br.com.saude.api.model.entity.po.AvaliacaoFisica;
 import br.com.saude.api.model.entity.po.Checkin;
 import br.com.saude.api.model.entity.po.FilaAtendimento;
 import br.com.saude.api.util.constant.StatusFilaAtendimento;
@@ -56,6 +57,10 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		try {
 			Transaction transaction = session.beginTransaction();
 			
+			if(atendimento.getAvaliacaoFisica() != null && atendimento.getAvaliacaoFisica().getId() == 0) {
+				atendimento.setAvaliacaoFisica((AvaliacaoFisica)session.merge(atendimento.getAvaliacaoFisica()));
+			}
+			
 			Checkin checkin = session.get(Checkin.class, atendimento.getCheckin().getId());
 			atendimento.getCheckin().setTarefas(checkin.getTarefas());
 			atendimento.getCheckin().setVersion(checkin.getVersion());
@@ -76,6 +81,10 @@ public class AtendimentoDao extends GenericDao<Atendimento> {
 		Session session = HibernateHelper.getSession();
 		try {
 			Transaction transaction = session.beginTransaction();
+			
+			if(atendimento.getAvaliacaoFisica() != null && atendimento.getAvaliacaoFisica().getId() == 0) {
+				atendimento.setAvaliacaoFisica((AvaliacaoFisica)session.merge(atendimento.getAvaliacaoFisica()));
+			}
 			
 			FilaAtendimento fila = session.get(FilaAtendimento.class, atendimento.getFila().getId());
 			Checkin checkin = session.get(Checkin.class, atendimento.getCheckin().getId());

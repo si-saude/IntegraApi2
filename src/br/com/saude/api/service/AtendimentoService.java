@@ -78,6 +78,7 @@ public class AtendimentoService extends GenericService<Atendimento,AtendimentoFi
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@CustomValidator(validatorClass=AtendimentoValidator.class)
 	@Path("/liberar")
 	public Response liberar(Atendimento atendimento) {		
 		try {
@@ -90,6 +91,7 @@ public class AtendimentoService extends GenericService<Atendimento,AtendimentoFi
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@CustomValidator(validatorClass=AtendimentoValidator.class)
 	@Path("/finalizar")
 	public Response finalizar(Atendimento atendimento) {		
 		try {

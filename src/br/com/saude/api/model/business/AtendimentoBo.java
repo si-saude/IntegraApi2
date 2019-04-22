@@ -12,6 +12,7 @@ import br.com.saude.api.model.entity.filter.AtendimentoFilter;
 import br.com.saude.api.model.entity.filter.CheckinFilter;
 import br.com.saude.api.model.entity.filter.FilaAtendimentoFilter;
 import br.com.saude.api.model.entity.po.Atendimento;
+import br.com.saude.api.model.entity.po.AtendimentoAtividadeFisica;
 import br.com.saude.api.model.entity.po.Checkin;
 import br.com.saude.api.model.entity.po.Tarefa;
 import br.com.saude.api.model.persistence.AtendimentoDao;
@@ -56,12 +57,32 @@ public class AtendimentoBo extends GenericBo<Atendimento, AtendimentoFilter, Ate
 	}
 	
 	public String liberar(Atendimento atendimento) throws Exception {
+		if(atendimento.getAvaliacaoFisica() != null) {
+			atendimento.getAvaliacaoFisica().setAtendimento(atendimento);
+			
+			if(Helper.isNotNull(atendimento.getAvaliacaoFisica().getAtendimentoAtividadesFisicas())) {		
+				for(AtendimentoAtividadeFisica a : atendimento.getAvaliacaoFisica().getAtendimentoAtividadesFisicas()) {
+					a.setAvaliacaoFisica(atendimento.getAvaliacaoFisica());
+				}
+	        }
+		}
+		
 		atendimento = definirReferencias(atendimento);
 		getDao().liberar(atendimento);
 		return "Empregado liberado. " + getProximoAtendimento(atendimento);
 	}
 	
 	public String finalizar(Atendimento atendimento) throws Exception {
+		if(atendimento.getAvaliacaoFisica() != null) {
+			atendimento.getAvaliacaoFisica().setAtendimento(atendimento);
+			
+			if(Helper.isNotNull(atendimento.getAvaliacaoFisica().getAtendimentoAtividadesFisicas())) {		
+				for(AtendimentoAtividadeFisica a : atendimento.getAvaliacaoFisica().getAtendimentoAtividadesFisicas()) {
+					a.setAvaliacaoFisica(atendimento.getAvaliacaoFisica());
+				}
+	        }
+		}
+		
 		atendimento = definirReferencias(atendimento);
 		getDao().finalizar(atendimento);
 		return "Atendimento finalizado. " + getProximoAtendimento(atendimento);

@@ -45,6 +45,10 @@ public class AtendimentoBuilder extends GenericEntityBuilder<Atendimento, Atendi
 			newAtendimento.setFila(FilaAtendimentoBuilder.newInstance(atendimento.getFila()).getEntity());
 		}
 		
+		if(atendimento.getAvaliacaoFisica() != null) {
+			newAtendimento.setAvaliacaoFisica(AvaliacaoFisicaBuilder.newInstance(atendimento.getAvaliacaoFisica()).getEntity());
+		}
+		
 		if(Helper.isNotNull(atendimento.getTriagens())) {
 			newAtendimento.setTriagens(TriagemBuilder.newInstance(
 					atendimento.getTriagens()).getEntityList());

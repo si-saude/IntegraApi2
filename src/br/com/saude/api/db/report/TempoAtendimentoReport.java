@@ -43,12 +43,12 @@ public class TempoAtendimentoReport {
 				"        t.fim, " + 
 				"        substring((select (to_timestamp(t.fim/1000) - to_timestamp(t.inicio/1000))||''),1,5) as duracao, " + 
 				"        c.chegada, " + 
-				"        (select tt.fim " + 
+				"        (select max(tt.fim) " + 
 				"        from tarefa tt " + 
 				"        inner join checkin_tarefa ct2 on tt.id = ct2.tarefa_id " + 
 				"        inner join atendimento a on a.tarefa_id = tt.id " + 
 				"        where ct2.checkin_id = c.id " + 
-				"          and a.acolhimento = true) as saida, " + 
+				"		   and date_trunc('day', to_timestamp(c.chegada/1000))=date_trunc('day', to_timestamp(tt.inicio/1000))) as saida, " + 
 				"          c.status " + 
 				"    from tarefa t " + 
 				"    inner join empregado e on t.cliente_id = e.id " + 
@@ -59,7 +59,8 @@ public class TempoAtendimentoReport {
 				"    inner join pessoa pp on pp.id = pe.pessoa_id " + 
 				"    inner join checkin_tarefa ct on ct.tarefa_id = t.id " + 
 				"    inner join checkin c on c.id = ct.checkin_id " + 
-				"    where (t.fim - t.inicio) > 0 " + 
+				"    where (t.fim - t.inicio) > 0 and " + 
+				"	 date_trunc('day', to_timestamp(c.chegada/1000)) = date_trunc('day', to_timestamp(inicio/1000))" +
 				"      and c.chegada between " + filter.getInicio().getInicio() +
 				" and " + (Helper.addDays(filter.getInicio().getFim(),1) - 1) +
 				")x " + 

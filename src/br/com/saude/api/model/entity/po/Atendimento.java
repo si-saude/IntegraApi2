@@ -16,6 +16,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.JoinColumnOrFormula;
+import org.hibernate.annotations.JoinColumnsOrFormulas;
+import org.hibernate.annotations.JoinFormula;
 
 @Entity
 public class Atendimento {
@@ -35,6 +38,15 @@ public class Atendimento {
 	@NotNull(message="É necessário informar o Check-in do Atendimento.")
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private Checkin checkin;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumnsOrFormulas({
+	    @JoinColumnOrFormula(formula=@JoinFormula(value="(select af.id "
+	    		+ "from avaliacaofisica af "
+	    		+ "where af.atendimento_id = id "
+	    		+ "limit 1)", referencedColumnName="id")),
+	})
+	private AvaliacaoFisica avaliacaoFisica;
 	
 	@OrderBy(value="codigo")
 	@OneToMany(mappedBy="atendimento", fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
@@ -84,6 +96,14 @@ public class Atendimento {
 
 	public void setCheckin(Checkin checkin) {
 		this.checkin = checkin;
+	}
+	
+	public AvaliacaoFisica getAvaliacaoFisica() {
+		return avaliacaoFisica;
+	}
+
+	public void setAvaliacaoFisica(AvaliacaoFisica avaliacaoFisica) {
+		this.avaliacaoFisica = avaliacaoFisica;
 	}
 
 	public List<Triagem> getTriagens() {

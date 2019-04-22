@@ -17,6 +17,7 @@ import br.com.saude.api.util.constant.Abrangencia;
 import br.com.saude.api.util.constant.AptidaoCardiorrespiratoria;
 import br.com.saude.api.util.constant.AptidaoFisicaBrigadista;
 import br.com.saude.api.util.constant.AutoavaliacaoHabitosAlimentares;
+import br.com.saude.api.util.constant.ClassificacaoAtividadeFisica;
 import br.com.saude.api.util.constant.DireitoEsquerdo;
 import br.com.saude.api.util.constant.DoresCorporais;
 import br.com.saude.api.util.constant.Escolaridade;
@@ -46,6 +47,7 @@ import br.com.saude.api.util.constant.TempoAnos;
 import br.com.saude.api.util.constant.TempoMeses;
 import br.com.saude.api.util.constant.TipoCriterio;
 import br.com.saude.api.util.constant.TipoAlimento;
+import br.com.saude.api.util.constant.TipoAtendimentoAvaliacaoFisica;
 import br.com.saude.api.util.constant.TipoPerguntaFichaColeta;
 import br.com.saude.api.util.constant.TipoQuestao;
 import br.com.saude.api.util.constant.TipoQuestionario;
@@ -98,6 +100,14 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAutoavaliacaoHabitosAlimentares(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(AutoavaliacaoHabitosAlimentares.getInstance(), filter);
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/classificacao-atividade-fisica")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getClassificacaoAtividadeFisica(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(ClassificacaoAtividadeFisica.getInstance(), filter);
 		return Response.ok(values).build();
 	}
 	
@@ -328,6 +338,15 @@ public class UtilService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getTipoAlimento(@QueryParam("filter") String filter) throws Exception {
 		Object[] values = this.getValues(TipoAlimento.getInstance(), filter);
+		values = StringSorter.newInstance(values).sort().get();
+		return Response.ok(values).build();
+	}
+	
+	@GET
+	@Path("/tipo-atendimento-avaliacao-fisica")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getTipoAvaliacaoFisica(@QueryParam("filter") String filter) throws Exception {
+		Object[] values = this.getValues(TipoAtendimentoAvaliacaoFisica.getInstance(), filter);
 		values = StringSorter.newInstance(values).sort().get();
 		return Response.ok(values).build();
 	}

@@ -18,6 +18,7 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.Email;
 
 @Entity
@@ -58,6 +59,9 @@ public class Empregado {
 	@Size(max = 32, message="Tamanho máximo para Vínculo de Empregado: 32")
 	@NotNull(message="É necessário informar o Vínculo de Empregado.")
 	private String vinculo;
+	
+	@Formula(value="matricula || ' - ' || (select p.nome from pessoa p where p.id = pessoa_id)")
+	private String matriculaNome;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name = "pessoa_id")
@@ -126,11 +130,11 @@ public class Empregado {
 	public void setEscolaridade(String escolaridade) {
 		this.escolaridade = escolaridade;
 	}
-	public String getVinculo() {
-		return vinculo;
+	public String getMatriculaNome() {
+		return matriculaNome;
 	}
-	public void setVinculo(String vinculo) {
-		this.vinculo = vinculo;
+	public void setMatriculaNome(String matriculaNome) {
+		this.matriculaNome = matriculaNome;
 	}
 	public long getVersion() {
 		return version;
@@ -162,6 +166,12 @@ public class Empregado {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getVinculo() {
+		return vinculo;
+	}
+	public void setVinculo(String vinculo) {
+		this.vinculo = vinculo;
 	}
 	public Pessoa getPessoa() {
 		return pessoa;

@@ -1,15 +1,12 @@
-CREATE OR REPLACE FUNCTION filaAtendimentoRefresh(bigint)
+CREATE OR REPLACE FUNCTION filaAtendimentoRefresh()
   RETURNS bigint AS
 $BODY$
 DECLARE
     localizacoes CURSOR for
     select id,nome from localizacao;
 
-    regras CURSOR for
-    select id,acolhimento,equipe_id
-    from regraatendimentoequipe
-    where regraatendimento_id = $1
-    order by ordem;
+    regras REFCURSOR;
+    _regra RECORD;
 
     checkins REFCURSOR;
     _checkin RECORD;
@@ -30,8 +27,9 @@ BEGIN
 
     for _localizacao in localizacoes loop
         OPEN checkins FOR
-        select * 
+        select c.*, s.regraatendimento_id 
         from checkin c
+        inner join servico s on s.id = c.servico_id
         where c.localizacao_id = _localizacao.id
           and date_trunc('day', to_timestamp(c.chegada/1000.0)) = date_trunc('day', now())
           and c.status = 'AGUARDANDO'
@@ -41,10 +39,16 @@ BEGIN
             fetch next FROM checkins into _checkin;
             exit when _checkin is null;
             
+            OPEN regras FOR
+            select id,acolhimento,equipe_id
+	    from regraatendimentoequipe
+            where regraatendimento_id = _checkin.regraatendimento_id
+            order by ordem;
             <<regra_loop>>
-            for _regra in regras 
             loop
-
+		fetch next FROM regras into _regra;
+		exit when _regra is null;
+		
                 _tarefaId := (select cf.tarefa_id
                     from checkin_tarefa cf
                     inner join tarefa t on cf.tarefa_id = t.id
@@ -73,26 +77,26 @@ BEGIN
 				close dependencias;
 				CONTINUE regra_loop;
 			END IF;                    
-            end loop;
-            close dependencias;
+		    end loop;
+		    close dependencias;
 
-            OPEN filas FOR
-            select id,profissional_id
-            from filaatendimento f
-            where date_trunc('day', to_timestamp(f.data/1000.0)) = date_trunc('day', now())
-              and status = 'DISPONÍVEL'
-              and localizacao_id = _localizacao.id
-              and exists (select 1 
-                    from profissional_equipe pe
-                    where f.profissional_id = pe.profissional_id
-                      and _regra.equipe_id = pe.equipe_id)
-              and exists (select 1 
-                    from servico_profissional sp
-                    where f.profissional_id = sp.profissional_id
-                      and _checkin.servico_id = sp.servico_id);
-            loop
-                fetch next FROM filas into _fila;
-                exit when _fila is null;
+			OPEN filas FOR
+			select id,profissional_id
+			from filaatendimento f
+			where date_trunc('day', to_timestamp(f.data/1000.0)) = date_trunc('day', now())
+				and status = 'DISPONÍVEL'
+				and localizacao_id = _localizacao.id
+				and exists (select 1 
+					from profissional_equipe pe
+					where f.profissional_id = pe.profissional_id
+					and _regra.equipe_id = pe.equipe_id)
+				and exists (select 1 
+					from servico_profissional sp
+					where f.profissional_id = sp.profissional_id
+					and _checkin.servico_id = sp.servico_id);
+			    loop
+				fetch next FROM filas into _fila;
+				exit when _fila is null;
 				
 				_atendimentoId := (select nextval('atendimento_id_seq'));
 				_now := (EXTRACT(EPOCH FROM date_trunc('second', now())) * 1000)::bigint;
@@ -135,13 +139,15 @@ BEGIN
 				end loop;
 				close indicadores;
 						 
-				close filas;
-				CONTINUE checkin_loop;
-				end loop;
-				close filas;
+			close filas;
+			close regras;
+			CONTINUE checkin_loop;
+			end loop;
+			close filas;
 
                 END IF;
             end loop;
+            close regras;
         end loop;
         close checkins;
     end loop;

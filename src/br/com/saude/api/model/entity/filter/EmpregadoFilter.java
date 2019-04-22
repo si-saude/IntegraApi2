@@ -9,6 +9,7 @@ public class EmpregadoFilter extends GenericFilter {
 	private String matricula;
 	private String status;
 	private String vinculo;
+	private String matriculaNome;
 	private CargoFilter cargo;
 	private FuncaoFilter funcao;
 	private EnfaseFilter enfase;
@@ -47,6 +48,12 @@ public class EmpregadoFilter extends GenericFilter {
 	}
 	public void setVinculo(String vinculo) {
 		this.vinculo = vinculo;
+	}
+	public String getMatriculaNome() {
+		return matriculaNome;
+	}
+	public void setMatriculaNome(String matriculaNome) {
+		this.matriculaNome = matriculaNome;
 	}
 	public CargoFilter getCargo() {
 		return cargo;
